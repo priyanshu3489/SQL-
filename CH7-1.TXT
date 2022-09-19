@@ -1,0 +1,401 @@
+SQL> 
+SQL> REM PARENT/CHILD
+SQL> 
+SQL> REM OUTER/INNER
+SQL> 
+SQL> REM MAIN/SUB
+SQL> 
+SQL> REM SUB QUERY : IS NOTHING BUT SELECT STATEMENT WITHIN ANOTHER STATEMENT.
+SQL> 
+SQL> REM OUTER STATEMENT MAY BE CREATE , INSERT ,UPDATE , DELETE , SELECT ...
+SQL> 
+SQL> REM INNER STATEMENT IS GENERALLY SELECT ONLY
+SQL> 
+SQL> 
+SQL> 
+SQL> REM SUB QUERY IS NEEDED IN 4 CASES :
+SQL> 
+SQL> REM 1 WHEN WE WANT TO COMPARE SUMMARY ITEM IN WHERE CLAUSE
+SQL> 
+SQL> REM 2 WHEN OUR QUESTION HAS HIDDEN QUESTION INSIDE IT
+SQL> 
+SQL> REM 3 WHEN WE WANT TO COMPARE NESTED SUMMARY ITEM IN HAVING CLAUSE
+SQL> 
+SQL> REM 4 WHEN WE WANT TO USE RESULT OF SUB QUERY AS TABLE FOR MAIN QUERY
+SQL> 
+SQL> 
+SQL> 
+SQL> REM SELECT SYNTACTICAL PRECEDENCE : SELECT ... FROM ... WHERE ... GROUP BY / HAVING ... ORDER BY ... OFFSET ... FETCH ...;
+SQL> 
+SQL> REM SELECT EXECUTION PRECEDNCE : FROM -> WHERE -> GROUP BY -> HAVING -> COLUMN ALIAS -> ORDER BY -> OFFSET -> FETCH -> SELECT;
+SQL> 
+SQL> REM FROM : WILL READ ALL ROWS FROM TABLE AND PUT IT INTO RAM/MEMORY
+SQL> 
+SQL> REM WHERE : TO FILTER OUT UNWANTED ROWS WHICH DOESN'T SATISFY OUR CONDITION
+SQL> 
+SQL> REM GROUP BY : 1 GROUP THE ROWS 2 GENERATES SUMMARY ROW FOR EACH GROUP
+SQL> 
+SQL> REM HAVING : TO FILTER OUR UNWANTED SUMMARY ROWS FROM MEMORY
+SQL> 
+SQL> REM COLUMN ALIAS : TO ATTACH NEW COLUMN HEADING FOR COLUMN
+SQL> 
+SQL> REM ORDER BY : TO SORT ROWS IN ASC/DESC ORDER OF SINGLE/MULTIPLE COLUMNS KEEPING NULLS AT TOP/BOTTOM
+SQL> 
+SQL> REM OFFSET : DECIDES FIRST ROW OF RESULT SET
+SQL> 
+SQL> REM FETCH : DECIDES COUNT/NO. OF ROWS IN RESULT SET
+SQL> 
+SQL> REM SELECT : TO DISPLAY/RETURN ROWS ON SCREEN/MAIN COMMAND
+SQL> 
+SQL> 
+SQL> 
+SQL> REM 1 WHEN WE WANT TO COMPARE SUMMARY ITEM IN WHERE CLAUSE
+SQL> 
+SQL> REM SUMMARY ITEMS/FUNCTIONS : MIN MAX COUNT SUM AVG
+SQL> 
+SQL> REM NON-SUMMARY ITEMS : ALL OTHER THAN ABOVE 5 ITEMS
+SQL> 
+SQL> 
+SQL> REM DISPLAY INFO. ABOUT EMPLOYE WHO GETS HIGHEST SALARY IN COMPANY
+SQL> 
+SQL> REM SALARY = MAX(SALARY)
+SQL> 
+SQL> REM NON-SUMMARY = SUMMARY ITEM
+SQL> 
+SQL> SELECT FIRST_NAME , SALARY FROM EMPLOYEES WHERE SALARY = MAX(SALARY);
+SELECT FIRST_NAME , SALARY FROM EMPLOYEES WHERE SALARY = MAX(SALARY)
+                                                         *
+ERROR at line 1:
+ORA-00934: group function is not allowed here 
+
+
+SQL> SELECT FIRST_NAME , SALARY FROM EMPLOYEES WHERE SALARY = (SELECT MAX(SALARY) FROM EMPLOYEES);
+
+FIRST_NAME     SALARY                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+Steven          24000                                                                                                                                                                                   
+
+SQL> REM DISPLAY LAST_NAME AND HIRE_DATE FOR THE EMLOYEE WHO WERE HIRED FIRST IN COMPANY
+SQL> 
+SQL> REM HIRE_DATE = MIN(HIRE_DATE)
+SQL> 
+SQL> REM NON-SUMMARY = SUMMARY ITEMS
+SQL> 
+SQL> 
+SQL> SELECT LAST_NAME , HIRE_DATE FROM EMPLOYEES WHERE HIRE_DATE = MIN(HIRE_DATE);
+SELECT LAST_NAME , HIRE_DATE FROM EMPLOYEES WHERE HIRE_DATE = MIN(HIRE_DATE)
+                                                              *
+ERROR at line 1:
+ORA-00934: group function is not allowed here 
+
+
+SQL> SELECT LAST_NAME , HIRE_DATE FROM EMPLOYEES WHERE HIRE_DATE = (SELECT MIN(HIRE_DATE) FROM EMPLOYEES);
+
+LAST_NAME  HIRE_DATE                                                                                                                                                                                    
+---------- ---------                                                                                                                                                                                    
+King       17-JUL-87                                                                                                                                                                                    
+
+SQL> REM DISPLAY FIRST_NAME , SALARY FOR THE EMPLOYEE WHO GETS LOWEST SALARY IN COMPANY
+SQL> 
+SQL> SELECT FIRST_NAME , SALARY FROM EMPLOYEES
+  2  WHERE SALARY = (SELECT MIN(SALARY) FROM EMPLOYEES);
+
+FIRST_NAME     SALARY                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+Peter            2500                                                                                                                                                                                   
+
+SQL> REM DISPLAY LAST_NAME AND HIRE_DATE FOR THE EMPLOYEE WHO WERE HIRED LAST IN COMPANY
+SQL> 
+SQL> SELECT LAST_NAME , HIRE_DATE FROM EMPLOYEES
+  2  WHERE HIRE_DATE = (SELECT MAX(HIRE_DATE) FROM EMPLOYEES);
+
+LAST_NAME  HIRE_DATE                                                                                                                                                                                    
+---------- ---------                                                                                                                                                                                    
+Zlotkey    29-JAN-00                                                                                                                                                                                    
+
+SQL> REM DISPLAY THOSE WHO GETS HIGHER SALARY THEN AVERAGE SALARY PAID BY COMPANY
+SQL> 
+SQL> SELECT FIRST_NAME , SALARY
+  2  FROM EMPLOYEES
+  3  WHERE SALARY > (SELECT AVG(SALARY) FROM EMPLOYEES);
+
+FIRST_NAME     SALARY                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+Steven          24000                                                                                                                                                                                   
+Neena           17000                                                                                                                                                                                   
+Lex             17000                                                                                                                                                                                   
+Alexander        9000                                                                                                                                                                                   
+Eleni           10500                                                                                                                                                                                   
+Ellen           11000                                                                                                                                                                                   
+Michael         13000                                                                                                                                                                                   
+Shelley         12000                                                                                                                                                                                   
+
+8 rows selected.
+
+SQL> REM DISPLAY FIRST_NAME AND COMMISSION AMOUNT FOR THE EMPLOYEE WHO GETS HIGHEST COMMISSION AMOUNT
+SQL> 
+SQL> SELECT FIRST_NAME , SALARY * COMMISSION_PCT "COMMISSION AMOUNT"
+  2  FROM EMPLOYEES
+  3  WHERE SALARY * COMMISSION_PCT = (SELECT MAX(SALARY * COMMISSION_PCT) FROM EMPLOYEES);
+
+FIRST_NAME COMMISSION AMOUNT                                                                                                                                                                            
+---------- -----------------                                                                                                                                                                            
+Ellen                   3300                                                                                                                                                                            
+
+SQL> REM DISPLAY THOSE WHO GETS HIGHEST SALARY FOR THEIR DEPARTMENT
+SQL> 
+SQL> SELECT FIRST_NAME , DEPARTMENT_ID , SALARY FROM EMPLOYEES ORDER BY 1,2 DESC;
+
+FIRST_NAME DEPARTMENT_ID     SALARY                                                                                                                                                                     
+---------- ------------- ----------                                                                                                                                                                     
+Alexander             60       9000                                                                                                                                                                     
+Bruce                 60       6000                                                                                                                                                                     
+Curtis                50       3100                                                                                                                                                                     
+Diana                 60       4200                                                                                                                                                                     
+Eleni                 80      10500                                                                                                                                                                     
+Ellen                 80      11000                                                                                                                                                                     
+Jennifer              10       4400                                                                                                                                                                     
+Jonathon              80       8600                                                                                                                                                                     
+Kevin                 50       5800                                                                                                                                                                     
+Kimerely                       7000                                                                                                                                                                     
+Lex                   90      17000                                                                                                                                                                     
+Michael               20      13000                                                                                                                                                                     
+Neena                 90      17000                                                                                                                                                                     
+Pat                   20       6000                                                                                                                                                                     
+Peter                 50       2500                                                                                                                                                                     
+Randall               50       2600                                                                                                                                                                     
+Shelley              110      12000                                                                                                                                                                     
+Steven                90      24000                                                                                                                                                                     
+Trenna                50       3500                                                                                                                                                                     
+William              110       8300                                                                                                                                                                     
+
+20 rows selected.
+
+SQL> SELECT FIRST_NAME , DEPARTMENT_ID , SALARY FROM EMPLOYEES ORDER BY 2,3 DESC;
+
+FIRST_NAME DEPARTMENT_ID     SALARY                                                                                                                                                                     
+---------- ------------- ----------                                                                                                                                                                     
+Jennifer              10       4400                                                                                                                                                                     
+Michael               20      13000                                                                                                                                                                     
+Pat                   20       6000                                                                                                                                                                     
+Kevin                 50       5800                                                                                                                                                                     
+Trenna                50       3500                                                                                                                                                                     
+Curtis                50       3100                                                                                                                                                                     
+Randall               50       2600                                                                                                                                                                     
+Peter                 50       2500                                                                                                                                                                     
+Alexander             60       9000                                                                                                                                                                     
+Bruce                 60       6000                                                                                                                                                                     
+Diana                 60       4200                                                                                                                                                                     
+Ellen                 80      11000                                                                                                                                                                     
+Eleni                 80      10500                                                                                                                                                                     
+Jonathon              80       8600                                                                                                                                                                     
+Steven                90      24000                                                                                                                                                                     
+Lex                   90      17000                                                                                                                                                                     
+Neena                 90      17000                                                                                                                                                                     
+Shelley              110      12000                                                                                                                                                                     
+William              110       8300                                                                                                                                                                     
+Kimerely                       7000                                                                                                                                                                     
+
+20 rows selected.
+
+SQL> REM DISPLAY THOSE WHO GETS HIGHEST SALARY FOR THEIR DEPARTMENT
+SQL> 
+SQL> SELECT FIRST_NAME , DEPARTMENT_ID , SALARY FROM EMPLOYEES
+  2  WHERE SALARY = (SELECT MAX(SALARY) FROM EMPLOYEES GROUP BY DEPARTMENT_ID);
+WHERE SALARY = (SELECT MAX(SALARY) FROM EMPLOYEES GROUP BY DEPARTMENT_ID)
+                *
+ERROR at line 2:
+ORA-01427: single-row subquery returns more than one row 
+
+
+SQL> SELECT MAX(SALARY) FROM EMPLOYEES GROUP BY DEPARTMENT_ID;
+
+MAX(SALARY)                                                                                                                                                                                             
+-----------                                                                                                                                                                                             
+       7000                                                                                                                                                                                             
+      24000                                                                                                                                                                                             
+      13000                                                                                                                                                                                             
+      12000                                                                                                                                                                                             
+       5800                                                                                                                                                                                             
+      11000                                                                                                                                                                                             
+       9000                                                                                                                                                                                             
+       4400                                                                                                                                                                                             
+
+8 rows selected.
+
+SQL> WHERE SALARY = (SELECT MAX(SALARY) FROM EMPLOYEES GROUP BY DEPARTMENT_ID);
+SP2-0734: unknown command beginning "WHERE SALA..." - rest of line ignored.
+SQL> SELECT MAX(SALARY) FROM EMPLOYEES GROUP BY DEPARTMENT_ID;
+
+MAX(SALARY)                                                                                                                                                                                             
+-----------                                                                                                                                                                                             
+       7000                                                                                                                                                                                             
+      24000                                                                                                                                                                                             
+      13000                                                                                                                                                                                             
+      12000                                                                                                                                                                                             
+       5800                                                                                                                                                                                             
+      11000                                                                                                                                                                                             
+       9000                                                                                                                                                                                             
+       4400                                                                                                                                                                                             
+
+8 rows selected.
+
+SQL> SELECT FIRST_NAME , DEPARTMENT_ID , SALARY FROM EMPLOYEES
+  2  WHERE SALARY IN (SELECT MAX(SALARY) FROM EMPLOYEES GROUP BY DEPARTMENT_ID);
+
+FIRST_NAME DEPARTMENT_ID     SALARY                                                                                                                                                                     
+---------- ------------- ----------                                                                                                                                                                     
+Steven                90      24000                                                                                                                                                                     
+Alexander             60       9000                                                                                                                                                                     
+Kevin                 50       5800                                                                                                                                                                     
+Ellen                 80      11000                                                                                                                                                                     
+Kimerely                       7000                                                                                                                                                                     
+Jennifer              10       4400                                                                                                                                                                     
+Michael               20      13000                                                                                                                                                                     
+Shelley              110      12000                                                                                                                                                                     
+
+8 rows selected.
+
+SQL> REM DISPLAY THOSE WHO GETS LOWEST SALARY FOR THEIR DEPARTMENT
+SQL> 
+SQL> SELECT FIRST_NAME , DEPARTMENT_ID , SALARY FROM EMPLOYEES
+  2  WHERE SALARY IN (SELECT MIN(SALARY) FROM EMPLOYEES GROUP BY DEPARTMENT_ID);
+
+FIRST_NAME DEPARTMENT_ID     SALARY                                                                                                                                                                     
+---------- ------------- ----------                                                                                                                                                                     
+Neena                 90      17000                                                                                                                                                                     
+Lex                   90      17000                                                                                                                                                                     
+Bruce                 60       6000                                                                                                                                                                     
+Diana                 60       4200                                                                                                                                                                     
+Peter                 50       2500                                                                                                                                                                     
+Jonathon              80       8600                                                                                                                                                                     
+Kimerely                       7000                                                                                                                                                                     
+Jennifer              10       4400                                                                                                                                                                     
+Pat                   20       6000                                                                                                                                                                     
+William              110       8300                                                                                                                                                                     
+
+10 rows selected.
+
+SQL> SELECT MIN(SALARY) FROM EMPLOYEES GROUP BY DEPARTMENT_ID;
+
+MIN(SALARY)                                                                                                                                                                                             
+-----------                                                                                                                                                                                             
+       7000                                                                                                                                                                                             
+      17000                                                                                                                                                                                             
+       6000                                                                                                                                                                                             
+       8300                                                                                                                                                                                             
+       2500                                                                                                                                                                                             
+       8600                                                                                                                                                                                             
+       4200                                                                                                                                                                                             
+       4400                                                                                                                                                                                             
+
+8 rows selected.
+
+SQL> SELECT SALARY FROM EMPLOYEES;
+
+    SALARY                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+     24000                                                                                                                                                                                              
+     17000                                                                                                                                                                                              
+     17000                                                                                                                                                                                              
+      9000                                                                                                                                                                                              
+      6000                                                                                                                                                                                              
+      4200                                                                                                                                                                                              
+      5800                                                                                                                                                                                              
+      3500                                                                                                                                                                                              
+      3100                                                                                                                                                                                              
+      2600                                                                                                                                                                                              
+      2500                                                                                                                                                                                              
+     10500                                                                                                                                                                                              
+     11000                                                                                                                                                                                              
+      8600                                                                                                                                                                                              
+      7000                                                                                                                                                                                              
+      4400                                                                                                                                                                                              
+     13000                                                                                                                                                                                              
+      6000                                                                                                                                                                                              
+     12000                                                                                                                                                                                              
+      8300                                                                                                                                                                                              
+
+20 rows selected.
+
+SQL> SELECT DEPARTMENT_ID , MIN(SALARY) FROM EMPLOYEES GROUP BY DEPARTMENT_ID ORDER BY 1;
+
+DEPARTMENT_ID MIN(SALARY)                                                                                                                                                                               
+------------- -----------                                                                                                                                                                               
+           10        4400                                                                                                                                                                               
+           20        6000                                                                                                                                                                               
+           50        2500                                                                                                                                                                               
+           60        4200                                                                                                                                                                               
+           80        8600                                                                                                                                                                               
+           90       17000                                                                                                                                                                               
+          110        8300                                                                                                                                                                               
+                     7000                                                                                                                                                                               
+
+8 rows selected.
+
+SQL> SELECT DEPARTMENT_ID , SALARY FROM EMPLOYEES ORDER BY 1;
+
+DEPARTMENT_ID     SALARY                                                                                                                                                                                
+------------- ----------                                                                                                                                                                                
+           10       4400                                                                                                                                                                                
+           20      13000                                                                                                                                                                                
+           20       6000                                                                                                                                                                                
+           50       5800                                                                                                                                                                                
+           50       2500                                                                                                                                                                                
+           50       2600                                                                                                                                                                                
+           50       3100                                                                                                                                                                                
+           50       3500                                                                                                                                                                                
+           60       4200                                                                                                                                                                                
+           60       6000                                                                                                                                                                                
+           60       9000                                                                                                                                                                                
+           80      11000                                                                                                                                                                                
+           80      10500                                                                                                                                                                                
+           80       8600                                                                                                                                                                                
+           90      17000                                                                                                                                                                                
+           90      24000                                                                                                                                                                                
+           90      17000                                                                                                                                                                                
+          110       8300                                                                                                                                                                                
+          110      12000                                                                                                                                                                                
+                    7000                                                                                                                                                                                
+
+20 rows selected.
+
+SQL> SELECT FIRST_NAME , DEPARTMENT_ID , SALARY FROM EMPLOYEES
+  2  WHERE (DEPARTMENT_ID , SALARY) IN (SELECT DEPARTMENT_ID , MIN(SALARY) FROM EMPLOYEES GROUP BY DEPARTMENT_ID);
+
+FIRST_NAME DEPARTMENT_ID     SALARY                                                                                                                                                                     
+---------- ------------- ----------                                                                                                                                                                     
+Neena                 90      17000                                                                                                                                                                     
+Lex                   90      17000                                                                                                                                                                     
+Pat                   20       6000                                                                                                                                                                     
+William              110       8300                                                                                                                                                                     
+Peter                 50       2500                                                                                                                                                                     
+Jonathon              80       8600                                                                                                                                                                     
+Diana                 60       4200                                                                                                                                                                     
+Jennifer              10       4400                                                                                                                                                                     
+
+8 rows selected.
+
+SQL> REM DISPLAY FIRST_NAME , MANAGER_ID , SALARY FOR THOSE WHO GEST MANAGER WISE HIGHEST SALARY
+SQL> 
+SQL> REM JOB_ID WISE : MIN , MAX
+SQL> 
+SQL> SELECT FIRST_NAME , MANAGER_ID , SALARY
+  2  FROM EMPLOYEES
+  3  WHERE (MANAGER_ID,SALARY) IN (SELECT MANAGER_ID , MAX(SALARY) FROM EMPLOYEES GROUP BY MANAGER_ID);
+
+FIRST_NAME MANAGER_ID     SALARY                                                                                                                                                                        
+---------- ---------- ----------                                                                                                                                                                        
+Neena             100      17000                                                                                                                                                                        
+Lex               100      17000                                                                                                                                                                        
+Ellen             149      11000                                                                                                                                                                        
+William           205       8300                                                                                                                                                                        
+Alexander         102       9000                                                                                                                                                                        
+Pat               201       6000                                                                                                                                                                        
+Shelley           101      12000                                                                                                                                                                        
+Trenna            124       3500                                                                                                                                                                        
+Bruce             103       6000                                                                                                                                                                        
+
+9 rows selected.
+
+SQL> SPOOL OFF

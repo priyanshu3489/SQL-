@@ -1,0 +1,416 @@
+SQL> 
+SQL> CL SCR
+
+SQL> REM CREATE TABLE
+SQL> 
+SQL> REM 1 FROM SCTRACH 2 USING SUB QUERY
+SQL> 
+SQL> REM CREATE TABLE tablename(columnname datatype(size) DEFAULT defaultvalue column level constraints,...,tablelevel constraints);
+SQL> 
+SQL> REM DATA TYPES : NUMBER
+SQL> 
+SQL> REM DATA TYPES : CHAR , VARCHAR/VARCHAR2 , NVARCHAR2
+SQL> 
+SQL> REM DATA TYPES : DATE , TIMESTAMP , TIMESTAMP WITH TIME ZONE , TIMESTAMP WITH LOCAL TIME ZONE
+SQL> 
+SQL> REM DATAT TYPE : INTERVAL DAY TO SECOND , INTERVAL YEAR TO MONTH
+SQL> 
+SQL> REM DATA TYPE : BFILE
+SQL> 
+SQL> 
+SQL> REM PRICE , AGE , MARKS , PERCENTAGE : NUMBER
+SQL> 
+SQL> REM NAME , ADDRESS : VARCHAR2
+SQL> 
+SQL> REM GENDER, RESULT : CHAR
+SQL> 
+SQL> REM BIRTHDATE, HIREDATE , DEATHDATE , INSURANCEDATE : DATE
+SQL> 
+SQL> REM TIMESTAMP : 100 METER RUNNING RACE
+SQL> 
+SQL> REM AIR TICKET: TIMESTAMP WITH TIME ZONE
+SQL> 
+SQL> REM MNC : TIME STAMP WITH LOCAL TIME ZONE
+SQL> 
+SQL> REM BFILE : AUDIO , VIDEO , PHOTOGRAPH , SCANNED IMAGE , .PDF ...
+SQL> 
+SQL> 
+SQL> 
+SQL> REM TABLE NAMING :
+SQL> 
+SQL> REM 1 MIN 1 CHAR , MAX 128 CHARACTER
+SQL> 
+SQL> REM 2 FIRST CHARACTER MUST BE ALPHABET
+SQL> 
+SQL> REM 3 REMAINING CHARACTERS MAY BE ALPHABETS , NUMBERS OR ANY OF THE 3 SPECIAL CHARACTERS : _ # $
+SQL> 
+SQL> REM 4 WE CAN'T USE ORACLE/SQL KEY/RESERVE WORD AS TABLE NAME
+SQL> 
+SQL> REM 5 UNDER SAME USER WE CAN'T CREATE OBJECT WITH SAME NAME
+SQL> 
+SQL> 
+SQL> 
+SQL> REM DEFAULT : IS USED TO SET DEFAULT VALUE FOR ANY COLUMN
+SQL> 
+SQL> REM WHEN WE INSERT NEW ROW AND IF WE OMIT VALUE FOR THE COLUMN WHICH HAS SOME DEFAULT VALUE, THEN DEFAULT VALUE WILL BE INSERTED AUTOMATICALLY.
+SQL> 
+SQL> 
+SQL> 
+SQL> REM CONSTRAINTS : DATA VALIDATION RULES
+SQL> 
+SQL> REM LEVEL OF CONSTRAINTS : 1 COLUMN 2 TABLE
+SQL> 
+SQL> REM COLUMN LEVEL CONSTRAINT CAN REFER SINGLE COLUMN ONLY
+SQL> 
+SQL> REM TABLE LEVEL CONSTRAINT CAN REFER SINGLE OR MULTIPLE COLUMNS
+SQL> 
+SQL> 
+SQL> D
+SP2-0042: unknown command "D" - rest of line ignored.
+SQL> 
+SQL> 
+SQL> REM TYPES OF CONSTRAINTS : 1 CHECK 2 NOT NULL 3 UNIQUE 4 PRIMARY KEY 5 REFERENCES
+SQL> 
+SQL> REM CHECK : WE CAN ATTACH ALMOST ALL CONDITIONS WHICH WE WRITE WITH 'WHERE' CLAUSE.
+SQL> 
+SQL> REM NOT NULL : WILL NOT ALLOW NULL VALUE FOR THE COLUMN , IT IS ALLOWED ONLY AT COLUMN LEVEL.
+SQL> 
+SQL> REM UNIQUE : IT WILL ALLOW ONLY DISTINCT/UNIQUE VALUE IN COLUMN(S)
+SQL> 
+SQL> REM PRIMARY KEY : IT IS COMBINATION OF NOT NULL AND UNIQUE. WE CAN USE PRIMARY KEY CONSTRAINT ONCE PER TABLE.
+SQL> 
+SQL> REM REFERENCES : IT WILL ALLOW ONLY THOSE VALUES WHICH ARE ALREADY PRESENT IN REFERRED UNIQUE/PRIMARY COLUMN(S)
+SQL> 
+SQL> 
+SQL> 
+SQL> SELECT EMPLOYEE_ID , FIRST_NAME , MANAGER_ID FROM EMPLOYEES;
+
+EMPLOYEE_ID FIRST_NAME MANAGER_ID                                                                                                                                                                                                               
+----------- ---------- ----------                                                                                                                                                                                                               
+        100 Steven                                                                                                                                                                                                                              
+        101 Neena             100                                                                                                                                                                                                               
+        102 Lex               100                                                                                                                                                                                                               
+        103 Alexander         102                                                                                                                                                                                                               
+        104 Bruce             103                                                                                                                                                                                                               
+        107 Diana             103                                                                                                                                                                                                               
+        124 Kevin             100                                                                                                                                                                                                               
+        141 Trenna            124                                                                                                                                                                                                               
+        142 Curtis            124                                                                                                                                                                                                               
+        143 Randall           124                                                                                                                                                                                                               
+        144 Peter             124                                                                                                                                                                                                               
+        149 Eleni             100                                                                                                                                                                                                               
+        174 Ellen             149                                                                                                                                                                                                               
+        176 Jonathon          149                                                                                                                                                                                                               
+        178 Kimerely          149                                                                                                                                                                                                               
+        200 Jennifer          101                                                                                                                                                                                                               
+        201 Michael           100                                                                                                                                                                                                               
+        202 Pat               201                                                                                                                                                                                                               
+        205 Shelley           101                                                                                                                                                                                                               
+        206 William           205                                                                                                                                                                                                               
+
+20 rows selected.
+
+SQL> REM TYPES OF RELATIONSHIPS : 1 DEFAULT/NO ACTION 2 CASCADE 3 SET NULL
+SQL> 
+SQL> REM RELATIONSHIP TYPE MATTERS WHEN WE PERFORM DELETE OPERATION ON PARENT TABLE.
+SQL> 
+SQL> REM PARANT TABLE IS A TABLE WHICH HAS REFERRED PRIMARY KEY/UNIQUE COLUMN.
+SQL> 
+SQL> REM CHILD TABLE IS A TABLE WHICH HAS REFERENCES CONSTRAINT.
+SQL> 
+SQL> 
+SQL> 
+SQL> REM DEFAULT : WILL NOT ALLOW DELETE WHEN CHILD ROWS EXIST
+SQL> 
+SQL> REM CASCADE :WILL AUTOMATICALLY DELETE ALL CORRESPONDING CHILDS AND THEN WILL DELETE PARENT ROW
+SQL> 
+SQL> REM SET NULL :WILL AUTOMATICALLY UPDATE ALL CORRESPONDING CHILDS WITH NULL AND THEN WILL DELETE PARENT ROW
+SQL> 
+SQL> 
+SQL> CREATE TABLE STU(RNO NUMBER(2) CHECK (RNO BETWEEN 1 AND 30) NOT NULL UNIQUE,NM VARCHAR2(10) CHECK (NM=UPPER(NM)));
+
+Table created.
+
+SQL> INSERT INTO STU VALUES (1,'GANESH');
+
+1 row created.
+
+SQL> INSERT INTO STU VALUES (2,'RIDDHI');
+
+1 row created.
+
+SQL> INSERT INTO STU VALUES (31,'SIDDHI');
+INSERT INTO STU VALUES (31,'SIDDHI')
+*
+ERROR at line 1:
+ORA-02290: check constraint (SCOTT.SYS_C0014707) violated 
+
+
+SQL> INSERT INTO STU VALUES (0,'SIDDHI');
+INSERT INTO STU VALUES (0,'SIDDHI')
+*
+ERROR at line 1:
+ORA-02290: check constraint (SCOTT.SYS_C0014707) violated 
+
+
+SQL> INSERT INTO STU VALUES (-1,'SIDDHI');
+INSERT INTO STU VALUES (-1,'SIDDHI')
+*
+ERROR at line 1:
+ORA-02290: check constraint (SCOTT.SYS_C0014707) violated 
+
+
+SQL> INSERT INTO STU VALUES (1,'SIDDHI');
+INSERT INTO STU VALUES (1,'SIDDHI')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SCOTT.SYS_C0014709) violated 
+
+
+SQL> INSERT INTO STU VALUES (NULL,'SIDDHI');
+INSERT INTO STU VALUES (NULL,'SIDDHI')
+                        *
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("SCOTT"."STU"."RNO") 
+
+
+SQL> INSERT INTO STU VALUES (3,'Siddhi');
+INSERT INTO STU VALUES (3,'Siddhi')
+*
+ERROR at line 1:
+ORA-02290: check constraint (SCOTT.SYS_C0014708) violated 
+
+
+SQL> SELECT * FROM STU;
+
+       RNO NM                                                                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                                                           
+         1 GANESH                                                                                                                                                                                                                               
+         2 RIDDHI                                                                                                                                                                                                                               
+
+SQL> CREATE TABLE FEES(RNO NUMBER(2) REFERENCES STU(RNO),AMOUNT NUMBER(5) CHECK(AMOUNT >0));
+CREATE TABLE FEES(RNO NUMBER(2) REFERENCES STU(RNO),AMOUNT NUMBER(5) CHECK(AMOUNT >0))
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> DROP TABLE FEES;
+
+Table dropped.
+
+SQL> CREATE TABLE FEES(RNO NUMBER(2) REFERENCES STU(RNO),AMOUNT NUMBER(5) CHECK(AMOUNT >0));
+
+Table created.
+
+SQL> INSERT INTO FEES VALUES (1,10000);
+
+1 row created.
+
+SQL> INSERT INTO FEES VALUES (3,10000);
+INSERT INTO FEES VALUES (3,10000)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (SCOTT.SYS_C0014711) violated - parent key not found 
+
+
+SQL> INSERT INTO FEES VALUES (2,-10000);
+INSERT INTO FEES VALUES (2,-10000)
+*
+ERROR at line 1:
+ORA-02290: check constraint (SCOTT.SYS_C0014710) violated 
+
+
+SQL> CREATE TABLE P1(NO NUMBER(2) PRIMARY KEY, NM VARCHAR2(10));
+CREATE TABLE P1(NO NUMBER(2) PRIMARY KEY, NM VARCHAR2(10))
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> DROP TABLE P1 CASCADE CONSTRAINTS;
+
+Table dropped.
+
+SQL> DROP TABLE P2 CASCADE CONSTRAINTS;
+
+Table dropped.
+
+SQL> DROP TABLE P3 CASCADE CONSTRAINTS;
+
+Table dropped.
+
+SQL> DROP TABLE C3;
+
+Table dropped.
+
+SQL> DROP TABLE C2;
+
+Table dropped.
+
+SQL> DROP TABLE C1;
+
+Table dropped.
+
+SQL> CREATE TABLE P1(NO NUMBER(2) PRIMARY KEY, NM VARCHAR2(10));
+
+Table created.
+
+SQL> CREATE TABLE C1(NO NUMBER(2) REFERENCES P1 ON DELETE SET NULL,AMT NUMBER(5);
+CREATE TABLE C1(NO NUMBER(2) REFERENCES P1 ON DELETE SET NULL,AMT NUMBER(5)
+                                                                          *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> CREATE TABLE C1(NO NUMBER(2) REFERENCES P1 ON DELETE SET NULL,AMT NUMBER(5));
+
+Table created.
+
+SQL> INSERT INTO P1 VALUES (1,'GANESH');
+
+1 row created.
+
+SQL> INSERT INTO P1 VALUES (2,'RIDDHI');
+
+1 row created.
+
+SQL> INSERT INTO P1 VALUES (3,'SIDDHI');
+
+1 row created.
+
+SQL> INSERT INTO C1 VALUES (1,10000);L
+  2  
+SQL> INSERT INTO C1 VALUES (1,10000);
+
+1 row created.
+
+SQL> INSERT INTO C1 VALUES (2,15000);
+
+1 row created.
+
+SQL> INSERT INTO C1 VALUES (2,20000);
+
+1 row created.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> SELECT * FROM P1;
+
+        NO NM                                                                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                                                           
+         1 GANESH                                                                                                                                                                                                                               
+         2 RIDDHI                                                                                                                                                                                                                               
+         3 SIDDHI                                                                                                                                                                                                                               
+
+SQL> SELECT * FROM C1;
+
+        NO        AMT                                                                                                                                                                                                                           
+---------- ----------                                                                                                                                                                                                                           
+         1      10000                                                                                                                                                                                                                           
+         2      15000                                                                                                                                                                                                                           
+         2      20000                                                                                                                                                                                                                           
+
+SQL> DELETE FROM P1 WHERE NO = 2;
+
+1 row deleted.
+
+SQL> SELECT * FROM P1;
+
+        NO NM                                                                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                                                           
+         1 GANESH                                                                                                                                                                                                                               
+         3 SIDDHI                                                                                                                                                                                                                               
+
+SQL> SELECT * FROM C1;
+
+        NO        AMT                                                                                                                                                                                                                           
+---------- ----------                                                                                                                                                                                                                           
+         1      10000                                                                                                                                                                                                                           
+                15000                                                                                                                                                                                                                           
+                20000                                                                                                                                                                                                                           
+
+SQL> REM & SUBSTITUITION VARIABLE
+SQL> 
+SQL> CREATE TABLE R2 AS SELECT * FROM REGIONS WHERE ROWNUM = 0;
+
+Table created.
+
+SQL> DESC R2
+ Name                                                                                                                                      Null?    Type
+ ----------------------------------------------------------------------------------------------------------------------------------------- -------- --------------------------------------------------------------------------------------------
+ REGION_ID                                                                                                                                 NOT NULL NUMBER
+ REGION_NAME                                                                                                                                        VARCHAR2(25)
+
+SQL> SELECT * FROM R2;
+
+no rows selected
+
+SQL> INSERT INTO R2 VALUES (1,'ASIA');
+
+1 row created.
+
+SQL> INSERT INTO R2 VALUES (&RID,'&RNM');
+Enter value for rid: 2
+Enter value for rnm: AMERICA
+old   1: INSERT INTO R2 VALUES (&RID,'&RNM')
+new   1: INSERT INTO R2 VALUES (2,'AMERICA')
+
+1 row created.
+
+SQL> /
+Enter value for rid: 3
+Enter value for rnm: ANTARCTICA
+old   1: INSERT INTO R2 VALUES (&RID,'&RNM')
+new   1: INSERT INTO R2 VALUES (3,'ANTARCTICA')
+
+1 row created.
+
+SQL> CONNECT / AS SYSDBA
+ERROR:
+ORA-01017: invalid username/password; logon denied 
+
+
+Warning: You are no longer connected to ORACLE.
+SQL> CONNECT SYS AS SYSDBA
+Connected.
+SQL> rem start c:\tables.sql
+SQL> 
+SQL> CONNECT SCOTT/TIGER
+Connected.
+SQL> SET LINES 200 PAGES 24
+SQL> 
+SQL> SELECT * FROM EMPLOYEES;
+
+EMPLOYEE_ID FIRST_NAME LAST_NAME  EMAIL      PHONE_NUMBER         HIRE_DATE JOB_ID         SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID                                                               
+----------- ---------- ---------- ---------- -------------------- --------- ---------- ---------- -------------- ---------- -------------                                                               
+        100 Steven     King       SKING      515.123.4567         17-JUL-87 AD_PRES         24000                                      90                                                               
+        101 Neena      Kochhar    NKOCHHAR   515.123.4568         21-SEP-89 AD_VP           17000                       100            90                                                               
+        102 Lex        De Haan    LDEHAAN    515.123.4569         13-JAN-93 AD_VP           17000                       100            90                                                               
+        103 Alexander  Hunold     AHUNOLD    590.423.4567         03-JAN-90 IT_PROG          9000                       102            60                                                               
+        104 Bruce      Ernst      BERNST     590.423.4568         21-MAY-91 IT_PROG          6000                       103            60                                                               
+        107 Diana      Lorentz    DLORENTZ   590.423.5567         07-FEB-99 IT_PROG          4200                       103            60                                                               
+        124 Kevin      Mourgos    KMOURGOS   650.123.5234         16-NOV-99 ST_MAN           5800                       100            50                                                               
+        141 Trenna     Rajs       TRAJS      650.121.8009         17-OCT-95 ST_CLERK         3500                       124            50                                                               
+        142 Curtis     Davies     CDAVIES    650.121.2994         29-JAN-97 ST_CLERK         3100                       124            50                                                               
+        143 Randall    Matos      RMATOS     650.121.2874         15-MAR-98 ST_CLERK         2600                       124            50                                                               
+        144 Peter      Vargas     PVARGAS    650.121.2004         09-JUL-98 ST_CLERK         2500                       124            50                                                               
+        149 Eleni      Zlotkey    EZLOTKEY   011.44.1344.429018   29-JAN-00 SA_MAN          10500             .2        100            80                                                               
+        174 Ellen      Abel       EABEL      011.44.1644.429267   11-MAY-96 SA_REP          11000             .3        149            80                                                               
+        176 Jonathon   Taylor     JTAYLOR    011.44.1644.429265   24-MAR-98 SA_REP           8600             .3        149            80                                                               
+        178 Kimerely   Grant      KGRANT     011.44.1644.429263   24-MAY-99 SA_REP           7000            .15        149                                                                             
+        200 Jennifer   Whalen     JWAHLEN    515.123.4444         17-SEP-87 AD_ASST          4400                       101            10                                                               
+        201 Michael    Hartstein  MHARTSTE   515.123.5555         17-FEB-96 MK_MAN          13000                       100            20                                                               
+        202 Pat        Fay        PFAY       603.123.6666         17-AUG-97 MK_REP           6000                       201            20                                                               
+        205 Shelley    Higgins    SHIGGINS   515.123.8080         07-JUN-94 AC_MGR          12000                       101           110                                                               
+        206 William    Gietz      WGIETZ     515.123.8181         07-JUN-94 AC_ACCOUNT       8300                       205           110                                                               
+
+20 rows selected.
+
+SQL> REM FIND : RUN SQL COMMAND LINE
+SQL> 
+SQL> REM PIN TO TASK BAR
+SQL> 
+SQL> SPOOL OFF

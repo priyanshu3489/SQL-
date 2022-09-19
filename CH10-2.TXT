@@ -1,0 +1,613 @@
+SQL> 
+SQL> REM CONSTRAINTS : DATA VALIDATION RULES
+SQL> 
+SQL> REM 5 TYPES OF CONSTRAINTS : 1 CHECK  2 NOT NULL 3 UNIQUE 4 PRIMARY KEY 5 REFERENCES
+SQL> 
+SQL> DROP TABLE STD5A;
+DROP TABLE STD5A
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> CREATE TABLE STD5A(RNO NUMBER(2),NAME VARCHAR2(15));
+
+Table created.
+
+SQL> DESCRIBE STD5A
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ RNO                                                                                                                        NUMBER(2)
+ NAME                                                                                                                       VARCHAR2(15)
+
+SQL> DESC STD5A
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ RNO                                                                                                                        NUMBER(2)
+ NAME                                                                                                                       VARCHAR2(15)
+
+SQL> INSERT INTO STD5A VALUES(1,'GANESH');
+
+1 row created.
+
+SQL> INSERT INTO STD5A VALUES(31,'RIDDHI');
+
+1 row created.
+
+SQL> REM NUMBER(2) : RANGE -99 TO +99
+SQL> 
+SQL> INSERT INTO STD5A VALUES(0,'RIDDHI');
+
+1 row created.
+
+SQL> INSERT INTO STD5A VALUES(-99,'RIDDHI');
+
+1 row created.
+
+SQL> INSERT INTO STD5A VALUES(NULL,'RIDDHI');
+
+1 row created.
+
+SQL> INSERT INTO STD5A VALUES('','RIDDHI');
+
+1 row created.
+
+SQL> INSERT INTO STD5A VALUES(1,'RIDDHI');
+
+1 row created.
+
+SQL> SELECT * FROM STD5A;
+
+       RNO NAME                                                                                                                                                                                         
+---------- ---------------                                                                                                                                                                              
+         1 GANESH                                                                                                                                                                                       
+        31 RIDDHI                                                                                                                                                                                       
+         0 RIDDHI                                                                                                                                                                                       
+       -99 RIDDHI                                                                                                                                                                                       
+           RIDDHI                                                                                                                                                                                       
+           RIDDHI                                                                                                                                                                                       
+         1 RIDDHI                                                                                                                                                                                       
+
+7 rows selected.
+
+SQL> DROP TABLE STD5A;
+
+Table dropped.
+
+SQL> REM CHECK : IT IS USED TO CHECK DATA WITH CONDITION ATTACHED.
+SQL> 
+SQL> CREATE TABLE STD5A(RNO NUMBER(2) CHECK(RNO BETWEEN 1 AND 30),NAME VARCHAR2(15));
+
+Table created.
+
+SQL> DESC STD5A
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ RNO                                                                                                                        NUMBER(2)
+ NAME                                                                                                                       VARCHAR2(15)
+
+SQL> INSERT INTO STD5A VALUES(1,'GANESH');
+
+1 row created.
+
+SQL> INSERT INTO STD5A VALUES(31,'RIDDHI');
+INSERT INTO STD5A VALUES(31,'RIDDHI')
+*
+ERROR at line 1:
+ORA-02290: check constraint (SCOTT.SYS_C0014303) violated 
+
+
+SQL> INSERT INTO STD5A VALUES(0,'RIDDHI');
+INSERT INTO STD5A VALUES(0,'RIDDHI')
+*
+ERROR at line 1:
+ORA-02290: check constraint (SCOTT.SYS_C0014303) violated 
+
+
+SQL> INSERT INTO STD5A VALUES(NULL,'RIDDHI');
+
+1 row created.
+
+SQL> INSERT INTO STD5A VALUES(1,'RIDDHI');
+
+1 row created.
+
+SQL> SELECT * FROM STD5A;
+
+       RNO NAME                                                                                                                                                                                         
+---------- ---------------                                                                                                                                                                              
+         1 GANESH                                                                                                                                                                                       
+           RIDDHI                                                                                                                                                                                       
+         1 RIDDHI                                                                                                                                                                                       
+
+SQL> DROP TABLE STD5A;
+
+Table dropped.
+
+SQL> CREATE TABLE STD5A(RNO NUMBER(2) CHECK(RNO BETWEEN 1 AND 30) NOT NULL,NAME VARCHAR2(15));
+
+Table created.
+
+SQL> DESC STD5A
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ RNO                                                                                                               NOT NULL NUMBER(2)
+ NAME                                                                                                                       VARCHAR2(15)
+
+SQL> INSERT INTO STD5A VALUES (1,'GANESH');
+
+1 row created.
+
+SQL> INSERT INTO STD5A VALUES (1,'RIDDHI');
+
+1 row created.
+
+SQL> INSERT INTO STD5A VALUES (0,'RIDDHI');
+INSERT INTO STD5A VALUES (0,'RIDDHI')
+*
+ERROR at line 1:
+ORA-02290: check constraint (SCOTT.SYS_C0014305) violated 
+
+
+SQL> INSERT INTO STD5A VALUES (31,'RIDDHI');
+INSERT INTO STD5A VALUES (31,'RIDDHI')
+*
+ERROR at line 1:
+ORA-02290: check constraint (SCOTT.SYS_C0014305) violated 
+
+
+SQL> INSERT INTO STD5A VALUES (NULL,'RIDDHI');
+INSERT INTO STD5A VALUES (NULL,'RIDDHI')
+                          *
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("SCOTT"."STD5A"."RNO") 
+
+
+SQL> INSERT INTO STD5A VALUES ('','RIDDHI');
+INSERT INTO STD5A VALUES ('','RIDDHI')
+                          *
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("SCOTT"."STD5A"."RNO") 
+
+
+SQL> DROP TABLE STD5A;
+
+Table dropped.
+
+SQL> CREATE TABLE STD5A(RNO NUMBER(2) CHECK(RNO BETWEEN 1 AND 30) NOT NULL UNIQUE,NAME VARCHAR2(15));
+
+Table created.
+
+SQL> REM NOT NULL : WILL NOT ALLOW NULL VALUE IN COLUMN
+SQL> 
+SQL> REM UNIQUE : WILL NOT ALLOW DUPLICATE VALUE IN COLUMN'
+SQL> 
+SQL> INSERT INTO STD5A VALUES (1,'GANESH');
+
+1 row created.
+
+SQL> INSERT INTO STD5A VALUES (1,'RIDDHI');
+INSERT INTO STD5A VALUES (1,'RIDDHI')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SCOTT.SYS_C0014308) violated 
+
+
+SQL> INSERT INTO STD5A VALUES (0,'RIDDHI');
+INSERT INTO STD5A VALUES (0,'RIDDHI')
+*
+ERROR at line 1:
+ORA-02290: check constraint (SCOTT.SYS_C0014307) violated 
+
+
+SQL> INSERT INTO STD5A VALUES (31,'RIDDHI');
+INSERT INTO STD5A VALUES (31,'RIDDHI')
+*
+ERROR at line 1:
+ORA-02290: check constraint (SCOTT.SYS_C0014307) violated 
+
+
+SQL> INSERT INTO STD5A VALUES (NULL,'RIDDHI');
+INSERT INTO STD5A VALUES (NULL,'RIDDHI')
+                          *
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("SCOTT"."STD5A"."RNO") 
+
+
+SQL> INSERT INTO STD5A VALUES ('','RIDDHI');
+INSERT INTO STD5A VALUES ('','RIDDHI')
+                          *
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("SCOTT"."STD5A"."RNO") 
+
+
+SQL> SELECT * FROM STD5A;
+
+       RNO NAME                                                                                                                                                                                         
+---------- ---------------                                                                                                                                                                              
+         1 GANESH                                                                                                                                                                                       
+
+SQL> INSERT INTO STD5A VALUES (2,'RIDDHI');
+
+1 row created.
+
+SQL> INSERT INTO STD5A VALUES (30,'SIDDHI');
+
+1 row created.
+
+SQL> SELECT * FROM STD5A;
+
+       RNO NAME                                                                                                                                                                                         
+---------- ---------------                                                                                                                                                                              
+         1 GANESH                                                                                                                                                                                       
+         2 RIDDHI                                                                                                                                                                                       
+        30 SIDDHI                                                                                                                                                                                       
+
+SQL> REM PRIMARY KEY : COMBINATION OF NOT NULL + UNIQUE
+SQL> 
+SQL> REM PRIMARY KEY : PER TABLE PRIMARY KEY CONSTRAINT CAN BE USED SINGLE TIME ONLY
+SQL> 
+SQL> DROP TABLE STD5A;
+
+Table dropped.
+
+SQL> CREATE TABLE STD5A(RNO NUMBER(2) CHECK(RNO BETWEEN 1 AND 30) PRIMARY KEY,NAME VARCHAR2(15));
+
+Table created.
+
+SQL> DESC STD5A
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ RNO                                                                                                               NOT NULL NUMBER(2)
+ NAME                                                                                                                       VARCHAR2(15)
+
+SQL> INSERT INTO STD5A VALUES (1,'GANESH');
+
+1 row created.
+
+SQL> INSERT INTO STD5A VALUES (1,'RIDDHI');
+INSERT INTO STD5A VALUES (1,'RIDDHI')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SCOTT.SYS_C0014310) violated 
+
+
+SQL> INSERT INTO STD5A VALUES (0,'RIDDHI');
+INSERT INTO STD5A VALUES (0,'RIDDHI')
+*
+ERROR at line 1:
+ORA-02290: check constraint (SCOTT.SYS_C0014309) violated 
+
+
+SQL> INSERT INTO STD5A VALUES (31,'RIDDHI');
+INSERT INTO STD5A VALUES (31,'RIDDHI')
+*
+ERROR at line 1:
+ORA-02290: check constraint (SCOTT.SYS_C0014309) violated 
+
+
+SQL> INSERT INTO STD5A VALUES (NULL,'RIDDHI');
+INSERT INTO STD5A VALUES (NULL,'RIDDHI')
+                          *
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("SCOTT"."STD5A"."RNO") 
+
+
+SQL> INSERT INTO STD5A VALUES ('','RIDDHI');
+INSERT INTO STD5A VALUES ('','RIDDHI')
+                          *
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("SCOTT"."STD5A"."RNO") 
+
+
+SQL> INSERT INTO STD5A VALUES (2,'RIDDHI');
+
+1 row created.
+
+SQL> INSERT INTO STD5A VALUES (30,'SIDDHI');
+
+1 row created.
+
+SQL> SELECT * FROM STD5A;
+
+       RNO NAME                                                                                                                                                                                         
+---------- ---------------                                                                                                                                                                              
+         1 GANESH                                                                                                                                                                                       
+         2 RIDDHI                                                                                                                                                                                       
+        30 SIDDHI                                                                                                                                                                                       
+
+SQL> DROP TABLE STD5A;
+
+Table dropped.
+
+SQL> CREATE TABLE STD5A(RNO NUMBER(2) CHECK(RNO BETWEEN 1 AND 30) PRIMARY KEY,NAME VARCHAR2(15) CHECK (NAME=INITCAP(NAME)));
+
+Table created.
+
+SQL> INSERT INTO STD5A VALUES (1,'GANESH');
+INSERT INTO STD5A VALUES (1,'GANESH')
+*
+ERROR at line 1:
+ORA-02290: check constraint (SCOTT.SYS_C0014312) violated 
+
+
+SQL> INSERT INTO STD5A VALUES (1,'ganesh');
+INSERT INTO STD5A VALUES (1,'ganesh')
+*
+ERROR at line 1:
+ORA-02290: check constraint (SCOTT.SYS_C0014312) violated 
+
+
+SQL> INSERT INTO STD5A VALUES (1,'Ganesh');
+
+1 row created.
+
+SQL> INSERT INTO STD5A VALUES (1,'GAnesh');
+INSERT INTO STD5A VALUES (1,'GAnesh')
+*
+ERROR at line 1:
+ORA-02290: check constraint (SCOTT.SYS_C0014312) violated 
+
+
+SQL> DROP TABLE DEPT;
+DROP TABLE DEPT
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> DROP TABLE EMP;
+DROP TABLE EMP
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> SELECT EMPLOYEE_ID , FIRST_NAME , MANAGER_ID FROM EMPLOYEES;
+
+EMPLOYEE_ID FIRST_NAME MANAGER_ID                                                                                                                                                                       
+----------- ---------- ----------                                                                                                                                                                       
+        100 Steven                                                                                                                                                                                      
+        101 Neena             100                                                                                                                                                                       
+        102 Lex               100                                                                                                                                                                       
+        103 Alexander         102                                                                                                                                                                       
+        104 Bruce             103                                                                                                                                                                       
+        107 Diana             103                                                                                                                                                                       
+        124 Kevin             100                                                                                                                                                                       
+        141 Trenna            124                                                                                                                                                                       
+        142 Curtis            124                                                                                                                                                                       
+        143 Randall           124                                                                                                                                                                       
+        144 Peter             124                                                                                                                                                                       
+        149 Eleni             100                                                                                                                                                                       
+        174 Ellen             149                                                                                                                                                                       
+        176 Jonathon          149                                                                                                                                                                       
+        178 Kimerely          149                                                                                                                                                                       
+        200 Jennifer          101                                                                                                                                                                       
+        201 Michael           100                                                                                                                                                                       
+        202 Pat               201                                                                                                                                                                       
+        205 Shelley           101                                                                                                                                                                       
+        206 William           205                                                                                                                                                                       
+
+20 rows selected.
+
+SQL> CREATE TABLE EMP(EID NUMBER(4),NAME VARCHAR2(10),MID NUMBER(4) REFERENCES EMP(EID));
+CREATE TABLE EMP(EID NUMBER(4),NAME VARCHAR2(10),MID NUMBER(4) REFERENCES EMP(EID))
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> DROP TABLE EMP;
+DROP TABLE EMP
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> SELECT OBJECT_TYPE FROM USER_OBJECTS WHERE OBJECT_NAME = 'EMP';
+
+OBJECT_TYPE                                                                                                                                                                                             
+-----------------------                                                                                                                                                                                 
+SYNONYM                                                                                                                                                                                                 
+
+SQL> DROP SYNONYM EMP;
+
+Synonym dropped.
+
+SQL> CREATE TABLE EMP(EID NUMBER(4),NAME VARCHAR2(10),MID NUMBER(4) REFERENCES EMP(EID));
+CREATE TABLE EMP(EID NUMBER(4),NAME VARCHAR2(10),MID NUMBER(4) REFERENCES EMP(EID))
+                                                                          *
+ERROR at line 1:
+ORA-02270: no matching unique or primary key for this column-list 
+
+
+SQL> CREATE TABLE EMP(EID NUMBER(4) UNIQUE NOT NULL,NAME VARCHAR2(10),MID NUMBER(4) REFERENCES EMP(EID));
+
+Table created.
+
+SQL> DESC EMP
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ EID                                                                                                               NOT NULL NUMBER(4)
+ NAME                                                                                                                       VARCHAR2(10)
+ MID                                                                                                                        NUMBER(4)
+
+SQL> INSERT INTO EMP VALUES (1,'GANESH',NULL);
+
+1 row created.
+
+SQL> INSERT INTO EMP VALUES (2,'RIDDHI',1);
+
+1 row created.
+
+SQL> INSERT INTO EMP VALUES (3,'SIDDHI',4);
+INSERT INTO EMP VALUES (3,'SIDDHI',4)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (SCOTT.SYS_C0014316) violated - parent key not found 
+
+
+SQL> DROP TABLE EMP;
+
+Table dropped.
+
+SQL> CREATE TABLE EMP(EID NUMBER(4) UNIQUE NOT NULL,NAME VARCHAR2(10),MID NUMBER(4) REFERENCES EMP);
+CREATE TABLE EMP(EID NUMBER(4) UNIQUE NOT NULL,NAME VARCHAR2(10),MID NUMBER(4) REFERENCES EMP)
+                                                                                          *
+ERROR at line 1:
+ORA-02268: referenced table does not have a primary key 
+
+
+SQL> CREATE TABLE EMP(EID NUMBER(4) PRIMARY KEY,NAME VARCHAR2(10),MID NUMBER(4) REFERENCES EMP);
+
+Table created.
+
+SQL> DROP TABLE EMP;
+
+Table dropped.
+
+SQL> CREATE TABLE EMP(EID NUMBER(4) PRIMARY KEY,NAME VARCHAR2(10),MID NUMBER(4) REFERENCES EMP(EID));
+
+Table created.
+
+SQL> DROP TABLE EMP;
+
+Table dropped.
+
+SQL> CREATE TABLE DEPT(DID NUMBER(2) PRIMARY KEY,DNM VARCHAR2(10));
+
+Table created.
+
+SQL> CREATE TABLE EMP(EID NUMBER(4) PRIMARY KEY,NAME VARCHAR2(10),MID NUMBER(4) REFERENCES EMP(EID),DID NUMBER(2) REFERENCES DEPT(DID));
+
+Table created.
+
+SQL> INSERT INTO DEPT VALUES (10,'ACC');
+
+1 row created.
+
+SQL> INSERT INTO DEPT VALUES (20,'RES');
+
+1 row created.
+
+SQL> INSERT INTO DEPT VALUES (30,'SAL');
+
+1 row created.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> SELECT * FROM DEPT;
+
+       DID DNM                                                                                                                                                                                          
+---------- ----------                                                                                                                                                                                   
+        10 ACC                                                                                                                                                                                          
+        20 RES                                                                                                                                                                                          
+        30 SAL                                                                                                                                                                                          
+
+SQL> INSERT INTO EMP VALUES (1,'GANESH',NULL,10);
+
+1 row created.
+
+SQL> INSERT INTO EMP VALUES (1,'RIDDHI',1,10);
+INSERT INTO EMP VALUES (1,'RIDDHI',1,10)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SCOTT.SYS_C0014322) violated 
+
+
+SQL> INSERT INTO EMP VALUES (2,'RIDDHI',1,10);
+
+1 row created.
+
+SQL> INSERT INTO EMP VALUES (3,'SIDDHI',4,10);
+INSERT INTO EMP VALUES (3,'SIDDHI',4,10)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (SCOTT.SYS_C0014323) violated - parent key not found 
+
+
+SQL> INSERT INTO EMP VALUES (3,'SIDDHI',2,20);
+
+1 row created.
+
+SQL> INSERT INTO EMP VALUES (4,'LABH',2,40);
+INSERT INTO EMP VALUES (4,'LABH',2,40)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (SCOTT.SYS_C0014324) violated - parent key not found 
+
+
+SQL> REM CONSTRAINT NAME CONVENTION : USERNAME_TABLENAME_COLUMNNAME_CONSTRAINTTYPE#NUMBER
+SQL> 
+SQL> REM PRIMARY KEY : IS SUPPORTED SINGLE TIME PER TABLE
+SQL> 
+SQL> REM UNIQUE : IS SUPPORTED SINGLE TIME PER COLUMN
+SQL> 
+SQL> REM NOT NULL IS SUPPORTED TWO TIMES PER COLUMN (NOT NULL, PRIMARY KEY)
+SQL> 
+SQL> REM CHECK AND REFERENCES CONSTRAINTS ARE SUPPORTED MULTIPLE TIME PER COLUMN
+SQL> 
+SQL> 
+SQL> DROP TABLE DEPT;
+DROP TABLE DEPT
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys 
+
+
+SQL> DROP TABLE DEPT CASCADE CONSTRAINTS;
+
+Table dropped.
+
+SQL> DROP TABLE EMP;
+
+Table dropped.
+
+SQL> CREATE TABLE DEPT(DID NUMBER(2) CONSTRAINT SCOTT_DEPT_DID_PK PRIMARY KEY,DNM VARCHAR2(10));
+
+Table created.
+
+SQL> CREATE TABLE EMP(EID NUMBER(4) CONSTARINT SCOTT_EMP_EID_PK PRIMARY KEY,NAME VARCHAR2(10),MID NUMBER(4) CONSTRAINT SCOTT_EMP_EMP_MID_RK REFERENCES EMP(EID),DID NUMBER(2) CONSTRAINT SCOTT_EMP_DEPT_DID_RK REFERENCES DEPT(DID));
+CREATE TABLE EMP(EID NUMBER(4) CONSTARINT SCOTT_EMP_EID_PK PRIMARY KEY,NAME VARCHAR2(10),MID NUMBER(4) CONSTRAINT SCOTT_EMP_EMP_MID_RK REFERENCES EMP(EID),DID NUMBER(2) CONSTRAINT SCOTT_EMP_DEPT_DID_RK REFERENCES DEPT(DID))
+                               *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> CREATE TABLE EMP(EID NUMBER(4) CONSTRAINT SCOTT_EMP_EID_PK PRIMARY KEY,NAME VARCHAR2(10),MID NUMBER(4) CONSTRAINT SCOTT_EMP_EMP_MID_RK REFERENCES EMP(EID),DID NUMBER(2) CONSTRAINT SCOTT_EMP_DEPT_DID_RK REFERENCES DEPT(DID));
+
+Table created.
+
+SQL> REM CONSTRAINT NAME CONVENTION : USERNAME_TABLENAME_COLUMNNAME_CONSTRAINTTYPE#NUMBER
+SQL> 
+SQL> INSERT INTO EMP VALUES (1,'GANESH');
+INSERT INTO EMP VALUES (1,'GANESH')
+            *
+ERROR at line 1:
+ORA-00947: not enough values 
+
+
+SQL> INSERT INTO DEPT VALUES (10,'ACC');
+
+1 row created.
+
+SQL> INSERT INTO DEPT VALUES (20,'SAL');
+
+1 row created.
+
+SQL> INSERT INTO DEPT VALUES (20,'RES');
+INSERT INTO DEPT VALUES (20,'RES')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SCOTT.SCOTT_DEPT_DID_PK) violated 
+
+
+SQL> REM CONSTRAINT LEVEL : 1 COLUMN LEVEL (COMPLETED) 2 TABLE LEVEL
+SQL> 
+SQL> REM RELATIONSHIP TYPE
+SQL> 
+SQL> REM CREATE TABLE USING SUB QUERY
+SQL> 
+SQL> SPOOL OFF

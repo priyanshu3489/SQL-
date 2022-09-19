@@ -1,0 +1,1403 @@
+SQL> 
+SQL> CL SCR
+
+SQL> SELECT FIRST_NAME,  DEPARTMENT_ID FROM EMPLOYEES;
+
+FIRST_NAME DEPARTMENT_ID                                                                                                                                                                                
+---------- -------------                                                                                                                                                                                
+Steven                90                                                                                                                                                                                
+Neena                 90                                                                                                                                                                                
+Lex                   90                                                                                                                                                                                
+Alexander             60                                                                                                                                                                                
+Bruce                 60                                                                                                                                                                                
+Diana                 60                                                                                                                                                                                
+Kevin                 50                                                                                                                                                                                
+Trenna                50                                                                                                                                                                                
+Curtis                50                                                                                                                                                                                
+Randall               50                                                                                                                                                                                
+Peter                 50                                                                                                                                                                                
+Eleni                 80                                                                                                                                                                                
+Ellen                 80                                                                                                                                                                                
+Jonathon              80                                                                                                                                                                                
+Kimerely                                                                                                                                                                                                
+Jennifer              10                                                                                                                                                                                
+Michael               20                                                                                                                                                                                
+Pat                   20                                                                                                                                                                                
+Shelley              110                                                                                                                                                                                
+William              110                                                                                                                                                                                
+
+20 rows selected.
+
+SQL> SELECT DEPARTMENT_ID , DEPARTMENT_NAME FROM DEPARTMENTS;
+
+DEPARTMENT_ID DEPARTMENT_NAME                                                                                                                                                                           
+------------- ------------------------------                                                                                                                                                            
+           10 Administration                                                                                                                                                                            
+           20 Marketing                                                                                                                                                                                 
+           50 Shiping                                                                                                                                                                                   
+           60 IT                                                                                                                                                                                        
+           80 Sales                                                                                                                                                                                     
+           90 Executive                                                                                                                                                                                 
+          110 Accounting                                                                                                                                                                                
+          190 Contracting                                                                                                                                                                               
+
+8 rows selected.
+
+SQL> SELECT FIRST_NAME, DEPARTMENT_NAME
+  2  FROM EMPLOYEES
+  3  INNER JOIN DEPARTMENTS USING (DEPARTMENT_ID);
+
+FIRST_NAME DEPARTMENT_NAME                                                                                                                                                                              
+---------- ------------------------------                                                                                                                                                               
+Jennifer   Administration                                                                                                                                                                               
+Michael    Marketing                                                                                                                                                                                    
+Pat        Marketing                                                                                                                                                                                    
+Kevin      Shiping                                                                                                                                                                                      
+Peter      Shiping                                                                                                                                                                                      
+Randall    Shiping                                                                                                                                                                                      
+Curtis     Shiping                                                                                                                                                                                      
+Trenna     Shiping                                                                                                                                                                                      
+Diana      IT                                                                                                                                                                                           
+Bruce      IT                                                                                                                                                                                           
+Alexander  IT                                                                                                                                                                                           
+Ellen      Sales                                                                                                                                                                                        
+Eleni      Sales                                                                                                                                                                                        
+Jonathon   Sales                                                                                                                                                                                        
+Lex        Executive                                                                                                                                                                                    
+Steven     Executive                                                                                                                                                                                    
+Neena      Executive                                                                                                                                                                                    
+William    Accounting                                                                                                                                                                                   
+Shelley    Accounting                                                                                                                                                                                   
+
+19 rows selected.
+
+SQL> SELECT FIRST_NAME, DEPARTMENT_NAME
+  2  FROM EMPLOYEES
+  3  INNER JOIN DEPARTMENTS USING (DEPARTMENT_ID) ORDER BY 1;
+
+FIRST_NAME DEPARTMENT_NAME                                                                                                                                                                              
+---------- ------------------------------                                                                                                                                                               
+Alexander  IT                                                                                                                                                                                           
+Bruce      IT                                                                                                                                                                                           
+Curtis     Shiping                                                                                                                                                                                      
+Diana      IT                                                                                                                                                                                           
+Eleni      Sales                                                                                                                                                                                        
+Ellen      Sales                                                                                                                                                                                        
+Jennifer   Administration                                                                                                                                                                               
+Jonathon   Sales                                                                                                                                                                                        
+Kevin      Shiping                                                                                                                                                                                      
+Lex        Executive                                                                                                                                                                                    
+Michael    Marketing                                                                                                                                                                                    
+Neena      Executive                                                                                                                                                                                    
+Pat        Marketing                                                                                                                                                                                    
+Peter      Shiping                                                                                                                                                                                      
+Randall    Shiping                                                                                                                                                                                      
+Shelley    Accounting                                                                                                                                                                                   
+Steven     Executive                                                                                                                                                                                    
+Trenna     Shiping                                                                                                                                                                                      
+William    Accounting                                                                                                                                                                                   
+
+19 rows selected.
+
+SQL> SELECT FIRST_NAME, DEPARTMENT_NAME
+  2  FROM EMPLOYEES
+  3  INNER JOIN DEPARTMENTS USING (DEPARTMENT_ID) ORDER BY 2;
+
+FIRST_NAME DEPARTMENT_NAME                                                                                                                                                                              
+---------- ------------------------------                                                                                                                                                               
+William    Accounting                                                                                                                                                                                   
+Shelley    Accounting                                                                                                                                                                                   
+Jennifer   Administration                                                                                                                                                                               
+Neena      Executive                                                                                                                                                                                    
+Steven     Executive                                                                                                                                                                                    
+Lex        Executive                                                                                                                                                                                    
+Bruce      IT                                                                                                                                                                                           
+Alexander  IT                                                                                                                                                                                           
+Diana      IT                                                                                                                                                                                           
+Michael    Marketing                                                                                                                                                                                    
+Pat        Marketing                                                                                                                                                                                    
+Eleni      Sales                                                                                                                                                                                        
+Ellen      Sales                                                                                                                                                                                        
+Jonathon   Sales                                                                                                                                                                                        
+Peter      Shiping                                                                                                                                                                                      
+Kevin      Shiping                                                                                                                                                                                      
+Randall    Shiping                                                                                                                                                                                      
+Trenna     Shiping                                                                                                                                                                                      
+Curtis     Shiping                                                                                                                                                                                      
+
+19 rows selected.
+
+SQL> REM OUTER JOIN IS USED TO GET EXTRA ROWS OF SINGLE OR BOTH TABLES.
+SQL> 
+SQL> SELECT FIRST_NAME, DEPARTMENT_NAME
+  2  FROM EMPLOYEES
+  3  LEFT OUTER JOIN DEPARTMENTS USING (DEPARTMENT_ID) ORDER BY 2;
+
+FIRST_NAME DEPARTMENT_NAME                                                                                                                                                                              
+---------- ------------------------------                                                                                                                                                               
+William    Accounting                                                                                                                                                                                   
+Shelley    Accounting                                                                                                                                                                                   
+Jennifer   Administration                                                                                                                                                                               
+Lex        Executive                                                                                                                                                                                    
+Neena      Executive                                                                                                                                                                                    
+Steven     Executive                                                                                                                                                                                    
+Bruce      IT                                                                                                                                                                                           
+Diana      IT                                                                                                                                                                                           
+Alexander  IT                                                                                                                                                                                           
+Michael    Marketing                                                                                                                                                                                    
+Pat        Marketing                                                                                                                                                                                    
+Eleni      Sales                                                                                                                                                                                        
+Ellen      Sales                                                                                                                                                                                        
+Jonathon   Sales                                                                                                                                                                                        
+Kevin      Shiping                                                                                                                                                                                      
+Trenna     Shiping                                                                                                                                                                                      
+Randall    Shiping                                                                                                                                                                                      
+Curtis     Shiping                                                                                                                                                                                      
+Peter      Shiping                                                                                                                                                                                      
+Kimerely                                                                                                                                                                                                
+
+20 rows selected.
+
+SQL> REM OUTER JOIN IS USED TO GET EXTRA ROWS OF SINGLE OR BOTH TABLES.
+SQL> 
+SQL> FROM EMPLOYEES
+SP2-0734: unknown command beginning "FROM EMPLO..." - rest of line ignored.
+SQL> INNER JOIN DEPARTMENTS USING (DEPARTMENT_ID) ORDER BY 2;
+SP2-0734: unknown command beginning "INNER JOIN..." - rest of line ignored.
+SQL> 
+SQL> 
+SQL> SELECT FIRST_NAME, DEPARTMENT_NAME
+  2  FROM EMPLOYEES
+  3  RIGHT JOIN DEPARTMENTS USING (DEPARTMENT_ID) ORDER BY 2;
+
+FIRST_NAME DEPARTMENT_NAME                                                                                                                                                                              
+---------- ------------------------------                                                                                                                                                               
+Shelley    Accounting                                                                                                                                                                                   
+William    Accounting                                                                                                                                                                                   
+Jennifer   Administration                                                                                                                                                                               
+           Contracting                                                                                                                                                                                  
+Neena      Executive                                                                                                                                                                                    
+Steven     Executive                                                                                                                                                                                    
+Lex        Executive                                                                                                                                                                                    
+Bruce      IT                                                                                                                                                                                           
+Alexander  IT                                                                                                                                                                                           
+Diana      IT                                                                                                                                                                                           
+Pat        Marketing                                                                                                                                                                                    
+Michael    Marketing                                                                                                                                                                                    
+Jonathon   Sales                                                                                                                                                                                        
+Eleni      Sales                                                                                                                                                                                        
+Ellen      Sales                                                                                                                                                                                        
+Curtis     Shiping                                                                                                                                                                                      
+Kevin      Shiping                                                                                                                                                                                      
+Peter      Shiping                                                                                                                                                                                      
+Trenna     Shiping                                                                                                                                                                                      
+Randall    Shiping                                                                                                                                                                                      
+
+20 rows selected.
+
+SQL> SELECT FIRST_NAME, DEPARTMENT_NAME
+  2  FROM EMPLOYEES
+  3  FOOL JOIN DEPARTMENTS USING (DEPARTMENT_ID) ORDER BY 2;
+
+FIRST_NAME DEPARTMENT_NAME                                                                                                                                                                              
+---------- ------------------------------                                                                                                                                                               
+William    Accounting                                                                                                                                                                                   
+Shelley    Accounting                                                                                                                                                                                   
+Jennifer   Administration                                                                                                                                                                               
+Neena      Executive                                                                                                                                                                                    
+Steven     Executive                                                                                                                                                                                    
+Lex        Executive                                                                                                                                                                                    
+Bruce      IT                                                                                                                                                                                           
+Alexander  IT                                                                                                                                                                                           
+Diana      IT                                                                                                                                                                                           
+Michael    Marketing                                                                                                                                                                                    
+Pat        Marketing                                                                                                                                                                                    
+Eleni      Sales                                                                                                                                                                                        
+Ellen      Sales                                                                                                                                                                                        
+Jonathon   Sales                                                                                                                                                                                        
+Peter      Shiping                                                                                                                                                                                      
+Kevin      Shiping                                                                                                                                                                                      
+Randall    Shiping                                                                                                                                                                                      
+Trenna     Shiping                                                                                                                                                                                      
+Curtis     Shiping                                                                                                                                                                                      
+
+19 rows selected.
+
+SQL> SELECT FIRST_NAME, DEPARTMENT_NAME
+  2  FROM EMPLOYEES
+  3  FULL JOIN DEPARTMENTS USING (DEPARTMENT_ID) ORDER BY 2;
+
+FIRST_NAME DEPARTMENT_NAME                                                                                                                                                                              
+---------- ------------------------------                                                                                                                                                               
+Shelley    Accounting                                                                                                                                                                                   
+William    Accounting                                                                                                                                                                                   
+Jennifer   Administration                                                                                                                                                                               
+           Contracting                                                                                                                                                                                  
+Lex        Executive                                                                                                                                                                                    
+Steven     Executive                                                                                                                                                                                    
+Neena      Executive                                                                                                                                                                                    
+Diana      IT                                                                                                                                                                                           
+Bruce      IT                                                                                                                                                                                           
+Alexander  IT                                                                                                                                                                                           
+Pat        Marketing                                                                                                                                                                                    
+Michael    Marketing                                                                                                                                                                                    
+Ellen      Sales                                                                                                                                                                                        
+Eleni      Sales                                                                                                                                                                                        
+Jonathon   Sales                                                                                                                                                                                        
+Kevin      Shiping                                                                                                                                                                                      
+Peter      Shiping                                                                                                                                                                                      
+Randall    Shiping                                                                                                                                                                                      
+Curtis     Shiping                                                                                                                                                                                      
+Trenna     Shiping                                                                                                                                                                                      
+Kimerely                                                                                                                                                                                                
+
+21 rows selected.
+
+SQL> REM SELF JOIN IS NOT SYNTACTICAL JOIN, BUT IT IS CONCEPTUAL/LOGICAL JOIN
+SQL> 
+SQL> SELECT EMPLOYEE_ID , FIRST_NAME , MANAGER_ID FROM EMPLOYEES;
+
+EMPLOYEE_ID FIRST_NAME MANAGER_ID                                                                                                                                                                       
+----------- ---------- ----------                                                                                                                                                                       
+        100 Steven                                                                                                                                                                                      
+        101 Neena             100                                                                                                                                                                       
+        102 Lex               100                                                                                                                                                                       
+        103 Alexander         102                                                                                                                                                                       
+        104 Bruce             103                                                                                                                                                                       
+        107 Diana             103                                                                                                                                                                       
+        124 Kevin             100                                                                                                                                                                       
+        141 Trenna            124                                                                                                                                                                       
+        142 Curtis            124                                                                                                                                                                       
+        143 Randall           124                                                                                                                                                                       
+        144 Peter             124                                                                                                                                                                       
+        149 Eleni             100                                                                                                                                                                       
+        174 Ellen             149                                                                                                                                                                       
+        176 Jonathon          149                                                                                                                                                                       
+        178 Kimerely          149                                                                                                                                                                       
+        200 Jennifer          101                                                                                                                                                                       
+        201 Michael           100                                                                                                                                                                       
+        202 Pat               201                                                                                                                                                                       
+        205 Shelley           101                                                                                                                                                                       
+        206 William           205                                                                                                                                                                       
+
+20 rows selected.
+
+SQL> SELECT E.FIRST_NAME , M.FIRST_NAME
+  2  FROM EMPLOYEES E
+  3  JOIN EMPLOYEES M ON E.MANAGER_ID = M.EMPLOYEE_ID;
+
+FIRST_NAME FIRST_NAME                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+Neena      Steven                                                                                                                                                                                       
+Lex        Steven                                                                                                                                                                                       
+Kevin      Steven                                                                                                                                                                                       
+Eleni      Steven                                                                                                                                                                                       
+Michael    Steven                                                                                                                                                                                       
+Jennifer   Neena                                                                                                                                                                                        
+Shelley    Neena                                                                                                                                                                                        
+Alexander  Lex                                                                                                                                                                                          
+Bruce      Alexander                                                                                                                                                                                    
+Diana      Alexander                                                                                                                                                                                    
+Trenna     Kevin                                                                                                                                                                                        
+Curtis     Kevin                                                                                                                                                                                        
+Randall    Kevin                                                                                                                                                                                        
+Peter      Kevin                                                                                                                                                                                        
+Ellen      Eleni                                                                                                                                                                                        
+Jonathon   Eleni                                                                                                                                                                                        
+Kimerely   Eleni                                                                                                                                                                                        
+Pat        Michael                                                                                                                                                                                      
+William    Shelley                                                                                                                                                                                      
+
+19 rows selected.
+
+SQL> SELECT E.FIRST_NAME , M.FIRST_NAME
+  2  FROM EMPLOYEES E
+  3  LEFT OUTER JOIN EMPLOYEES M ON E.MANAGER_ID = M.EMPLOYEE_ID;
+
+FIRST_NAME FIRST_NAME                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+Neena      Steven                                                                                                                                                                                       
+Lex        Steven                                                                                                                                                                                       
+Kevin      Steven                                                                                                                                                                                       
+Eleni      Steven                                                                                                                                                                                       
+Michael    Steven                                                                                                                                                                                       
+Jennifer   Neena                                                                                                                                                                                        
+Shelley    Neena                                                                                                                                                                                        
+Alexander  Lex                                                                                                                                                                                          
+Bruce      Alexander                                                                                                                                                                                    
+Diana      Alexander                                                                                                                                                                                    
+Trenna     Kevin                                                                                                                                                                                        
+Curtis     Kevin                                                                                                                                                                                        
+Randall    Kevin                                                                                                                                                                                        
+Peter      Kevin                                                                                                                                                                                        
+Ellen      Eleni                                                                                                                                                                                        
+Jonathon   Eleni                                                                                                                                                                                        
+Kimerely   Eleni                                                                                                                                                                                        
+Pat        Michael                                                                                                                                                                                      
+William    Shelley                                                                                                                                                                                      
+Steven                                                                                                                                                                                                  
+
+20 rows selected.
+
+SQL> SELECT E.FIRST_NAME EMP_NAME, M.FIRST_NAME MGR_NAME
+  2  FROM EMPLOYEES E
+  3  LEFT OUTER JOIN EMPLOYEES M ON E.MANAGER_ID = M.EMPLOYEE_ID;
+
+EMP_NAME   MGR_NAME                                                                                                                                                                                     
+---------- ----------                                                                                                                                                                                   
+Neena      Steven                                                                                                                                                                                       
+Lex        Steven                                                                                                                                                                                       
+Kevin      Steven                                                                                                                                                                                       
+Eleni      Steven                                                                                                                                                                                       
+Michael    Steven                                                                                                                                                                                       
+Jennifer   Neena                                                                                                                                                                                        
+Shelley    Neena                                                                                                                                                                                        
+Alexander  Lex                                                                                                                                                                                          
+Bruce      Alexander                                                                                                                                                                                    
+Diana      Alexander                                                                                                                                                                                    
+Trenna     Kevin                                                                                                                                                                                        
+Curtis     Kevin                                                                                                                                                                                        
+Randall    Kevin                                                                                                                                                                                        
+Peter      Kevin                                                                                                                                                                                        
+Ellen      Eleni                                                                                                                                                                                        
+Jonathon   Eleni                                                                                                                                                                                        
+Kimerely   Eleni                                                                                                                                                                                        
+Pat        Michael                                                                                                                                                                                      
+William    Shelley                                                                                                                                                                                      
+Steven                                                                                                                                                                                                  
+
+20 rows selected.
+
+SQL> REM CHAPTER 7 SUB QUERY
+SQL> 
+SQL> REM SUB QUERY
+SQL> 
+SQL> REM 1 TO COMPARE SUMMARY ITEM IN WHERE CLAUSE
+SQL> 
+SQL> REM 2 WHEN OUR MAIN REQUIREMENT HAS SOME HIDDEN REQUIREMENT
+SQL> 
+SQL> REM 3 TO COMPARE NESTED SUMMARY ITEM IN HAVING CLAUSE
+SQL> 
+SQL> REM 4 WHEN WE WANT TO USE RESULT OF SUB QUERY AS TABLE OF MAIN QUERY
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> REM 1 TO COMPARE SUMMARY ITEM IN WHERE CLAUSE
+SQL> 
+SQL> REM DISPLAY INFO. ABOUT EMPLOYEE WHO GETS HIGHER SALARY THAN AVERAGE SALARY PAID BY COMPANY
+SQL> 
+SQL> REM SALARY > AVG(SALARY)
+SQL> 
+SQL> REM NON SUMMARY ITEM > SUMMARY ITEM
+SQL> 
+SQL> REM SUMMARY ITEMS/FUNCTIONS : MIN MAX SUM COUNT AVG
+SQL> 
+SQL> 
+SQL> 
+SQL> SELECT FIRST_NAME , SALARY FROM EMPLOYEES
+  2  WHERE SALARY > AVG(SALARY);
+WHERE SALARY > AVG(SALARY)
+               *
+ERROR at line 2:
+ORA-00934: group function is not allowed here 
+
+
+SQL> REM SUMMARY ITEMS/FUNCTIONS : MIN MAX SUM COUNT AVG
+SQL> 
+SQL> SELECT FIRST_NAME , SALARY FROM EMPLOYEES
+  2  WHERE SALARY > (SELECT AVG(SALARY) FROM EMPLOYEES);
+
+FIRST_NAME     SALARY                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+Steven          24000                                                                                                                                                                                   
+Neena           17000                                                                                                                                                                                   
+Lex             17000                                                                                                                                                                                   
+Alexander        9000                                                                                                                                                                                   
+Eleni           10500                                                                                                                                                                                   
+Ellen           11000                                                                                                                                                                                   
+Michael         13000                                                                                                                                                                                   
+Shelley         12000                                                                                                                                                                                   
+
+8 rows selected.
+
+SQL> SELECT AVG(SALARY) FROM EMPLOYEES;
+
+AVG(SALARY)                                                                                                                                                                                             
+-----------                                                                                                                                                                                             
+       8775                                                                                                                                                                                             
+
+SQL> REM EXECUTION PRECEDENCE : FROM -> WHERE -> GROUP BY -> HAVING -> COLUMN ALIAS -> ORDER BY -> OFFSET -> FETCH -> SELECT ...
+SQL> 
+SQL> REM 2 WHEN OUR MAIN REQUIREMENT HAS SOME HIDDEN REQUIREMENT
+SQL> 
+SQL> REM DISPLAY THOSE WHO GETS HIGHER SALARY THAN Abel
+SQL> 
+SQL> SELECT LAST_NAME , SALARY
+  2  FROM EMPLOYEES
+  3  WHERE SALARY > (SELECT SALARY FROM EMPLOYEES WHERE LAST_NAME = 'Abel');
+
+LAST_NAME      SALARY                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+King            24000                                                                                                                                                                                   
+Kochhar         17000                                                                                                                                                                                   
+De Haan         17000                                                                                                                                                                                   
+Hartstein       13000                                                                                                                                                                                   
+Higgins         12000                                                                                                                                                                                   
+
+SQL> SELECT SALARY FROM EMPLOYEES WHERE LAST_NAME = 'Abel';
+
+    SALARY                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+     11000                                                                                                                                                                                              
+
+SQL> REM 3 TO COMPARE NESTED SUMMARY ITEM IN HAVING CLAUSE
+SQL> 
+SQL> REM DISPLAY DEPARTMENT_ID AND AVERAGE SALARY FOR THE DEPARTMENT TO WHICH HIGHEST AVERAGE SALARY IS PAID
+SQL> 
+SQL> REM AVG(SALARY) = MAX(AVG(SALARY))
+SQL> 
+SQL> REM SUMMARY ITEM = NESTED SUMMARY ITEM
+SQL> 
+SQL> SELECT DEPARTMENT_ID , AVG(SALARY)
+  2  FROM EMPLOYEES
+  3  GROUP BY DEPARTMENT_ID
+  4  ;
+
+DEPARTMENT_ID AVG(SALARY)                                                                                                                                                                               
+------------- -----------                                                                                                                                                                               
+                     7000                                                                                                                                                                               
+           90  19333.3333                                                                                                                                                                               
+           20        9500                                                                                                                                                                               
+          110       10150                                                                                                                                                                               
+           50        3500                                                                                                                                                                               
+           80  10033.3333                                                                                                                                                                               
+           60        6400                                                                                                                                                                               
+           10        4400                                                                                                                                                                               
+
+8 rows selected.
+
+SQL> SELECT DEPARTMENT_ID , MAX(AVG(SALARY))
+  2  FROM EMPLOYEES
+  3  GROUP BY DEPARTMENT_ID;
+SELECT DEPARTMENT_ID , MAX(AVG(SALARY))
+       *
+ERROR at line 1:
+ORA-00937: not a single-group group function 
+
+
+SQL> SELECT DEPARTMENT_ID , AVG(SALARY)
+  2  FROM EMPLOYEES
+  3  GROUP BY DEPARTMENT_ID
+  4  HAVING AVG(SALARY) = (SELECT MAX(AVG(SALARY)) FROM EMPLOYEES);
+HAVING AVG(SALARY) = (SELECT MAX(AVG(SALARY)) FROM EMPLOYEES)
+                                 *
+ERROR at line 4:
+ORA-00978: nested group function without GROUP BY 
+
+
+SQL> SELECT DEPARTMENT_ID , AVG(SALARY)
+  2  FROM EMPLOYEES
+  3  GROUP BY DEPARTMENT_ID
+  4  HAVING AVG(SALARY) = (SELECT MAX(AVG(SALARY)) FROM EMPLOYEES GROUP BY DEPARTMENT_ID);
+
+DEPARTMENT_ID AVG(SALARY)                                                                                                                                                                               
+------------- -----------                                                                                                                                                                               
+           90  19333.3333                                                                                                                                                                               
+
+SQL> REM 4 WHEN WE WANT TO USE RESULT OF SUB QUERY AS TABLE OF MAIN QUERY
+SQL> 
+SQL> SELECT FIRST_NAME , DEPARTMENT_ID , SALARY FROM EMPLOYEES ORDER BY 2, 3 DESC;
+
+FIRST_NAME DEPARTMENT_ID     SALARY                                                                                                                                                                     
+---------- ------------- ----------                                                                                                                                                                     
+Jennifer              10       4400                                                                                                                                                                     
+Michael               20      13000                                                                                                                                                                     
+Pat                   20       6000                                                                                                                                                                     
+Kevin                 50       5800                                                                                                                                                                     
+Trenna                50       3500                                                                                                                                                                     
+Curtis                50       3100                                                                                                                                                                     
+Randall               50       2600                                                                                                                                                                     
+Peter                 50       2500                                                                                                                                                                     
+Alexander             60       9000                                                                                                                                                                     
+Bruce                 60       6000                                                                                                                                                                     
+Diana                 60       4200                                                                                                                                                                     
+Ellen                 80      11000                                                                                                                                                                     
+Eleni                 80      10500                                                                                                                                                                     
+Jonathon              80       8600                                                                                                                                                                     
+Steven                90      24000                                                                                                                                                                     
+Lex                   90      17000                                                                                                                                                                     
+Neena                 90      17000                                                                                                                                                                     
+Shelley              110      12000                                                                                                                                                                     
+William              110       8300                                                                                                                                                                     
+Kimerely                       7000                                                                                                                                                                     
+
+20 rows selected.
+
+SQL> SELECT FIRST_NAME , DEPARTMENT_ID , SALARY , MAX(SALARY) FROM EMPLOYEES;
+SELECT FIRST_NAME , DEPARTMENT_ID , SALARY , MAX(SALARY) FROM EMPLOYEES
+       *
+ERROR at line 1:
+ORA-00937: not a single-group group function 
+
+
+SQL> SELECT FIRST_NAME , DEPARTMENT_ID , SALARY , MAX(SALARY) FROM EMPLOYEES GROUP BY DEPARTMENT_ID;
+SELECT FIRST_NAME , DEPARTMENT_ID , SALARY , MAX(SALARY) FROM EMPLOYEES GROUP BY DEPARTMENT_ID
+       *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> SELECT FIRST_NAME , DEPARTMENT_ID , SALARY , MAX(SALARY) FROM EMPLOYEES GROUP BY DEPARTMENT_ID, FIRST_NAME , SALARY;
+
+FIRST_NAME DEPARTMENT_ID     SALARY MAX(SALARY)                                                                                                                                                         
+---------- ------------- ---------- -----------                                                                                                                                                         
+Neena                 90      17000       17000                                                                                                                                                         
+Jennifer              10       4400        4400                                                                                                                                                         
+Lex                   90      17000       17000                                                                                                                                                         
+Jonathon              80       8600        8600                                                                                                                                                         
+Kimerely                       7000        7000                                                                                                                                                         
+Pat                   20       6000        6000                                                                                                                                                         
+Alexander             60       9000        9000                                                                                                                                                         
+Michael               20      13000       13000                                                                                                                                                         
+Bruce                 60       6000        6000                                                                                                                                                         
+Trenna                50       3500        3500                                                                                                                                                         
+Curtis                50       3100        3100                                                                                                                                                         
+Eleni                 80      10500       10500                                                                                                                                                         
+Ellen                 80      11000       11000                                                                                                                                                         
+Steven                90      24000       24000                                                                                                                                                         
+Diana                 60       4200        4200                                                                                                                                                         
+Kevin                 50       5800        5800                                                                                                                                                         
+Randall               50       2600        2600                                                                                                                                                         
+Peter                 50       2500        2500                                                                                                                                                         
+Shelley              110      12000       12000                                                                                                                                                         
+William              110       8300        8300                                                                                                                                                         
+
+20 rows selected.
+
+SQL> SELECT DEPARTMENT_ID , MAX(SALARY) FROM EMPLOYEES GROUP BY DEPARTMENT_ID;
+
+DEPARTMENT_ID MAX(SALARY)                                                                                                                                                                               
+------------- -----------                                                                                                                                                                               
+                     7000                                                                                                                                                                               
+           90       24000                                                                                                                                                                               
+           20       13000                                                                                                                                                                               
+          110       12000                                                                                                                                                                               
+           50        5800                                                                                                                                                                               
+           80       11000                                                                                                                                                                               
+           60        9000                                                                                                                                                                               
+           10        4400                                                                                                                                                                               
+
+8 rows selected.
+
+SQL> SELECT FIRST_NAME , DEPARTMENT_ID , SALARY , MAX(SALARY)
+  2  FROM EMPLOYEES
+  3  NATURAL JOIN (SELECT DEPARTMENT_ID , MAX(SALARY) FROM EMPLOYEES GROUP BY DEPARTMENT_ID);
+SELECT FIRST_NAME , DEPARTMENT_ID , SALARY , MAX(SALARY)
+       *
+ERROR at line 1:
+ORA-00937: not a single-group group function 
+
+
+SQL> SELECT FIRST_NAME , DEPARTMENT_ID , SALARY , "MAX(SALARY)"
+  2  FROM EMPLOYEES
+  3  NATURAL JOIN (SELECT DEPARTMENT_ID , MAX(SALARY) FROM EMPLOYEES GROUP BY DEPARTMENT_ID);
+
+FIRST_NAME DEPARTMENT_ID     SALARY MAX(SALARY)                                                                                                                                                         
+---------- ------------- ---------- -----------                                                                                                                                                         
+Steven                90      24000       24000                                                                                                                                                         
+Neena                 90      17000       24000                                                                                                                                                         
+Lex                   90      17000       24000                                                                                                                                                         
+Alexander             60       9000        9000                                                                                                                                                         
+Bruce                 60       6000        9000                                                                                                                                                         
+Diana                 60       4200        9000                                                                                                                                                         
+Kevin                 50       5800        5800                                                                                                                                                         
+Trenna                50       3500        5800                                                                                                                                                         
+Curtis                50       3100        5800                                                                                                                                                         
+Randall               50       2600        5800                                                                                                                                                         
+Peter                 50       2500        5800                                                                                                                                                         
+Eleni                 80      10500       11000                                                                                                                                                         
+Ellen                 80      11000       11000                                                                                                                                                         
+Jonathon              80       8600       11000                                                                                                                                                         
+Jennifer              10       4400        4400                                                                                                                                                         
+Michael               20      13000       13000                                                                                                                                                         
+Pat                   20       6000       13000                                                                                                                                                         
+Shelley              110      12000       12000                                                                                                                                                         
+William              110       8300       12000                                                                                                                                                         
+
+19 rows selected.
+
+SQL> SELECT FIRST_NAME , DEPARTMENT_ID , SALARY , MAXSALARY
+  2  FROM EMPLOYEES
+  3  NATURAL JOIN (SELECT DEPARTMENT_ID , MAX(SALARY) MAXSALARY FROM EMPLOYEES GROUP BY DEPARTMENT_ID);
+
+FIRST_NAME DEPARTMENT_ID     SALARY  MAXSALARY                                                                                                                                                          
+---------- ------------- ---------- ----------                                                                                                                                                          
+Steven                90      24000      24000                                                                                                                                                          
+Neena                 90      17000      24000                                                                                                                                                          
+Lex                   90      17000      24000                                                                                                                                                          
+Alexander             60       9000       9000                                                                                                                                                          
+Bruce                 60       6000       9000                                                                                                                                                          
+Diana                 60       4200       9000                                                                                                                                                          
+Kevin                 50       5800       5800                                                                                                                                                          
+Trenna                50       3500       5800                                                                                                                                                          
+Curtis                50       3100       5800                                                                                                                                                          
+Randall               50       2600       5800                                                                                                                                                          
+Peter                 50       2500       5800                                                                                                                                                          
+Eleni                 80      10500      11000                                                                                                                                                          
+Ellen                 80      11000      11000                                                                                                                                                          
+Jonathon              80       8600      11000                                                                                                                                                          
+Jennifer              10       4400       4400                                                                                                                                                          
+Michael               20      13000      13000                                                                                                                                                          
+Pat                   20       6000      13000                                                                                                                                                          
+Shelley              110      12000      12000                                                                                                                                                          
+William              110       8300      12000                                                                                                                                                          
+
+19 rows selected.
+
+SQL> REM CHAPTER 8 SET OPERATORS
+SQL> 
+SQL> REM 1 UNION ALL 2 UNION 3 INTERSECT 4 MINUS
+SQL> 
+SQL> REM TO CLUB RESULT SETS VERTICALLY
+SQL> 
+SQL> REM RESULT SET : RESULT WHICH IS RETURNED/DISPLAYED BY EXECUTING SELECT STATEMENT
+SQL> 
+SQL> 
+SQL> 
+SQL> SELECT * FROM MPSEMP;
+
+     EMPNO ENAME      JOB               MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                  
+---------- ---------- ---------- ---------- --------- ---------- ---------- ----------                                                                                                                  
+      7839 KING       PRESIDENT             17-NOV-81       5000                    10                                                                                                                  
+      7782 CLARK      MANAGER          7839 09-JUN-81       2450                    10                                                                                                                  
+      7566 JONES      MANAGER          7839 02-APR-81       2975                    20                                                                                                                  
+      7902 FORD       ANALYST          7566 04-DEC-81                  3000         20                                                                                                                  
+      7698 BLAKE      MANAGER          7839 01-MAY-91       2850                    30                                                                                                                  
+      7369 SMITH      CLERK            7902 17-DEC-80        800                    20                                                                                                                  
+      7499 ALLEN      SALESMAN         7698 20-FEB-81       1600        300         30                                                                                                                  
+      7521 WARD       SALESMAN         7698 22-FEB-81       1250        500         30                                                                                                                  
+      7654 MARTIN     SALESMAN         7698 28-SEP-81       1250       1400         30                                                                                                                  
+      7788 SCOTT      ANALYST          7566 09-DEC-82       3000                    20                                                                                                                  
+      7844 TURNER     SALESMAN         7698 08-SEP-81       1500          0         30                                                                                                                  
+      7876 ADAMS      CLERK            7788 12-JAN-89                  1100         20                                                                                                                  
+      7900 JAMES      CLERK            7698 03-DEC-81                   950         30                                                                                                                  
+      7934 MILLER     CLERK            7782 23-JAN-82       1300                    10                                                                                                                  
+
+14 rows selected.
+
+SQL> SELECT JOB FROM MPSEMP;
+
+JOB                                                                                                                                                                                                     
+----------                                                                                                                                                                                              
+PRESIDENT                                                                                                                                                                                               
+MANAGER                                                                                                                                                                                                 
+MANAGER                                                                                                                                                                                                 
+ANALYST                                                                                                                                                                                                 
+MANAGER                                                                                                                                                                                                 
+CLERK                                                                                                                                                                                                   
+SALESMAN                                                                                                                                                                                                
+SALESMAN                                                                                                                                                                                                
+SALESMAN                                                                                                                                                                                                
+ANALYST                                                                                                                                                                                                 
+SALESMAN                                                                                                                                                                                                
+CLERK                                                                                                                                                                                                   
+CLERK                                                                                                                                                                                                   
+CLERK                                                                                                                                                                                                   
+
+14 rows selected.
+
+SQL> SELECT JOB FROM MPSEMP WHERE DEPTNO = 10;
+
+JOB                                                                                                                                                                                                     
+----------                                                                                                                                                                                              
+PRESIDENT                                                                                                                                                                                               
+MANAGER                                                                                                                                                                                                 
+CLERK                                                                                                                                                                                                   
+
+SQL> SELECT JOB FROM MPSEMP WHERE DEPTNO = 20;
+
+JOB                                                                                                                                                                                                     
+----------                                                                                                                                                                                              
+MANAGER                                                                                                                                                                                                 
+ANALYST                                                                                                                                                                                                 
+CLERK                                                                                                                                                                                                   
+ANALYST                                                                                                                                                                                                 
+CLERK                                                                                                                                                                                                   
+
+SQL> SELECT JOB FROM MPSEMP WHERE DEPTNO = 30;
+
+JOB                                                                                                                                                                                                     
+----------                                                                                                                                                                                              
+MANAGER                                                                                                                                                                                                 
+SALESMAN                                                                                                                                                                                                
+SALESMAN                                                                                                                                                                                                
+SALESMAN                                                                                                                                                                                                
+SALESMAN                                                                                                                                                                                                
+CLERK                                                                                                                                                                                                   
+
+6 rows selected.
+
+SQL> REM UNION ALL : SIMPLY CLUB ALL THE ROWS OF BOTH RESULT SET INCLUDING DUPLICATES
+SQL> 
+SQL> SELECT JOB FROM MPSEMP WHERE DEPTNO = 10;
+
+JOB                                                                                                                                                                                                     
+----------                                                                                                                                                                                              
+PRESIDENT                                                                                                                                                                                               
+MANAGER                                                                                                                                                                                                 
+CLERK                                                                                                                                                                                                   
+
+SQL> SELECT JOB FROM MPSEMP WHERE DEPTNO = 20;
+
+JOB                                                                                                                                                                                                     
+----------                                                                                                                                                                                              
+MANAGER                                                                                                                                                                                                 
+ANALYST                                                                                                                                                                                                 
+CLERK                                                                                                                                                                                                   
+ANALYST                                                                                                                                                                                                 
+CLERK                                                                                                                                                                                                   
+
+SQL> SELECT JOB FROM MPSEMP WHERE DEPTNO = 10
+  2  UNION ALL
+  3  SELECT JOB FROM MPSEMP WHERE DEPTNO = 20;
+
+JOB                                                                                                                                                                                                     
+----------                                                                                                                                                                                              
+PRESIDENT                                                                                                                                                                                               
+MANAGER                                                                                                                                                                                                 
+CLERK                                                                                                                                                                                                   
+MANAGER                                                                                                                                                                                                 
+ANALYST                                                                                                                                                                                                 
+CLERK                                                                                                                                                                                                   
+ANALYST                                                                                                                                                                                                 
+CLERK                                                                                                                                                                                                   
+
+8 rows selected.
+
+SQL> REM REMAINING 3 SET OPERATORS PERFORM TWO COMMON TASKS : 1 REMOVES DUPLICATE ROWS 2 SORTS RESULT SET IN ASCENDING ORDER
+SQL> 
+SQL> REM UNION : WILL PERFORM ABOVE TWO COMMON TASKS ONLY
+SQL> 
+SQL> SELECT JOB FROM MPSEMP WHERE DEPTNO = 10;
+
+JOB                                                                                                                                                                                                     
+----------                                                                                                                                                                                              
+PRESIDENT                                                                                                                                                                                               
+MANAGER                                                                                                                                                                                                 
+CLERK                                                                                                                                                                                                   
+
+SQL> SELECT JOB FROM MPSEMP WHERE DEPTNO = 20;
+
+JOB                                                                                                                                                                                                     
+----------                                                                                                                                                                                              
+MANAGER                                                                                                                                                                                                 
+ANALYST                                                                                                                                                                                                 
+CLERK                                                                                                                                                                                                   
+ANALYST                                                                                                                                                                                                 
+CLERK                                                                                                                                                                                                   
+
+SQL> SELECT JOB FROM MPSEMP WHERE DEPTNO = 10
+  2  UNION
+  3  SELECT JOB FROM MPSEMP WHERE DEPTNO = 20;
+
+JOB                                                                                                                                                                                                     
+----------                                                                                                                                                                                              
+ANALYST                                                                                                                                                                                                 
+CLERK                                                                                                                                                                                                   
+MANAGER                                                                                                                                                                                                 
+PRESIDENT                                                                                                                                                                                               
+
+SQL> REM INTERSECT : WILL PICK COMMON ROWS OF BOTH RESULT SETS + TWO COMMON TASKS
+SQL> 
+SQL> SELECT JOB FROM MPSEMP WHERE DEPTNO = 10;
+
+JOB                                                                                                                                                                                                     
+----------                                                                                                                                                                                              
+PRESIDENT                                                                                                                                                                                               
+MANAGER                                                                                                                                                                                                 
+CLERK                                                                                                                                                                                                   
+
+SQL> SELECT JOB FROM MPSEMP WHERE DEPTNO = 20;
+
+JOB                                                                                                                                                                                                     
+----------                                                                                                                                                                                              
+MANAGER                                                                                                                                                                                                 
+ANALYST                                                                                                                                                                                                 
+CLERK                                                                                                                                                                                                   
+ANALYST                                                                                                                                                                                                 
+CLERK                                                                                                                                                                                                   
+
+SQL> SELECT JOB FROM MPSEMP WHERE DEPTNO = 10
+  2  INTERSECT
+  3  SELECT JOB FROM MPSEMP WHERE DEPTNO = 20;
+
+JOB                                                                                                                                                                                                     
+----------                                                                                                                                                                                              
+CLERK                                                                                                                                                                                                   
+MANAGER                                                                                                                                                                                                 
+
+SQL> REM MINUS : WILL REMOVE COMMON ROWS FROM FIRST RESULT SET + TWO COMMON TASKS
+SQL> 
+SQL> SELECT JOB FROM MPSEMP WHERE DEPTNO = 10;
+
+JOB                                                                                                                                                                                                     
+----------                                                                                                                                                                                              
+PRESIDENT                                                                                                                                                                                               
+MANAGER                                                                                                                                                                                                 
+CLERK                                                                                                                                                                                                   
+
+SQL> SELECT JOB FROM MPSEMP WHERE DEPTNO = 20;
+
+JOB                                                                                                                                                                                                     
+----------                                                                                                                                                                                              
+MANAGER                                                                                                                                                                                                 
+ANALYST                                                                                                                                                                                                 
+CLERK                                                                                                                                                                                                   
+ANALYST                                                                                                                                                                                                 
+CLERK                                                                                                                                                                                                   
+
+SQL> SELECT JOB FROM MPSEMP WHERE DEPTNO = 10
+  2  MINUS
+  3  SELECT JOB FROM MPSEMP WHERE DEPTNO = 20;
+
+JOB                                                                                                                                                                                                     
+----------                                                                                                                                                                                              
+PRESIDENT                                                                                                                                                                                               
+
+SQL> SELECT JOB FROM MPSEMP WHERE DEPTNO = 20
+  2  MINUS
+  3  SELECT JOB FROM MPSEMP WHERE DEPTNO = 10;
+
+JOB                                                                                                                                                                                                     
+----------                                                                                                                                                                                              
+ANALYST                                                                                                                                                                                                 
+
+SQL> SELECT JOB FROM MPSEMP WHERE DEPTNO = 10;
+
+JOB                                                                                                                                                                                                     
+----------                                                                                                                                                                                              
+PRESIDENT                                                                                                                                                                                               
+MANAGER                                                                                                                                                                                                 
+CLERK                                                                                                                                                                                                   
+
+SQL> SELECT JOB FROM MPSEMP WHERE DEPTNO = 20;
+
+JOB                                                                                                                                                                                                     
+----------                                                                                                                                                                                              
+MANAGER                                                                                                                                                                                                 
+ANALYST                                                                                                                                                                                                 
+CLERK                                                                                                                                                                                                   
+ANALYST                                                                                                                                                                                                 
+CLERK                                                                                                                                                                                                   
+
+SQL> SELECT JOB FROM MPSEMP WHERE DEPTNO = 30;
+
+JOB                                                                                                                                                                                                     
+----------                                                                                                                                                                                              
+MANAGER                                                                                                                                                                                                 
+SALESMAN                                                                                                                                                                                                
+SALESMAN                                                                                                                                                                                                
+SALESMAN                                                                                                                                                                                                
+SALESMAN                                                                                                                                                                                                
+CLERK                                                                                                                                                                                                   
+
+6 rows selected.
+
+SQL> REM 10 UNION 20 INTERSECT 30
+SQL> 
+SQL> SELECT JOB FROM MPSEMP WHERE DEPTNO = 10
+  2  UNION
+  3  SELECT JOB FROM MPSEMP WHERE DEPTNO = 20
+  4  INTERSECT
+  5  SELECT JOB FROM MPSEMP WHERE DEPTNO = 30;
+
+JOB                                                                                                                                                                                                     
+----------                                                                                                                                                                                              
+CLERK                                                                                                                                                                                                   
+MANAGER                                                                                                                                                                                                 
+
+SQL> REM CHAPTER 9 : DML + TCL + DROP , FLASHBACK , TRUNCATE
+SQL> 
+SQL> REM DML : INSERT UPDATE DELETE
+SQL> 
+SQL> REM TCL : COMMIT ROLLBACK SAVEPOINT
+SQL> 
+SQL> REM DDL : TRUNCATE , DROP , FLASHBACK
+SQL> 
+SQL> REM INSERT : TO ADD NEW ROWS TO EXISTING TABLE
+SQL> 
+SQL> REM UPDATE : TO UPDATE/CHANGE/MODIFY/EDIT EXISTING ROW VALUES
+SQL> 
+SQL> REM DELETE: TO DELETE/REMOVE EXISTING ROWS
+SQL> 
+SQL> REM TRANSACTION : BUNCH/GROUP OF DML STATEMENTS EXECUTED WITHIN SESSION
+SQL> 
+SQL> REM ANY CHANGES DONE THRU DML IS LIMITED TO MEMORY BY DEFAULT.
+SQL> 
+SQL> REM COMMIT : TO SAVE CHANGES DONE INSIDE CURRENT TRANSACTION INTO TABLE/DATABASE/HDD PERMANENTLY
+SQL> 
+SQL> REM ROLLBACK : TO UNDO CHANGE OF CURRENT TRANSACTION FROM MEMORY/RAM
+SQL> 
+SQL> REM SAVEPOINT : TO BREAK TRANSACTION INTO PARTS, SO AFTERWARDS WE CAN 1 COMMIT FULLY 2 ROLLBACK FULLY 3 ROLLBACK AND COMMIT PARTLY/PARTIALLY
+SQL> 
+SQL> CREATE TABLE R1 AS SELECT * FROM REGIONS;
+CREATE TABLE R1 AS SELECT * FROM REGIONS
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> DROP TABLE R1;
+
+Table dropped.
+
+SQL> CREATE TABLE R1 AS SELECT * FROM REGIONS WHERE ROWNUM = 0;
+
+Table created.
+
+SQL> SELECT * FROM R1;
+
+no rows selected
+
+SQL> DESC R1
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ REGION_ID                                                                                                         NOT NULL NUMBER
+ REGION_NAME                                                                                                                VARCHAR2(25)
+
+SQL> INSERT INTO R1 VALUES (1,'ASIA');
+
+1 row created.
+
+SQL> INSERT INTO R1 (REGION_ID) VALUES (2);
+
+1 row created.
+
+SQL> INSERT INTO R1 SELECT * FROM REGIONS WHERE REGION_ID IN (3,4);
+
+2 rows created.
+
+SQL> SELECT * FROM R1;
+
+ REGION_ID REGION_NAME                                                                                                                                                                                  
+---------- -------------------------                                                                                                                                                                    
+         1 ASIA                                                                                                                                                                                         
+         2                                                                                                                                                                                              
+         3 Asia                                                                                                                                                                                         
+         4 Middle East and Africa                                                                                                                                                                       
+
+SQL> SELECT * FROM REGIONS;
+
+ REGION_ID REGION_NAME                                                                                                                                                                                  
+---------- -------------------------                                                                                                                                                                    
+         1 Europe                                                                                                                                                                                       
+         2 Americas                                                                                                                                                                                     
+         3 Asia                                                                                                                                                                                         
+         4 Middle East and Africa                                                                                                                                                                       
+
+SQL> ROLLBACK;
+
+Rollback complete.
+
+SQL> SELECT * FROM R1;
+
+no rows selected
+
+SQL> INSERT INTO R1 VALUES (1,'ASIA');
+
+1 row created.
+
+SQL> INSERT INTO R1 (REGION_ID) VALUES (2);
+
+1 row created.
+
+SQL> SAVEPOINT A;
+
+Savepoint created.
+
+SQL> INSERT INTO R1 SELECT * FROM REGIONS WHERE REGION_ID IN (3,4);
+
+2 rows created.
+
+SQL> REM 1 COMMIT : SAVE 2 ROLLBACK : UNDO 3 ROLLBACK TO A; LAST INSERT UNDO + COMMIT : FIRST TWO INSERT SAVE
+SQL> 
+SQL> SELECT * FROM R1;
+
+ REGION_ID REGION_NAME                                                                                                                                                                                  
+---------- -------------------------                                                                                                                                                                    
+         1 ASIA                                                                                                                                                                                         
+         2                                                                                                                                                                                              
+         3 Asia                                                                                                                                                                                         
+         4 Middle East and Africa                                                                                                                                                                       
+
+SQL> ROLLBACK TO A;
+
+Rollback complete.
+
+SQL> SELECT * FROM R1;
+
+ REGION_ID REGION_NAME                                                                                                                                                                                  
+---------- -------------------------                                                                                                                                                                    
+         1 ASIA                                                                                                                                                                                         
+         2                                                                                                                                                                                              
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> SELECT * FROM R1;
+
+ REGION_ID REGION_NAME                                                                                                                                                                                  
+---------- -------------------------                                                                                                                                                                    
+         1 ASIA                                                                                                                                                                                         
+         2                                                                                                                                                                                              
+
+SQL> ROLLBACK;
+
+Rollback complete.
+
+SQL> SELECT * FROM R1;
+
+ REGION_ID REGION_NAME                                                                                                                                                                                  
+---------- -------------------------                                                                                                                                                                    
+         1 ASIA                                                                                                                                                                                         
+         2                                                                                                                                                                                              
+
+SQL> UPDATE R1 SET REGION_NAME = LOWER(REGION_NAME) WHERE REGION_ID = 1;
+
+1 row updated.
+
+SQL> SELECT * FROM R1;
+
+ REGION_ID REGION_NAME                                                                                                                                                                                  
+---------- -------------------------                                                                                                                                                                    
+         1 asia                                                                                                                                                                                         
+         2                                                                                                                                                                                              
+
+SQL> UPDATE R1 SET REGION_NAME = 'Antarctica' WHERE REGION_ID = 2;
+
+1 row updated.
+
+SQL> SELECT * FROM R1;
+
+ REGION_ID REGION_NAME                                                                                                                                                                                  
+---------- -------------------------                                                                                                                                                                    
+         1 asia                                                                                                                                                                                         
+         2 Antarctica                                                                                                                                                                                   
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> DELETE R1;
+
+2 rows deleted.
+
+SQL> SELECT * FROM R1;
+
+no rows selected
+
+SQL> ROLLBACK;
+
+Rollback complete.
+
+SQL> SELECT * FROM R1;
+
+ REGION_ID REGION_NAME                                                                                                                                                                                  
+---------- -------------------------                                                                                                                                                                    
+         1 asia                                                                                                                                                                                         
+         2 Antarctica                                                                                                                                                                                   
+
+SQL> DELETE R1 WHERE REGION_ID = 1;
+
+1 row deleted.
+
+SQL> SELECT * FROM R1;
+
+ REGION_ID REGION_NAME                                                                                                                                                                                  
+---------- -------------------------                                                                                                                                                                    
+         2 Antarctica                                                                                                                                                                                   
+
+SQL> ROLLBACK;
+
+Rollback complete.
+
+SQL> SELECT * FROM R1;
+
+ REGION_ID REGION_NAME                                                                                                                                                                                  
+---------- -------------------------                                                                                                                                                                    
+         1 asia                                                                                                                                                                                         
+         2 Antarctica                                                                                                                                                                                   
+
+SQL> TRUNCATE TABLE R1 WHERE REGION_ID = 2;
+TRUNCATE TABLE R1 WHERE REGION_ID = 2
+                  *
+ERROR at line 1:
+ORA-03291: Invalid truncate option - missing STORAGE keyword 
+
+
+SQL> TRUNCATE TABLE R1;
+
+Table truncated.
+
+SQL> REM ALL DDL AND DCL COMMANDS ARE AUTO COMMIT.
+SQL> 
+SQL> SELECT * FROM R1;
+
+no rows selected
+
+SQL> ROLLBACK;
+
+Rollback complete.
+
+SQL> SELECT * FROM R1;
+
+no rows selected
+
+SQL> DESC R1
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ REGION_ID                                                                                                         NOT NULL NUMBER
+ REGION_NAME                                                                                                                VARCHAR2(25)
+
+SQL> INSERT INTO R1 SELECT * FROM REGIONS;
+
+4 rows created.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> SELECT * FROM R1;
+
+ REGION_ID REGION_NAME                                                                                                                                                                                  
+---------- -------------------------                                                                                                                                                                    
+         1 Europe                                                                                                                                                                                       
+         2 Americas                                                                                                                                                                                     
+         3 Asia                                                                                                                                                                                         
+         4 Middle East and Africa                                                                                                                                                                       
+
+SQL> DROP TABLE R1;
+
+Table dropped.
+
+SQL> DESC R1
+ERROR:
+ORA-04043: object R1 does not exist 
+
+
+SQL> SELECT * FROM R1;
+SELECT * FROM R1
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> SHOW RECYC
+ORIGINAL NAME    RECYCLEBIN NAME                OBJECT TYPE  DROP TIME                                                                                                                                  
+---------------- ------------------------------ ------------ -------------------                                                                                                                        
+DEPT             BIN$/dbvt1pDRwSMUuK1pR8QVg==$0 TABLE        2022-04-26:19:55:23                                                                                                                        
+E1               BIN$LO1I1kYLTtqwq3AupWyDtA==$0 TABLE        2022-05-13:17:26:02                                                                                                                        
+E1               BIN$jIlCJO0cQ4y7d/J3XOL7ow==$0 TABLE        2022-05-02:19:38:58                                                                                                                        
+E1               BIN$zL9eoTVCR5G0R77LjPaEwA==$0 TABLE        2022-04-18:19:25:38                                                                                                                        
+E2               BIN$52FHihi8T9yYvdTqPny6pg==$0 TABLE        2022-05-02:19:39:00                                                                                                                        
+E2               BIN$4gMtqLuZQbepqYagPA0mvg==$0 TABLE        2022-03-17:18:44:17                                                                                                                        
+E2               BIN$WVNBHvKTS0mvNeR8MbGj+Q==$0 TABLE        2022-02-10:18:48:58                                                                                                                        
+E3               BIN$kGTCoWsSTVuyvQV8lH8eMQ==$0 TABLE        2022-05-02:19:39:01                                                                                                                        
+EMP              BIN$+vS9myqJQqq5OMvjad1tYA==$0 TABLE        2022-04-26:19:55:28                                                                                                                        
+EMP              BIN$0kJ32zONRzSrmINOdeTglg==$0 TABLE        2022-04-26:19:42:48                                                                                                                        
+EMP              BIN$wz1HsFdSTIWBWQw2mENqgg==$0 TABLE        2022-04-26:19:41:50                                                                                                                        
+EMP              BIN$NuyxgLPbTESoLg3wsnlCbw==$0 TABLE        2022-04-26:19:40:28                                                                                                                        
+FEES             BIN$0HcpB7OKTNScP0bNvYQmLQ==$0 TABLE        2022-05-02:19:34:49                                                                                                                        
+FEES             BIN$k9u6Q1iwSK+FHKFJBNqAoQ==$0 TABLE        2022-05-02:19:16:40                                                                                                                        
+MNC              BIN$mkMjHDDpRnqQfQeSLdl53A==$0 TABLE        2021-12-10:16:13:53                                                                                                                        
+NEWDEPT          BIN$hs2/VoeMRICe2cA+AeIx3g==$0 TABLE        2022-05-03:17:30:36                                                                                                                        
+NEWDEPT          BIN$fVm0uT2OTHqLH8g7zY2NWA==$0 TABLE        2022-05-03:17:30:09                                                                                                                        
+NEWDEPT          BIN$pssYBdIvQKWHYyxxHV+4rA==$0 TABLE        2022-05-03:17:28:32                                                                                                                        
+NEWEMP           BIN$QObyPEyUREK8OX4WKC4icQ==$0 TABLE        2022-05-03:17:30:36                                                                                                                        
+NEWEMP           BIN$fqqMfkmcSOqHBQhixjDT/Q==$0 TABLE        2022-05-03:17:30:09                                                                                                                        
+NEWEMP           BIN$QLCPzUsYTSubDDJrajTypA==$0 TABLE        2022-05-03:17:28:32                                                                                                                        
+R1               BIN$yFJFey3xRwyas7EEPkgJ5w==$0 TABLE        2022-05-16:19:53:16                                                                                                                        
+R1               BIN$RaNQu+B9SjChM13TU3xYpA==$0 TABLE        2022-05-16:19:46:37                                                                                                                        
+R1               BIN$l7/SbWcaRlqehxHwUnZeTQ==$0 TABLE        2022-05-06:17:26:00                                                                                                                        
+SCHOOL           BIN$F2+pjEfSR6WPeAVZa50biA==$0 TABLE        2022-05-02:19:26:46                                                                                                                        
+SCHOOL           BIN$IS6SMUB5T/6avEc88Tasyw==$0 TABLE        2022-05-02:19:21:35                                                                                                                        
+SCHOOL           BIN$PYmqP8L/REWsQbtPE9IrhA==$0 TABLE        2022-05-02:19:16:14                                                                                                                        
+STD5A            BIN$NaEnGH9GQ2CsyllLbuEIxQ==$0 TABLE        2022-04-26:19:30:57                                                                                                                        
+STD5A            BIN$rwpkL4G8Sx2IBSPBMr8TOA==$0 TABLE        2022-04-26:19:29:34                                                                                                                        
+STD5A            BIN$GbQuTGfUSayIoeQUr+WD6g==$0 TABLE        2022-04-26:19:26:35                                                                                                                        
+STD5A            BIN$/9vQHqVETDat+OpDn5dCWw==$0 TABLE        2022-04-26:19:24:47                                                                                                                        
+STD5A            BIN$zuOUFLhTRomN2WxZetWjmw==$0 TABLE        2022-04-26:19:21:30                                                                                                                        
+T11              BIN$sUqreytHQMWhQkyGdkh0xw==$0 TABLE        2022-03-12:16:45:08                                                                                                                        
+T111             BIN$3MF9VLhzSgqmFk9Gs91PQg==$0 TABLE        2022-03-12:16:44:52                                                                                                                        
+TT               BIN$VjzcSywJRBiNhp5baRt1qQ==$0 TABLE        2021-12-20:17:23:20                                                                                                                        
+SQL> FLASHBACK TABLE R1 TO BEFORE DROP;
+
+Flashback complete.
+
+SQL> DESC R1
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ REGION_ID                                                                                                         NOT NULL NUMBER
+ REGION_NAME                                                                                                                VARCHAR2(25)
+
+SQL> SELECT * FROM R1;
+
+ REGION_ID REGION_NAME                                                                                                                                                                                  
+---------- -------------------------                                                                                                                                                                    
+         1 Europe                                                                                                                                                                                       
+         2 Americas                                                                                                                                                                                     
+         3 Asia                                                                                                                                                                                         
+         4 Middle East and Africa                                                                                                                                                                       
+
+SQL> REM DML , TCL , TRUNCATE , DROP , FLASHBACK , PURGE
+SQL> 
+SQL> DROP TABLE R1;
+
+Table dropped.
+
+SQL> DESC R1
+ERROR:
+ORA-04043: object R1 does not exist 
+
+
+SQL> SELECT * FROM R1;
+SELECT * FROM R1
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> SHOW RECYC
+ORIGINAL NAME    RECYCLEBIN NAME                OBJECT TYPE  DROP TIME                                                                                                                                  
+---------------- ------------------------------ ------------ -------------------                                                                                                                        
+DEPT             BIN$/dbvt1pDRwSMUuK1pR8QVg==$0 TABLE        2022-04-26:19:55:23                                                                                                                        
+E1               BIN$LO1I1kYLTtqwq3AupWyDtA==$0 TABLE        2022-05-13:17:26:02                                                                                                                        
+E1               BIN$jIlCJO0cQ4y7d/J3XOL7ow==$0 TABLE        2022-05-02:19:38:58                                                                                                                        
+E1               BIN$zL9eoTVCR5G0R77LjPaEwA==$0 TABLE        2022-04-18:19:25:38                                                                                                                        
+E2               BIN$52FHihi8T9yYvdTqPny6pg==$0 TABLE        2022-05-02:19:39:00                                                                                                                        
+E2               BIN$4gMtqLuZQbepqYagPA0mvg==$0 TABLE        2022-03-17:18:44:17                                                                                                                        
+E2               BIN$WVNBHvKTS0mvNeR8MbGj+Q==$0 TABLE        2022-02-10:18:48:58                                                                                                                        
+E3               BIN$kGTCoWsSTVuyvQV8lH8eMQ==$0 TABLE        2022-05-02:19:39:01                                                                                                                        
+EMP              BIN$+vS9myqJQqq5OMvjad1tYA==$0 TABLE        2022-04-26:19:55:28                                                                                                                        
+EMP              BIN$0kJ32zONRzSrmINOdeTglg==$0 TABLE        2022-04-26:19:42:48                                                                                                                        
+EMP              BIN$wz1HsFdSTIWBWQw2mENqgg==$0 TABLE        2022-04-26:19:41:50                                                                                                                        
+EMP              BIN$NuyxgLPbTESoLg3wsnlCbw==$0 TABLE        2022-04-26:19:40:28                                                                                                                        
+FEES             BIN$0HcpB7OKTNScP0bNvYQmLQ==$0 TABLE        2022-05-02:19:34:49                                                                                                                        
+FEES             BIN$k9u6Q1iwSK+FHKFJBNqAoQ==$0 TABLE        2022-05-02:19:16:40                                                                                                                        
+MNC              BIN$mkMjHDDpRnqQfQeSLdl53A==$0 TABLE        2021-12-10:16:13:53                                                                                                                        
+NEWDEPT          BIN$hs2/VoeMRICe2cA+AeIx3g==$0 TABLE        2022-05-03:17:30:36                                                                                                                        
+NEWDEPT          BIN$fVm0uT2OTHqLH8g7zY2NWA==$0 TABLE        2022-05-03:17:30:09                                                                                                                        
+NEWDEPT          BIN$pssYBdIvQKWHYyxxHV+4rA==$0 TABLE        2022-05-03:17:28:32                                                                                                                        
+NEWEMP           BIN$QObyPEyUREK8OX4WKC4icQ==$0 TABLE        2022-05-03:17:30:36                                                                                                                        
+NEWEMP           BIN$fqqMfkmcSOqHBQhixjDT/Q==$0 TABLE        2022-05-03:17:30:09                                                                                                                        
+NEWEMP           BIN$QLCPzUsYTSubDDJrajTypA==$0 TABLE        2022-05-03:17:28:32                                                                                                                        
+R1               BIN$m92hDFhfRrSnXD7Z4HaCCg==$0 TABLE        2022-05-16:19:54:51                                                                                                                        
+R1               BIN$RaNQu+B9SjChM13TU3xYpA==$0 TABLE        2022-05-16:19:46:37                                                                                                                        
+R1               BIN$l7/SbWcaRlqehxHwUnZeTQ==$0 TABLE        2022-05-06:17:26:00                                                                                                                        
+SCHOOL           BIN$F2+pjEfSR6WPeAVZa50biA==$0 TABLE        2022-05-02:19:26:46                                                                                                                        
+SCHOOL           BIN$IS6SMUB5T/6avEc88Tasyw==$0 TABLE        2022-05-02:19:21:35                                                                                                                        
+SCHOOL           BIN$PYmqP8L/REWsQbtPE9IrhA==$0 TABLE        2022-05-02:19:16:14                                                                                                                        
+STD5A            BIN$NaEnGH9GQ2CsyllLbuEIxQ==$0 TABLE        2022-04-26:19:30:57                                                                                                                        
+STD5A            BIN$rwpkL4G8Sx2IBSPBMr8TOA==$0 TABLE        2022-04-26:19:29:34                                                                                                                        
+STD5A            BIN$GbQuTGfUSayIoeQUr+WD6g==$0 TABLE        2022-04-26:19:26:35                                                                                                                        
+STD5A            BIN$/9vQHqVETDat+OpDn5dCWw==$0 TABLE        2022-04-26:19:24:47                                                                                                                        
+STD5A            BIN$zuOUFLhTRomN2WxZetWjmw==$0 TABLE        2022-04-26:19:21:30                                                                                                                        
+T11              BIN$sUqreytHQMWhQkyGdkh0xw==$0 TABLE        2022-03-12:16:45:08                                                                                                                        
+T111             BIN$3MF9VLhzSgqmFk9Gs91PQg==$0 TABLE        2022-03-12:16:44:52                                                                                                                        
+TT               BIN$VjzcSywJRBiNhp5baRt1qQ==$0 TABLE        2021-12-20:17:23:20                                                                                                                        
+SQL> PURGE TABLE R1;
+
+Table purged.
+
+SQL> SHOW RECYC
+ORIGINAL NAME    RECYCLEBIN NAME                OBJECT TYPE  DROP TIME                                                                                                                                  
+---------------- ------------------------------ ------------ -------------------                                                                                                                        
+DEPT             BIN$/dbvt1pDRwSMUuK1pR8QVg==$0 TABLE        2022-04-26:19:55:23                                                                                                                        
+E1               BIN$LO1I1kYLTtqwq3AupWyDtA==$0 TABLE        2022-05-13:17:26:02                                                                                                                        
+E1               BIN$jIlCJO0cQ4y7d/J3XOL7ow==$0 TABLE        2022-05-02:19:38:58                                                                                                                        
+E1               BIN$zL9eoTVCR5G0R77LjPaEwA==$0 TABLE        2022-04-18:19:25:38                                                                                                                        
+E2               BIN$52FHihi8T9yYvdTqPny6pg==$0 TABLE        2022-05-02:19:39:00                                                                                                                        
+E2               BIN$4gMtqLuZQbepqYagPA0mvg==$0 TABLE        2022-03-17:18:44:17                                                                                                                        
+E2               BIN$WVNBHvKTS0mvNeR8MbGj+Q==$0 TABLE        2022-02-10:18:48:58                                                                                                                        
+E3               BIN$kGTCoWsSTVuyvQV8lH8eMQ==$0 TABLE        2022-05-02:19:39:01                                                                                                                        
+EMP              BIN$+vS9myqJQqq5OMvjad1tYA==$0 TABLE        2022-04-26:19:55:28                                                                                                                        
+EMP              BIN$0kJ32zONRzSrmINOdeTglg==$0 TABLE        2022-04-26:19:42:48                                                                                                                        
+EMP              BIN$wz1HsFdSTIWBWQw2mENqgg==$0 TABLE        2022-04-26:19:41:50                                                                                                                        
+EMP              BIN$NuyxgLPbTESoLg3wsnlCbw==$0 TABLE        2022-04-26:19:40:28                                                                                                                        
+FEES             BIN$0HcpB7OKTNScP0bNvYQmLQ==$0 TABLE        2022-05-02:19:34:49                                                                                                                        
+FEES             BIN$k9u6Q1iwSK+FHKFJBNqAoQ==$0 TABLE        2022-05-02:19:16:40                                                                                                                        
+MNC              BIN$mkMjHDDpRnqQfQeSLdl53A==$0 TABLE        2021-12-10:16:13:53                                                                                                                        
+NEWDEPT          BIN$hs2/VoeMRICe2cA+AeIx3g==$0 TABLE        2022-05-03:17:30:36                                                                                                                        
+NEWDEPT          BIN$fVm0uT2OTHqLH8g7zY2NWA==$0 TABLE        2022-05-03:17:30:09                                                                                                                        
+NEWDEPT          BIN$pssYBdIvQKWHYyxxHV+4rA==$0 TABLE        2022-05-03:17:28:32                                                                                                                        
+NEWEMP           BIN$QObyPEyUREK8OX4WKC4icQ==$0 TABLE        2022-05-03:17:30:36                                                                                                                        
+NEWEMP           BIN$fqqMfkmcSOqHBQhixjDT/Q==$0 TABLE        2022-05-03:17:30:09                                                                                                                        
+NEWEMP           BIN$QLCPzUsYTSubDDJrajTypA==$0 TABLE        2022-05-03:17:28:32                                                                                                                        
+R1               BIN$m92hDFhfRrSnXD7Z4HaCCg==$0 TABLE        2022-05-16:19:54:51                                                                                                                        
+R1               BIN$RaNQu+B9SjChM13TU3xYpA==$0 TABLE        2022-05-16:19:46:37                                                                                                                        
+SCHOOL           BIN$F2+pjEfSR6WPeAVZa50biA==$0 TABLE        2022-05-02:19:26:46                                                                                                                        
+SCHOOL           BIN$IS6SMUB5T/6avEc88Tasyw==$0 TABLE        2022-05-02:19:21:35                                                                                                                        
+SCHOOL           BIN$PYmqP8L/REWsQbtPE9IrhA==$0 TABLE        2022-05-02:19:16:14                                                                                                                        
+STD5A            BIN$NaEnGH9GQ2CsyllLbuEIxQ==$0 TABLE        2022-04-26:19:30:57                                                                                                                        
+STD5A            BIN$rwpkL4G8Sx2IBSPBMr8TOA==$0 TABLE        2022-04-26:19:29:34                                                                                                                        
+STD5A            BIN$GbQuTGfUSayIoeQUr+WD6g==$0 TABLE        2022-04-26:19:26:35                                                                                                                        
+STD5A            BIN$/9vQHqVETDat+OpDn5dCWw==$0 TABLE        2022-04-26:19:24:47                                                                                                                        
+STD5A            BIN$zuOUFLhTRomN2WxZetWjmw==$0 TABLE        2022-04-26:19:21:30                                                                                                                        
+T11              BIN$sUqreytHQMWhQkyGdkh0xw==$0 TABLE        2022-03-12:16:45:08                                                                                                                        
+T111             BIN$3MF9VLhzSgqmFk9Gs91PQg==$0 TABLE        2022-03-12:16:44:52                                                                                                                        
+TT               BIN$VjzcSywJRBiNhp5baRt1qQ==$0 TABLE        2021-12-20:17:23:20                                                                                                                        
+SQL> PURGE TABLE "BIN$m92hDFhfRrSnXD7Z4HaCCg==$0";
+
+Table purged.
+
+SQL> SHOW RECYC
+ORIGINAL NAME    RECYCLEBIN NAME                OBJECT TYPE  DROP TIME                                                                                                                                  
+---------------- ------------------------------ ------------ -------------------                                                                                                                        
+DEPT             BIN$/dbvt1pDRwSMUuK1pR8QVg==$0 TABLE        2022-04-26:19:55:23                                                                                                                        
+E1               BIN$LO1I1kYLTtqwq3AupWyDtA==$0 TABLE        2022-05-13:17:26:02                                                                                                                        
+E1               BIN$jIlCJO0cQ4y7d/J3XOL7ow==$0 TABLE        2022-05-02:19:38:58                                                                                                                        
+E1               BIN$zL9eoTVCR5G0R77LjPaEwA==$0 TABLE        2022-04-18:19:25:38                                                                                                                        
+E2               BIN$52FHihi8T9yYvdTqPny6pg==$0 TABLE        2022-05-02:19:39:00                                                                                                                        
+E2               BIN$4gMtqLuZQbepqYagPA0mvg==$0 TABLE        2022-03-17:18:44:17                                                                                                                        
+E2               BIN$WVNBHvKTS0mvNeR8MbGj+Q==$0 TABLE        2022-02-10:18:48:58                                                                                                                        
+E3               BIN$kGTCoWsSTVuyvQV8lH8eMQ==$0 TABLE        2022-05-02:19:39:01                                                                                                                        
+EMP              BIN$+vS9myqJQqq5OMvjad1tYA==$0 TABLE        2022-04-26:19:55:28                                                                                                                        
+EMP              BIN$0kJ32zONRzSrmINOdeTglg==$0 TABLE        2022-04-26:19:42:48                                                                                                                        
+EMP              BIN$wz1HsFdSTIWBWQw2mENqgg==$0 TABLE        2022-04-26:19:41:50                                                                                                                        
+EMP              BIN$NuyxgLPbTESoLg3wsnlCbw==$0 TABLE        2022-04-26:19:40:28                                                                                                                        
+FEES             BIN$0HcpB7OKTNScP0bNvYQmLQ==$0 TABLE        2022-05-02:19:34:49                                                                                                                        
+FEES             BIN$k9u6Q1iwSK+FHKFJBNqAoQ==$0 TABLE        2022-05-02:19:16:40                                                                                                                        
+MNC              BIN$mkMjHDDpRnqQfQeSLdl53A==$0 TABLE        2021-12-10:16:13:53                                                                                                                        
+NEWDEPT          BIN$hs2/VoeMRICe2cA+AeIx3g==$0 TABLE        2022-05-03:17:30:36                                                                                                                        
+NEWDEPT          BIN$fVm0uT2OTHqLH8g7zY2NWA==$0 TABLE        2022-05-03:17:30:09                                                                                                                        
+NEWDEPT          BIN$pssYBdIvQKWHYyxxHV+4rA==$0 TABLE        2022-05-03:17:28:32                                                                                                                        
+NEWEMP           BIN$QObyPEyUREK8OX4WKC4icQ==$0 TABLE        2022-05-03:17:30:36                                                                                                                        
+NEWEMP           BIN$fqqMfkmcSOqHBQhixjDT/Q==$0 TABLE        2022-05-03:17:30:09                                                                                                                        
+NEWEMP           BIN$QLCPzUsYTSubDDJrajTypA==$0 TABLE        2022-05-03:17:28:32                                                                                                                        
+R1               BIN$RaNQu+B9SjChM13TU3xYpA==$0 TABLE        2022-05-16:19:46:37                                                                                                                        
+SCHOOL           BIN$F2+pjEfSR6WPeAVZa50biA==$0 TABLE        2022-05-02:19:26:46                                                                                                                        
+SCHOOL           BIN$IS6SMUB5T/6avEc88Tasyw==$0 TABLE        2022-05-02:19:21:35                                                                                                                        
+SCHOOL           BIN$PYmqP8L/REWsQbtPE9IrhA==$0 TABLE        2022-05-02:19:16:14                                                                                                                        
+STD5A            BIN$NaEnGH9GQ2CsyllLbuEIxQ==$0 TABLE        2022-04-26:19:30:57                                                                                                                        
+STD5A            BIN$rwpkL4G8Sx2IBSPBMr8TOA==$0 TABLE        2022-04-26:19:29:34                                                                                                                        
+STD5A            BIN$GbQuTGfUSayIoeQUr+WD6g==$0 TABLE        2022-04-26:19:26:35                                                                                                                        
+STD5A            BIN$/9vQHqVETDat+OpDn5dCWw==$0 TABLE        2022-04-26:19:24:47                                                                                                                        
+STD5A            BIN$zuOUFLhTRomN2WxZetWjmw==$0 TABLE        2022-04-26:19:21:30                                                                                                                        
+T11              BIN$sUqreytHQMWhQkyGdkh0xw==$0 TABLE        2022-03-12:16:45:08                                                                                                                        
+T111             BIN$3MF9VLhzSgqmFk9Gs91PQg==$0 TABLE        2022-03-12:16:44:52                                                                                                                        
+TT               BIN$VjzcSywJRBiNhp5baRt1qQ==$0 TABLE        2021-12-20:17:23:20                                                                                                                        
+SQL> PURGE RECYCLBIN;
+PURGE RECYCLBIN
+      *
+ERROR at line 1:
+ORA-38302: invalid PURGE option 
+
+
+SQL> PURGE RECYCLEBIN;
+
+Recyclebin purged.
+
+SQL> SHOW RECYC
+SQL> SPOOL OFF

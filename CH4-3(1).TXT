@@ -1,0 +1,1451 @@
+SQL> 
+SQL> CL SCR
+
+SQL> REM CONVERSION FUNCTIONS : 1 TO_NUMBER 2 TO_DATE 3 TO_CHAR
+SQL> 
+SQL> REM TO_NUMBER : IS USED TO CONVERT CHARACTER TYPE VALUE INTO NUMBER TYPE VALUE
+SQL> 
+SQL> REM TO_DATE : IS USED TO CONVERT CHARACTER TYPE VALUE INTO DATE TYPE VALUE
+SQL> 
+SQL> REM TO_CHAR : IS USED TO CONVERT NUMBER/DATE TYPE VALUE INTO CHARACTER TYPE VALUE
+SQL> 
+SQL> 
+SQL> 
+SQL> REM TO_NUMBER : PUPOSE : 1 FOR CALCULATION 2 FOR COMPARISON
+SQL> 
+SQL> REM TO_DATE : PUPOSE : 1 FOR CALCULATION 2 FOR COMPARISON
+SQL> 
+SQL> REM TO_CHAR : PUPOSE : FOR DISPLAYING NUMBER/DATE TYPE VALUES IN USER DEFINED/NON-DEFAULT FORMAT
+SQL> 
+SQL> 
+SQL> 
+SQL> REM TO_NUMBER : FOR CALCULATION
+SQL> 
+SQL> SELECT 200 + 1234 FROM DUAL;
+
+  200+1234                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+      1434                                                                                                                                                                                              
+
+SQL> SELECT 200 + '1234' FROM DUAL;
+
+200+'1234'                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+      1434                                                                                                                                                                                              
+
+SQL> SELECT 200 + '1234.34' FROM DUAL;
+
+200+'1234.34'                                                                                                                                                                                           
+-------------                                                                                                                                                                                           
+      1434.34                                                                                                                                                                                           
+
+SQL> REM TYPES OF CONVERSIONS : 1 IMPLICIT/AUTOMATIC 2 EXPLICIT/MANUAL USING ANY OF THE ABOVE CONVERSION FUNCTION
+SQL> 
+SQL> REM IN ABOVE 2 CASES, IMPLICIT CONVERSION WAS PERFORMED
+SQL> 
+SQL> SELECT 200 + '1,234.34' FROM DUAL;
+SELECT 200 + '1,234.34' FROM DUAL
+             *
+ERROR at line 1:
+ORA-01722: invalid number 
+
+
+SQL> SELECT 200 + '$1234.34' FROM DUAL;
+SELECT 200 + '$1234.34' FROM DUAL
+             *
+ERROR at line 1:
+ORA-01722: invalid number 
+
+
+SQL> SELECT 200 + '$1,234.34' FROM DUAL;
+SELECT 200 + '$1,234.34' FROM DUAL
+             *
+ERROR at line 1:
+ORA-01722: invalid number 
+
+
+SQL> SELECT 200 + TO_NUMBER('1,234.34','9,999.99') FROM DUAL;
+
+200+TO_NUMBER('1,234.34','9,999.99')                                                                                                                                                                    
+------------------------------------                                                                                                                                                                    
+                             1434.34                                                                                                                                                                    
+
+SQL> SELECT 200 + TO_NUMBER('1,234.34','0,000.00') FROM DUAL;
+
+200+TO_NUMBER('1,234.34','0,000.00')                                                                                                                                                                    
+------------------------------------                                                                                                                                                                    
+                             1434.34                                                                                                                                                                    
+
+SQL> SELECT 200 + TO_NUMBER('1,234.34','0,990.90') FROM DUAL;
+
+200+TO_NUMBER('1,234.34','0,990.90')                                                                                                                                                                    
+------------------------------------                                                                                                                                                                    
+                             1434.34                                                                                                                                                                    
+
+SQL> SELECT 200 + TO_NUMBER('1,234.34','0,990.97') FROM DUAL;
+SELECT 200 + TO_NUMBER('1,234.34','0,990.97') FROM DUAL
+                                  *
+ERROR at line 1:
+ORA-01481: invalid number format model 
+
+
+SQL> SELECT 200 + TO_NUMBER('$1234.34','$0000.00') FROM DUAL;
+
+200+TO_NUMBER('$1234.34','$0000.00')                                                                                                                                                                    
+------------------------------------                                                                                                                                                                    
+                             1434.34                                                                                                                                                                    
+
+SQL> SELECT 200 + TO_NUMBER('$1,234.34','$0,000.00') FROM DUAL;
+
+200+TO_NUMBER('$1,234.34','$0,000.00')                                                                                                                                                                  
+--------------------------------------                                                                                                                                                                  
+                               1434.34                                                                                                                                                                  
+
+SQL> REM TO_NUMBER : FOR COMPARSION
+SQL> 
+SQL> SELECT FIRST_NAME , SALARY FROM EMPLOYEES WHERE SALARY > 10000;
+
+FIRST_NAME     SALARY                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+Steven          24000                                                                                                                                                                                   
+Neena           17000                                                                                                                                                                                   
+Lex             17000                                                                                                                                                                                   
+Eleni           10500                                                                                                                                                                                   
+Ellen           11000                                                                                                                                                                                   
+Michael         13000                                                                                                                                                                                   
+Shelley         12000                                                                                                                                                                                   
+
+7 rows selected.
+
+SQL> SELECT FIRST_NAME , SALARY FROM EMPLOYEES WHERE SALARY > '10000';
+
+FIRST_NAME     SALARY                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+Steven          24000                                                                                                                                                                                   
+Neena           17000                                                                                                                                                                                   
+Lex             17000                                                                                                                                                                                   
+Eleni           10500                                                                                                                                                                                   
+Ellen           11000                                                                                                                                                                                   
+Michael         13000                                                                                                                                                                                   
+Shelley         12000                                                                                                                                                                                   
+
+7 rows selected.
+
+SQL> SELECT FIRST_NAME , SALARY FROM EMPLOYEES WHERE SALARY > '10000.00';
+
+FIRST_NAME     SALARY                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+Steven          24000                                                                                                                                                                                   
+Neena           17000                                                                                                                                                                                   
+Lex             17000                                                                                                                                                                                   
+Eleni           10500                                                                                                                                                                                   
+Ellen           11000                                                                                                                                                                                   
+Michael         13000                                                                                                                                                                                   
+Shelley         12000                                                                                                                                                                                   
+
+7 rows selected.
+
+SQL> SELECT FIRST_NAME , SALARY FROM EMPLOYEES WHERE SALARY > '10,000.00';
+SELECT FIRST_NAME , SALARY FROM EMPLOYEES WHERE SALARY > '10,000.00'
+                                                         *
+ERROR at line 1:
+ORA-01722: invalid number 
+
+
+SQL> SELECT FIRST_NAME , SALARY FROM EMPLOYEES WHERE SALARY > '$10000.00';
+SELECT FIRST_NAME , SALARY FROM EMPLOYEES WHERE SALARY > '$10000.00'
+                                                         *
+ERROR at line 1:
+ORA-01722: invalid number 
+
+
+SQL> SELECT FIRST_NAME , SALARY FROM EMPLOYEES WHERE SALARY > '$10,000.00';
+SELECT FIRST_NAME , SALARY FROM EMPLOYEES WHERE SALARY > '$10,000.00'
+                                                         *
+ERROR at line 1:
+ORA-01722: invalid number 
+
+
+SQL> SELECT FIRST_NAME , SALARY FROM EMPLOYEES WHERE SALARY > TO_NUMBER('10,000.00','99,999.99');
+
+FIRST_NAME     SALARY                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+Steven          24000                                                                                                                                                                                   
+Neena           17000                                                                                                                                                                                   
+Lex             17000                                                                                                                                                                                   
+Eleni           10500                                                                                                                                                                                   
+Ellen           11000                                                                                                                                                                                   
+Michael         13000                                                                                                                                                                                   
+Shelley         12000                                                                                                                                                                                   
+
+7 rows selected.
+
+SQL> SELECT FIRST_NAME , SALARY FROM EMPLOYEES WHERE SALARY > TO_NUMBER('$10000.00','$99999.99');
+
+FIRST_NAME     SALARY                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+Steven          24000                                                                                                                                                                                   
+Neena           17000                                                                                                                                                                                   
+Lex             17000                                                                                                                                                                                   
+Eleni           10500                                                                                                                                                                                   
+Ellen           11000                                                                                                                                                                                   
+Michael         13000                                                                                                                                                                                   
+Shelley         12000                                                                                                                                                                                   
+
+7 rows selected.
+
+SQL> SELECT FIRST_NAME , SALARY FROM EMPLOYEES WHERE SALARY > TO_NUMBER('$10,000.00','$99,999.99');
+
+FIRST_NAME     SALARY                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+Steven          24000                                                                                                                                                                                   
+Neena           17000                                                                                                                                                                                   
+Lex             17000                                                                                                                                                                                   
+Eleni           10500                                                                                                                                                                                   
+Ellen           11000                                                                                                                                                                                   
+Michael         13000                                                                                                                                                                                   
+Shelley         12000                                                                                                                                                                                   
+
+7 rows selected.
+
+SQL> REM TO_DATE : 1 FOR CALCULATION 2 FOR COMPARISON
+SQL> 
+SQL> REM TO_DATE : FOR CALCULATION
+SQL> 
+SQL> SELECT SYSDATE, HIRE_DATE , SYSDATE - HIRE_DATE DAYS FROM EMPLOYEES;
+
+SYSDATE   HIRE_DATE       DAYS                                                                                                                                                                          
+--------- --------- ----------                                                                                                                                                                          
+01-FEB-22 17-JUL-87  12618.814                                                                                                                                                                          
+01-FEB-22 21-SEP-89  11821.814                                                                                                                                                                          
+01-FEB-22 13-JAN-93  10611.814                                                                                                                                                                          
+01-FEB-22 03-JAN-90  11717.814                                                                                                                                                                          
+01-FEB-22 21-MAY-91  11214.814                                                                                                                                                                          
+01-FEB-22 07-FEB-99 8395.81396                                                                                                                                                                          
+01-FEB-22 16-NOV-99 8113.81396                                                                                                                                                                          
+01-FEB-22 17-OCT-95 9604.81396                                                                                                                                                                          
+01-FEB-22 29-JAN-97 9134.81396                                                                                                                                                                          
+01-FEB-22 15-MAR-98 8724.81396                                                                                                                                                                          
+01-FEB-22 09-JUL-98 8608.81396                                                                                                                                                                          
+01-FEB-22 29-JAN-00 8039.81396                                                                                                                                                                          
+01-FEB-22 11-MAY-96 9397.81396                                                                                                                                                                          
+01-FEB-22 24-MAR-98 8715.81396                                                                                                                                                                          
+01-FEB-22 24-MAY-99 8289.81396                                                                                                                                                                          
+01-FEB-22 17-SEP-87  12556.814                                                                                                                                                                          
+01-FEB-22 17-FEB-96 9481.81396                                                                                                                                                                          
+01-FEB-22 17-AUG-97 8934.81396                                                                                                                                                                          
+01-FEB-22 07-JUN-94  10101.814                                                                                                                                                                          
+01-FEB-22 07-JUN-94  10101.814                                                                                                                                                                          
+
+20 rows selected.
+
+SQL> SELECT '13-MAR-73' - '15-JAN-71' FROM DUAL;
+SELECT '13-MAR-73' - '15-JAN-71' FROM DUAL
+       *
+ERROR at line 1:
+ORA-01722: invalid number 
+
+
+SQL> REM IMPLICIT CONVERSION IS NOT RELIABLE.
+SQL> 
+SQL> REM WHEN IMPLICIT CONVERSION CAN'T BE DONE, WE NEED TO DO IT EXPLICITLY.
+SQL> 
+SQL> SELECT TO_DATE('13-MAR-73') - TO_DATE('15-JAN-71') FROM DUAL;
+
+TO_DATE('13-MAR-73')-TO_DATE('15-JAN-71')                                                                                                                                                               
+-----------------------------------------                                                                                                                                                               
+                                      788                                                                                                                                                               
+
+SQL> REM IF DATE IS IN DEFAULT OR COMPATIBLE FORMAT, WE DON'T NEED TO SUPPLY SECOND ARGUMENT IN TO_DATE FUNCTION.
+SQL> 
+SQL> SELECT TO_DATE('13-MARCH-73') - TO_DATE('15JAN1971') FROM DUAL;
+
+TO_DATE('13-MARCH-73')-TO_DATE('15JAN1971')                                                                                                                                                             
+-------------------------------------------                                                                                                                                                             
+                                        788                                                                                                                                                             
+
+SQL> SELECT TO_DATE('13-MARCH-73') - TO_DATE('15-01-71') FROM DUAL;
+SELECT TO_DATE('13-MARCH-73') - TO_DATE('15-01-71') FROM DUAL
+                                        *
+ERROR at line 1:
+ORA-01843: not a valid month 
+
+
+SQL> SELECT TO_DATE('13-MARCH-73') - TO_DATE('15-01-71','DD-MM-RR') FROM DUAL;
+
+TO_DATE('13-MARCH-73')-TO_DATE('15-01-71','DD-MM-RR')                                                                                                                                                   
+-----------------------------------------------------                                                                                                                                                   
+                                                  788                                                                                                                                                   
+
+SQL> SELECT TO_DATE('13-MARCH-73') - TO_DATE('15-01-71','DD-MM-YY') FROM DUAL;
+
+TO_DATE('13-MARCH-73')-TO_DATE('15-01-71','DD-MM-YY')                                                                                                                                                   
+-----------------------------------------------------                                                                                                                                                   
+                                               -35737                                                                                                                                                   
+
+SQL> REM YY ALWAYS PICKS AND ATTACH CURRENT CENTURY VALUE : 71 : 2071
+SQL> 
+SQL> REM RR IS SMARTER FORMAT :
+SQL> 
+SQL> REM RR CENTURY = 100 YEARS
+SQL> 
+SQL> REM RR CENTURY = CURRENT 50 YEARS + PREVIOUS 50 YEARS
+SQL> 
+SQL> REM RR CENTURY : 2000-2049        + 1950-1999
+SQL> 
+SQL> 
+SQL> REM RR WORKS FINE IF OUR DATES FALL IN RR CENTURY RANGE : 1950 TO 2049
+SQL> 
+SQL> REM 31-MAY-44 : 31-MAY-2044
+SQL> 
+SQL> REM TO_DATE : FOR COMPARISON
+SQL> 
+SQL> SELECT FIRST_NAME , HIRE_DATE FROM EMPLOYEES WHERE HIRE_DATE > '31-DEC-95';
+
+FIRST_NAME HIRE_DATE                                                                                                                                                                                    
+---------- ---------                                                                                                                                                                                    
+Diana      07-FEB-99                                                                                                                                                                                    
+Kevin      16-NOV-99                                                                                                                                                                                    
+Curtis     29-JAN-97                                                                                                                                                                                    
+Randall    15-MAR-98                                                                                                                                                                                    
+Peter      09-JUL-98                                                                                                                                                                                    
+Eleni      29-JAN-00                                                                                                                                                                                    
+Ellen      11-MAY-96                                                                                                                                                                                    
+Jonathon   24-MAR-98                                                                                                                                                                                    
+Kimerely   24-MAY-99                                                                                                                                                                                    
+Michael    17-FEB-96                                                                                                                                                                                    
+Pat        17-AUG-97                                                                                                                                                                                    
+
+11 rows selected.
+
+SQL> SELECT FIRST_NAME , HIRE_DATE FROM EMPLOYEES WHERE HIRE_DATE > '31-DECEMBER-95';
+
+FIRST_NAME HIRE_DATE                                                                                                                                                                                    
+---------- ---------                                                                                                                                                                                    
+Diana      07-FEB-99                                                                                                                                                                                    
+Kevin      16-NOV-99                                                                                                                                                                                    
+Curtis     29-JAN-97                                                                                                                                                                                    
+Randall    15-MAR-98                                                                                                                                                                                    
+Peter      09-JUL-98                                                                                                                                                                                    
+Eleni      29-JAN-00                                                                                                                                                                                    
+Ellen      11-MAY-96                                                                                                                                                                                    
+Jonathon   24-MAR-98                                                                                                                                                                                    
+Kimerely   24-MAY-99                                                                                                                                                                                    
+Michael    17-FEB-96                                                                                                                                                                                    
+Pat        17-AUG-97                                                                                                                                                                                    
+
+11 rows selected.
+
+SQL> SELECT FIRST_NAME , HIRE_DATE FROM EMPLOYEES WHERE HIRE_DATE > '31DECEMBER/1995';
+
+FIRST_NAME HIRE_DATE                                                                                                                                                                                    
+---------- ---------                                                                                                                                                                                    
+Diana      07-FEB-99                                                                                                                                                                                    
+Kevin      16-NOV-99                                                                                                                                                                                    
+Curtis     29-JAN-97                                                                                                                                                                                    
+Randall    15-MAR-98                                                                                                                                                                                    
+Peter      09-JUL-98                                                                                                                                                                                    
+Eleni      29-JAN-00                                                                                                                                                                                    
+Ellen      11-MAY-96                                                                                                                                                                                    
+Jonathon   24-MAR-98                                                                                                                                                                                    
+Kimerely   24-MAY-99                                                                                                                                                                                    
+Michael    17-FEB-96                                                                                                                                                                                    
+Pat        17-AUG-97                                                                                                                                                                                    
+
+11 rows selected.
+
+SQL> SELECT FIRST_NAME , HIRE_DATE FROM EMPLOYEES WHERE HIRE_DATE > 'DEC-31-95';
+SELECT FIRST_NAME , HIRE_DATE FROM EMPLOYEES WHERE HIRE_DATE > 'DEC-31-95'
+                                                               *
+ERROR at line 1:
+ORA-01858: a non-numeric character was found where a numeric was expected 
+
+
+SQL> SELECT FIRST_NAME , HIRE_DATE FROM EMPLOYEES WHERE HIRE_DATE > TO_DATE('DEC-31-95','MON-DD-RR');
+
+FIRST_NAME HIRE_DATE                                                                                                                                                                                    
+---------- ---------                                                                                                                                                                                    
+Diana      07-FEB-99                                                                                                                                                                                    
+Kevin      16-NOV-99                                                                                                                                                                                    
+Curtis     29-JAN-97                                                                                                                                                                                    
+Randall    15-MAR-98                                                                                                                                                                                    
+Peter      09-JUL-98                                                                                                                                                                                    
+Eleni      29-JAN-00                                                                                                                                                                                    
+Ellen      11-MAY-96                                                                                                                                                                                    
+Jonathon   24-MAR-98                                                                                                                                                                                    
+Kimerely   24-MAY-99                                                                                                                                                                                    
+Michael    17-FEB-96                                                                                                                                                                                    
+Pat        17-AUG-97                                                                                                                                                                                    
+
+11 rows selected.
+
+SQL> SELECT FIRST_NAME , HIRE_DATE FROM EMPLOYEES WHERE HIRE_DATE > TO_DATE('DEC-31-95','mon-DD-RR');
+
+FIRST_NAME HIRE_DATE                                                                                                                                                                                    
+---------- ---------                                                                                                                                                                                    
+Diana      07-FEB-99                                                                                                                                                                                    
+Kevin      16-NOV-99                                                                                                                                                                                    
+Curtis     29-JAN-97                                                                                                                                                                                    
+Randall    15-MAR-98                                                                                                                                                                                    
+Peter      09-JUL-98                                                                                                                                                                                    
+Eleni      29-JAN-00                                                                                                                                                                                    
+Ellen      11-MAY-96                                                                                                                                                                                    
+Jonathon   24-MAR-98                                                                                                                                                                                    
+Kimerely   24-MAY-99                                                                                                                                                                                    
+Michael    17-FEB-96                                                                                                                                                                                    
+Pat        17-AUG-97                                                                                                                                                                                    
+
+11 rows selected.
+
+SQL> SELECT FIRST_NAME , HIRE_DATE FROM EMPLOYEES WHERE HIRE_DATE > TO_DATE('DEC-31-95','mon/DD\RR');
+
+FIRST_NAME HIRE_DATE                                                                                                                                                                                    
+---------- ---------                                                                                                                                                                                    
+Diana      07-FEB-99                                                                                                                                                                                    
+Kevin      16-NOV-99                                                                                                                                                                                    
+Curtis     29-JAN-97                                                                                                                                                                                    
+Randall    15-MAR-98                                                                                                                                                                                    
+Peter      09-JUL-98                                                                                                                                                                                    
+Eleni      29-JAN-00                                                                                                                                                                                    
+Ellen      11-MAY-96                                                                                                                                                                                    
+Jonathon   24-MAR-98                                                                                                                                                                                    
+Kimerely   24-MAY-99                                                                                                                                                                                    
+Michael    17-FEB-96                                                                                                                                                                                    
+Pat        17-AUG-97                                                                                                                                                                                    
+
+11 rows selected.
+
+SQL> SELECT FIRST_NAME , HIRE_DATE FROM EMPLOYEES WHERE HIRE_DATE > TO_DATE('DEC-31-95','monDDRR');
+SELECT FIRST_NAME , HIRE_DATE FROM EMPLOYEES WHERE HIRE_DATE > TO_DATE('DEC-31-95','monDDRR')
+                                                                       *
+ERROR at line 1:
+ORA-01847: day of month must be between 1 and last day of month 
+
+
+SQL> SELECT FIRST_NAME , HIRE_DATE FROM EMPLOYEES WHERE HIRE_DATE > '31-12-1995';
+SELECT FIRST_NAME , HIRE_DATE FROM EMPLOYEES WHERE HIRE_DATE > '31-12-1995'
+                                                               *
+ERROR at line 1:
+ORA-01843: not a valid month 
+
+
+SQL> SELECT FIRST_NAME , HIRE_DATE FROM EMPLOYEES WHERE HIRE_DATE > TO_DATE('31-12-1995','DD-MM-RRRR');
+
+FIRST_NAME HIRE_DATE                                                                                                                                                                                    
+---------- ---------                                                                                                                                                                                    
+Diana      07-FEB-99                                                                                                                                                                                    
+Kevin      16-NOV-99                                                                                                                                                                                    
+Curtis     29-JAN-97                                                                                                                                                                                    
+Randall    15-MAR-98                                                                                                                                                                                    
+Peter      09-JUL-98                                                                                                                                                                                    
+Eleni      29-JAN-00                                                                                                                                                                                    
+Ellen      11-MAY-96                                                                                                                                                                                    
+Jonathon   24-MAR-98                                                                                                                                                                                    
+Kimerely   24-MAY-99                                                                                                                                                                                    
+Michael    17-FEB-96                                                                                                                                                                                    
+Pat        17-AUG-97                                                                                                                                                                                    
+
+11 rows selected.
+
+SQL> SELECT FIRST_NAME , HIRE_DATE FROM EMPLOYEES WHERE HIRE_DATE > TO_DATE('31-12-1995','DD-MM-RR');
+
+FIRST_NAME HIRE_DATE                                                                                                                                                                                    
+---------- ---------                                                                                                                                                                                    
+Diana      07-FEB-99                                                                                                                                                                                    
+Kevin      16-NOV-99                                                                                                                                                                                    
+Curtis     29-JAN-97                                                                                                                                                                                    
+Randall    15-MAR-98                                                                                                                                                                                    
+Peter      09-JUL-98                                                                                                                                                                                    
+Eleni      29-JAN-00                                                                                                                                                                                    
+Ellen      11-MAY-96                                                                                                                                                                                    
+Jonathon   24-MAR-98                                                                                                                                                                                    
+Kimerely   24-MAY-99                                                                                                                                                                                    
+Michael    17-FEB-96                                                                                                                                                                                    
+Pat        17-AUG-97                                                                                                                                                                                    
+
+11 rows selected.
+
+SQL> SELECT FIRST_NAME , HIRE_DATE FROM EMPLOYEES WHERE HIRE_DATE > TO_DATE('31-12-1995','FXDD-MM-RRRR');
+
+FIRST_NAME HIRE_DATE                                                                                                                                                                                    
+---------- ---------                                                                                                                                                                                    
+Diana      07-FEB-99                                                                                                                                                                                    
+Kevin      16-NOV-99                                                                                                                                                                                    
+Curtis     29-JAN-97                                                                                                                                                                                    
+Randall    15-MAR-98                                                                                                                                                                                    
+Peter      09-JUL-98                                                                                                                                                                                    
+Eleni      29-JAN-00                                                                                                                                                                                    
+Ellen      11-MAY-96                                                                                                                                                                                    
+Jonathon   24-MAR-98                                                                                                                                                                                    
+Kimerely   24-MAY-99                                                                                                                                                                                    
+Michael    17-FEB-96                                                                                                                                                                                    
+Pat        17-AUG-97                                                                                                                                                                                    
+
+11 rows selected.
+
+SQL> REM FX : FIXED FORMAT/EXACT FORMAT
+SQL> 
+SQL> SELECT FIRST_NAME , HIRE_DATE FROM EMPLOYEES WHERE HIRE_DATE > TO_DATE('31-12-1995','FXDD-MM-RR');
+SELECT FIRST_NAME , HIRE_DATE FROM EMPLOYEES WHERE HIRE_DATE > TO_DATE('31-12-1995','FXDD-MM-RR')
+                                                                       *
+ERROR at line 1:
+ORA-01830: date format picture ends before converting entire input string 
+
+
+SQL> REM TO_CHAR : NUMBER TO CHAR
+SQL> 
+SQL> REM TO_CHAR : DATE TO CHAR
+SQL> 
+SQL> REM NUMBER VALID FORMAT CHARACTERS : 9 0   . ,    D G    $ L U  S MI PR   EEEE OR eeee   V
+SQL> 
+SQL> SELECT SALARY FROM EMPLOYEES;
+
+    SALARY                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+     24000                                                                                                                                                                                              
+     17000                                                                                                                                                                                              
+     17000                                                                                                                                                                                              
+      9000                                                                                                                                                                                              
+      6000                                                                                                                                                                                              
+      4200                                                                                                                                                                                              
+      5800                                                                                                                                                                                              
+      3500                                                                                                                                                                                              
+      3100                                                                                                                                                                                              
+      2600                                                                                                                                                                                              
+      2500                                                                                                                                                                                              
+     10500                                                                                                                                                                                              
+     11000                                                                                                                                                                                              
+      8600                                                                                                                                                                                              
+      7000                                                                                                                                                                                              
+      4400                                                                                                                                                                                              
+     13000                                                                                                                                                                                              
+      6000                                                                                                                                                                                              
+     12000                                                                                                                                                                                              
+      8300                                                                                                                                                                                              
+
+20 rows selected.
+
+SQL> REM 10 SPACES
+SQL> 
+SQL> SHOW NUMW
+numwidth 10
+SQL> 
+SQL> SELECT SALARY , TO_CHAR(SALARY,'99999') FROM EMPLOYEES;
+
+    SALARY TO_CHA                                                                                                                                                                                       
+---------- ------                                                                                                                                                                                       
+     24000  24000                                                                                                                                                                                       
+     17000  17000                                                                                                                                                                                       
+     17000  17000                                                                                                                                                                                       
+      9000   9000                                                                                                                                                                                       
+      6000   6000                                                                                                                                                                                       
+      4200   4200                                                                                                                                                                                       
+      5800   5800                                                                                                                                                                                       
+      3500   3500                                                                                                                                                                                       
+      3100   3100                                                                                                                                                                                       
+      2600   2600                                                                                                                                                                                       
+      2500   2500                                                                                                                                                                                       
+     10500  10500                                                                                                                                                                                       
+     11000  11000                                                                                                                                                                                       
+      8600   8600                                                                                                                                                                                       
+      7000   7000                                                                                                                                                                                       
+      4400   4400                                                                                                                                                                                       
+     13000  13000                                                                                                                                                                                       
+      6000   6000                                                                                                                                                                                       
+     12000  12000                                                                                                                                                                                       
+      8300   8300                                                                                                                                                                                       
+
+20 rows selected.
+
+SQL> SELECT SALARY , TO_CHAR(SALARY,'00000') FROM EMPLOYEES;
+
+    SALARY TO_CHA                                                                                                                                                                                       
+---------- ------                                                                                                                                                                                       
+     24000  24000                                                                                                                                                                                       
+     17000  17000                                                                                                                                                                                       
+     17000  17000                                                                                                                                                                                       
+      9000  09000                                                                                                                                                                                       
+      6000  06000                                                                                                                                                                                       
+      4200  04200                                                                                                                                                                                       
+      5800  05800                                                                                                                                                                                       
+      3500  03500                                                                                                                                                                                       
+      3100  03100                                                                                                                                                                                       
+      2600  02600                                                                                                                                                                                       
+      2500  02500                                                                                                                                                                                       
+     10500  10500                                                                                                                                                                                       
+     11000  11000                                                                                                                                                                                       
+      8600  08600                                                                                                                                                                                       
+      7000  07000                                                                                                                                                                                       
+      4400  04400                                                                                                                                                                                       
+     13000  13000                                                                                                                                                                                       
+      6000  06000                                                                                                                                                                                       
+     12000  12000                                                                                                                                                                                       
+      8300  08300                                                                                                                                                                                       
+
+20 rows selected.
+
+SQL> SELECT SALARY , TO_CHAR(SALARY,'99090') FROM EMPLOYEES;
+
+    SALARY TO_CHA                                                                                                                                                                                       
+---------- ------                                                                                                                                                                                       
+     24000  24000                                                                                                                                                                                       
+     17000  17000                                                                                                                                                                                       
+     17000  17000                                                                                                                                                                                       
+      9000   9000                                                                                                                                                                                       
+      6000   6000                                                                                                                                                                                       
+      4200   4200                                                                                                                                                                                       
+      5800   5800                                                                                                                                                                                       
+      3500   3500                                                                                                                                                                                       
+      3100   3100                                                                                                                                                                                       
+      2600   2600                                                                                                                                                                                       
+      2500   2500                                                                                                                                                                                       
+     10500  10500                                                                                                                                                                                       
+     11000  11000                                                                                                                                                                                       
+      8600   8600                                                                                                                                                                                       
+      7000   7000                                                                                                                                                                                       
+      4400   4400                                                                                                                                                                                       
+     13000  13000                                                                                                                                                                                       
+      6000   6000                                                                                                                                                                                       
+     12000  12000                                                                                                                                                                                       
+      8300   8300                                                                                                                                                                                       
+
+20 rows selected.
+
+SQL> SELECT SALARY , TO_CHAR(SALARY,'909090') FROM EMPLOYEES;
+
+    SALARY TO_CHAR                                                                                                                                                                                      
+---------- -------                                                                                                                                                                                      
+     24000   24000                                                                                                                                                                                      
+     17000   17000                                                                                                                                                                                      
+     17000   17000                                                                                                                                                                                      
+      9000   09000                                                                                                                                                                                      
+      6000   06000                                                                                                                                                                                      
+      4200   04200                                                                                                                                                                                      
+      5800   05800                                                                                                                                                                                      
+      3500   03500                                                                                                                                                                                      
+      3100   03100                                                                                                                                                                                      
+      2600   02600                                                                                                                                                                                      
+      2500   02500                                                                                                                                                                                      
+     10500   10500                                                                                                                                                                                      
+     11000   11000                                                                                                                                                                                      
+      8600   08600                                                                                                                                                                                      
+      7000   07000                                                                                                                                                                                      
+      4400   04400                                                                                                                                                                                      
+     13000   13000                                                                                                                                                                                      
+      6000   06000                                                                                                                                                                                      
+     12000   12000                                                                                                                                                                                      
+      8300   08300                                                                                                                                                                                      
+
+20 rows selected.
+
+SQL> SELECT SALARY , TO_CHAR(SALARY,'099090') FROM EMPLOYEES;
+
+    SALARY TO_CHAR                                                                                                                                                                                      
+---------- -------                                                                                                                                                                                      
+     24000  024000                                                                                                                                                                                      
+     17000  017000                                                                                                                                                                                      
+     17000  017000                                                                                                                                                                                      
+      9000  009000                                                                                                                                                                                      
+      6000  006000                                                                                                                                                                                      
+      4200  004200                                                                                                                                                                                      
+      5800  005800                                                                                                                                                                                      
+      3500  003500                                                                                                                                                                                      
+      3100  003100                                                                                                                                                                                      
+      2600  002600                                                                                                                                                                                      
+      2500  002500                                                                                                                                                                                      
+     10500  010500                                                                                                                                                                                      
+     11000  011000                                                                                                                                                                                      
+      8600  008600                                                                                                                                                                                      
+      7000  007000                                                                                                                                                                                      
+      4400  004400                                                                                                                                                                                      
+     13000  013000                                                                                                                                                                                      
+      6000  006000                                                                                                                                                                                      
+     12000  012000                                                                                                                                                                                      
+      8300  008300                                                                                                                                                                                      
+
+20 rows selected.
+
+SQL> SELECT SALARY , TO_CHAR(SALARY,'99090.00') FROM EMPLOYEES;
+
+    SALARY TO_CHAR(S                                                                                                                                                                                    
+---------- ---------                                                                                                                                                                                    
+     24000  24000.00                                                                                                                                                                                    
+     17000  17000.00                                                                                                                                                                                    
+     17000  17000.00                                                                                                                                                                                    
+      9000   9000.00                                                                                                                                                                                    
+      6000   6000.00                                                                                                                                                                                    
+      4200   4200.00                                                                                                                                                                                    
+      5800   5800.00                                                                                                                                                                                    
+      3500   3500.00                                                                                                                                                                                    
+      3100   3100.00                                                                                                                                                                                    
+      2600   2600.00                                                                                                                                                                                    
+      2500   2500.00                                                                                                                                                                                    
+     10500  10500.00                                                                                                                                                                                    
+     11000  11000.00                                                                                                                                                                                    
+      8600   8600.00                                                                                                                                                                                    
+      7000   7000.00                                                                                                                                                                                    
+      4400   4400.00                                                                                                                                                                                    
+     13000  13000.00                                                                                                                                                                                    
+      6000   6000.00                                                                                                                                                                                    
+     12000  12000.00                                                                                                                                                                                    
+      8300   8300.00                                                                                                                                                                                    
+
+20 rows selected.
+
+SQL> SELECT SALARY , TO_CHAR(SALARY,'99090.90') FROM EMPLOYEES;
+
+    SALARY TO_CHAR(S                                                                                                                                                                                    
+---------- ---------                                                                                                                                                                                    
+     24000  24000.00                                                                                                                                                                                    
+     17000  17000.00                                                                                                                                                                                    
+     17000  17000.00                                                                                                                                                                                    
+      9000   9000.00                                                                                                                                                                                    
+      6000   6000.00                                                                                                                                                                                    
+      4200   4200.00                                                                                                                                                                                    
+      5800   5800.00                                                                                                                                                                                    
+      3500   3500.00                                                                                                                                                                                    
+      3100   3100.00                                                                                                                                                                                    
+      2600   2600.00                                                                                                                                                                                    
+      2500   2500.00                                                                                                                                                                                    
+     10500  10500.00                                                                                                                                                                                    
+     11000  11000.00                                                                                                                                                                                    
+      8600   8600.00                                                                                                                                                                                    
+      7000   7000.00                                                                                                                                                                                    
+      4400   4400.00                                                                                                                                                                                    
+     13000  13000.00                                                                                                                                                                                    
+      6000   6000.00                                                                                                                                                                                    
+     12000  12000.00                                                                                                                                                                                    
+      8300   8300.00                                                                                                                                                                                    
+
+20 rows selected.
+
+SQL> SELECT SALARY , TO_CHAR(SALARY,'99,090.90') FROM EMPLOYEES;
+
+    SALARY TO_CHAR(SA                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+     24000  24,000.00                                                                                                                                                                                   
+     17000  17,000.00                                                                                                                                                                                   
+     17000  17,000.00                                                                                                                                                                                   
+      9000   9,000.00                                                                                                                                                                                   
+      6000   6,000.00                                                                                                                                                                                   
+      4200   4,200.00                                                                                                                                                                                   
+      5800   5,800.00                                                                                                                                                                                   
+      3500   3,500.00                                                                                                                                                                                   
+      3100   3,100.00                                                                                                                                                                                   
+      2600   2,600.00                                                                                                                                                                                   
+      2500   2,500.00                                                                                                                                                                                   
+     10500  10,500.00                                                                                                                                                                                   
+     11000  11,000.00                                                                                                                                                                                   
+      8600   8,600.00                                                                                                                                                                                   
+      7000   7,000.00                                                                                                                                                                                   
+      4400   4,400.00                                                                                                                                                                                   
+     13000  13,000.00                                                                                                                                                                                   
+      6000   6,000.00                                                                                                                                                                                   
+     12000  12,000.00                                                                                                                                                                                   
+      8300   8,300.00                                                                                                                                                                                   
+
+20 rows selected.
+
+SQL> REM NUMBER VALID FORMAT CHARACTERS : 9 0   . ,    D G    $ L U  S MI PR   EEEE OR eeee   V
+SQL> 
+SQL> SELECT SALARY , TO_CHAR(SALARY,'99G090D90') FROM EMPLOYEES;
+
+    SALARY TO_CHAR(SA                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+     24000  24,000.00                                                                                                                                                                                   
+     17000  17,000.00                                                                                                                                                                                   
+     17000  17,000.00                                                                                                                                                                                   
+      9000   9,000.00                                                                                                                                                                                   
+      6000   6,000.00                                                                                                                                                                                   
+      4200   4,200.00                                                                                                                                                                                   
+      5800   5,800.00                                                                                                                                                                                   
+      3500   3,500.00                                                                                                                                                                                   
+      3100   3,100.00                                                                                                                                                                                   
+      2600   2,600.00                                                                                                                                                                                   
+      2500   2,500.00                                                                                                                                                                                   
+     10500  10,500.00                                                                                                                                                                                   
+     11000  11,000.00                                                                                                                                                                                   
+      8600   8,600.00                                                                                                                                                                                   
+      7000   7,000.00                                                                                                                                                                                   
+      4400   4,400.00                                                                                                                                                                                   
+     13000  13,000.00                                                                                                                                                                                   
+      6000   6,000.00                                                                                                                                                                                   
+     12000  12,000.00                                                                                                                                                                                   
+      8300   8,300.00                                                                                                                                                                                   
+
+20 rows selected.
+
+SQL> REM D = DECIMAL SEPARATOR
+SQL> 
+SQL> REM G = GROUP SEPARATOR
+SQL> 
+SQL> SELECT * FROM NLS_SESSION_PARAMETERS;
+
+PARAMETER                                                                                                                                                                                               
+------------------------------------------------------------------------------------------------------------------------                                                                                
+VALUE                                                                                                                                                                                                   
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+NLS_LANGUAGE                                                                                                                                                                                            
+AMERICAN                                                                                                                                                                                                
+                                                                                                                                                                                                        
+NLS_TERRITORY                                                                                                                                                                                           
+AMERICA                                                                                                                                                                                                 
+                                                                                                                                                                                                        
+NLS_CURRENCY                                                                                                                                                                                            
+$                                                                                                                                                                                                       
+                                                                                                                                                                                                        
+NLS_ISO_CURRENCY                                                                                                                                                                                        
+AMERICA                                                                                                                                                                                                 
+                                                                                                                                                                                                        
+NLS_NUMERIC_CHARACTERS                                                                                                                                                                                  
+.,                                                                                                                                                                                                      
+                                                                                                                                                                                                        
+NLS_CALENDAR                                                                                                                                                                                            
+GREGORIAN                                                                                                                                                                                               
+                                                                                                                                                                                                        
+NLS_DATE_FORMAT                                                                                                                                                                                         
+
+PARAMETER                                                                                                                                                                                               
+------------------------------------------------------------------------------------------------------------------------                                                                                
+VALUE                                                                                                                                                                                                   
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+DD-MON-RR                                                                                                                                                                                               
+                                                                                                                                                                                                        
+NLS_DATE_LANGUAGE                                                                                                                                                                                       
+AMERICAN                                                                                                                                                                                                
+                                                                                                                                                                                                        
+NLS_SORT                                                                                                                                                                                                
+BINARY                                                                                                                                                                                                  
+                                                                                                                                                                                                        
+NLS_TIME_FORMAT                                                                                                                                                                                         
+HH.MI.SSXFF AM                                                                                                                                                                                          
+                                                                                                                                                                                                        
+NLS_TIMESTAMP_FORMAT                                                                                                                                                                                    
+DD-MON-RR HH.MI.SSXFF AM                                                                                                                                                                                
+                                                                                                                                                                                                        
+NLS_TIME_TZ_FORMAT                                                                                                                                                                                      
+HH.MI.SSXFF AM TZR                                                                                                                                                                                      
+                                                                                                                                                                                                        
+NLS_TIMESTAMP_TZ_FORMAT                                                                                                                                                                                 
+DD-MON-RR HH.MI.SSXFF AM TZR                                                                                                                                                                            
+
+PARAMETER                                                                                                                                                                                               
+------------------------------------------------------------------------------------------------------------------------                                                                                
+VALUE                                                                                                                                                                                                   
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                                                                                                                                                                                        
+NLS_DUAL_CURRENCY                                                                                                                                                                                       
+$                                                                                                                                                                                                       
+                                                                                                                                                                                                        
+NLS_COMP                                                                                                                                                                                                
+BINARY                                                                                                                                                                                                  
+                                                                                                                                                                                                        
+NLS_LENGTH_SEMANTICS                                                                                                                                                                                    
+BYTE                                                                                                                                                                                                    
+                                                                                                                                                                                                        
+NLS_NCHAR_CONV_EXCP                                                                                                                                                                                     
+FALSE                                                                                                                                                                                                   
+                                                                                                                                                                                                        
+
+17 rows selected.
+
+SQL> COL PARAMETER FORMAT A30
+SQL> COL VALUE FORMAT A30
+SQL> 
+SQL> R
+  1* SELECT * FROM NLS_SESSION_PARAMETERS
+
+PARAMETER                      VALUE                                                                                                                                                                    
+------------------------------ ------------------------------                                                                                                                                           
+NLS_LANGUAGE                   AMERICAN                                                                                                                                                                 
+NLS_TERRITORY                  AMERICA                                                                                                                                                                  
+NLS_CURRENCY                   $                                                                                                                                                                        
+NLS_ISO_CURRENCY               AMERICA                                                                                                                                                                  
+NLS_NUMERIC_CHARACTERS         .,                                                                                                                                                                       
+NLS_CALENDAR                   GREGORIAN                                                                                                                                                                
+NLS_DATE_FORMAT                DD-MON-RR                                                                                                                                                                
+NLS_DATE_LANGUAGE              AMERICAN                                                                                                                                                                 
+NLS_SORT                       BINARY                                                                                                                                                                   
+NLS_TIME_FORMAT                HH.MI.SSXFF AM                                                                                                                                                           
+NLS_TIMESTAMP_FORMAT           DD-MON-RR HH.MI.SSXFF AM                                                                                                                                                 
+NLS_TIME_TZ_FORMAT             HH.MI.SSXFF AM TZR                                                                                                                                                       
+NLS_TIMESTAMP_TZ_FORMAT        DD-MON-RR HH.MI.SSXFF AM TZR                                                                                                                                             
+NLS_DUAL_CURRENCY              $                                                                                                                                                                        
+NLS_COMP                       BINARY                                                                                                                                                                   
+NLS_LENGTH_SEMANTICS           BYTE                                                                                                                                                                     
+NLS_NCHAR_CONV_EXCP            FALSE                                                                                                                                                                    
+
+17 rows selected.
+
+SQL> ALTER SESSION SET NLS_NUMERIC_CHARACTERS = '|~';
+
+Session altered.
+
+SQL> SELECT SALARY , TO_CHAR(SALARY,'99|090~90') FROM EMPLOYEES;
+SELECT SALARY , TO_CHAR(SALARY,'99|090~90') FROM EMPLOYEES
+                               *
+ERROR at line 1:
+ORA-01481: invalid number format model 
+
+
+SQL> SELECT SALARY , TO_CHAR(SALARY,'99G090D90') FROM EMPLOYEES;
+
+    SALARY TO_CHAR(SA                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+     24000  24~000|00                                                                                                                                                                                   
+     17000  17~000|00                                                                                                                                                                                   
+     17000  17~000|00                                                                                                                                                                                   
+      9000   9~000|00                                                                                                                                                                                   
+      6000   6~000|00                                                                                                                                                                                   
+      4200   4~200|00                                                                                                                                                                                   
+      5800   5~800|00                                                                                                                                                                                   
+      3500   3~500|00                                                                                                                                                                                   
+      3100   3~100|00                                                                                                                                                                                   
+      2600   2~600|00                                                                                                                                                                                   
+      2500   2~500|00                                                                                                                                                                                   
+     10500  10~500|00                                                                                                                                                                                   
+     11000  11~000|00                                                                                                                                                                                   
+      8600   8~600|00                                                                                                                                                                                   
+      7000   7~000|00                                                                                                                                                                                   
+      4400   4~400|00                                                                                                                                                                                   
+     13000  13~000|00                                                                                                                                                                                   
+      6000   6~000|00                                                                                                                                                                                   
+     12000  12~000|00                                                                                                                                                                                   
+      8300   8~300|00                                                                                                                                                                                   
+
+20 rows selected.
+
+SQL> SELECT SALARY , TO_CHAR(SALARY,'99G090.90') FROM EMPLOYEES;
+SELECT SALARY , TO_CHAR(SALARY,'99G090.90') FROM EMPLOYEES
+                               *
+ERROR at line 1:
+ORA-01481: invalid number format model 
+
+
+SQL> SELECT SALARY , TO_CHAR(SALARY,'99,090D90') FROM EMPLOYEES;
+SELECT SALARY , TO_CHAR(SALARY,'99,090D90') FROM EMPLOYEES
+                               *
+ERROR at line 1:
+ORA-01481: invalid number format model 
+
+
+SQL> SELECT SALARY , TO_CHAR(SALARY,'$99G090D90') FROM EMPLOYEES;
+
+    SALARY TO_CHAR(SAL                                                                                                                                                                                  
+---------- -----------                                                                                                                                                                                  
+     24000  $24~000|00                                                                                                                                                                                  
+     17000  $17~000|00                                                                                                                                                                                  
+     17000  $17~000|00                                                                                                                                                                                  
+      9000   $9~000|00                                                                                                                                                                                  
+      6000   $6~000|00                                                                                                                                                                                  
+      4200   $4~200|00                                                                                                                                                                                  
+      5800   $5~800|00                                                                                                                                                                                  
+      3500   $3~500|00                                                                                                                                                                                  
+      3100   $3~100|00                                                                                                                                                                                  
+      2600   $2~600|00                                                                                                                                                                                  
+      2500   $2~500|00                                                                                                                                                                                  
+     10500  $10~500|00                                                                                                                                                                                  
+     11000  $11~000|00                                                                                                                                                                                  
+      8600   $8~600|00                                                                                                                                                                                  
+      7000   $7~000|00                                                                                                                                                                                  
+      4400   $4~400|00                                                                                                                                                                                  
+     13000  $13~000|00                                                                                                                                                                                  
+      6000   $6~000|00                                                                                                                                                                                  
+     12000  $12~000|00                                                                                                                                                                                  
+      8300   $8~300|00                                                                                                                                                                                  
+
+20 rows selected.
+
+SQL> SELECT SALARY , TO_CHAR(SALARY,'Rs.99G090D90') FROM EMPLOYEES;
+SELECT SALARY , TO_CHAR(SALARY,'Rs.99G090D90') FROM EMPLOYEES
+                               *
+ERROR at line 1:
+ORA-01481: invalid number format model 
+
+
+SQL> SELECT * FROM NLS_SESSION_PARAMETERS;
+
+PARAMETER                      VALUE                                                                                                                                                                    
+------------------------------ ------------------------------                                                                                                                                           
+NLS_LANGUAGE                   AMERICAN                                                                                                                                                                 
+NLS_TERRITORY                  AMERICA                                                                                                                                                                  
+NLS_CURRENCY                   $                                                                                                                                                                        
+NLS_ISO_CURRENCY               AMERICA                                                                                                                                                                  
+NLS_NUMERIC_CHARACTERS         |~                                                                                                                                                                       
+NLS_CALENDAR                   GREGORIAN                                                                                                                                                                
+NLS_DATE_FORMAT                DD-MON-RR                                                                                                                                                                
+NLS_DATE_LANGUAGE              AMERICAN                                                                                                                                                                 
+NLS_SORT                       BINARY                                                                                                                                                                   
+NLS_TIME_FORMAT                HH.MI.SSXFF AM                                                                                                                                                           
+NLS_TIMESTAMP_FORMAT           DD-MON-RR HH.MI.SSXFF AM                                                                                                                                                 
+NLS_TIME_TZ_FORMAT             HH.MI.SSXFF AM TZR                                                                                                                                                       
+NLS_TIMESTAMP_TZ_FORMAT        DD-MON-RR HH.MI.SSXFF AM TZR                                                                                                                                             
+NLS_DUAL_CURRENCY              $                                                                                                                                                                        
+NLS_COMP                       BINARY                                                                                                                                                                   
+NLS_LENGTH_SEMANTICS           BYTE                                                                                                                                                                     
+NLS_NCHAR_CONV_EXCP            FALSE                                                                                                                                                                    
+
+17 rows selected.
+
+SQL> REM L = LOCAL CURRENCY : NLS_CURRENCY
+SQL> 
+SQL> REM NLS : NATIONAL LANGUAGE SUPPORT
+SQL> 
+SQL> REM U = DUAL/EURO CURRENCY
+SQL> 
+SQL> REM U = DUAL/EURO CURRENCY : NLS_DUAL_CURRENCY
+SQL> 
+SQL> SELECT SALARY , TO_CHAR(SALARY,'L99G090D90') FROM EMPLOYEES;
+
+    SALARY TO_CHAR(SALARY,'L99G                                                                                                                                                                         
+---------- --------------------                                                                                                                                                                         
+     24000           $24~000|00                                                                                                                                                                         
+     17000           $17~000|00                                                                                                                                                                         
+     17000           $17~000|00                                                                                                                                                                         
+      9000            $9~000|00                                                                                                                                                                         
+      6000            $6~000|00                                                                                                                                                                         
+      4200            $4~200|00                                                                                                                                                                         
+      5800            $5~800|00                                                                                                                                                                         
+      3500            $3~500|00                                                                                                                                                                         
+      3100            $3~100|00                                                                                                                                                                         
+      2600            $2~600|00                                                                                                                                                                         
+      2500            $2~500|00                                                                                                                                                                         
+     10500           $10~500|00                                                                                                                                                                         
+     11000           $11~000|00                                                                                                                                                                         
+      8600            $8~600|00                                                                                                                                                                         
+      7000            $7~000|00                                                                                                                                                                         
+      4400            $4~400|00                                                                                                                                                                         
+     13000           $13~000|00                                                                                                                                                                         
+      6000            $6~000|00                                                                                                                                                                         
+     12000           $12~000|00                                                                                                                                                                         
+      8300            $8~300|00                                                                                                                                                                         
+
+20 rows selected.
+
+SQL> SELECT SALARY , TO_CHAR(SALARY,'99G090D90L') FROM EMPLOYEES;
+
+    SALARY TO_CHAR(SALARY,'99G0                                                                                                                                                                         
+---------- --------------------                                                                                                                                                                         
+     24000           24~000|00$                                                                                                                                                                         
+     17000           17~000|00$                                                                                                                                                                         
+     17000           17~000|00$                                                                                                                                                                         
+      9000            9~000|00$                                                                                                                                                                         
+      6000            6~000|00$                                                                                                                                                                         
+      4200            4~200|00$                                                                                                                                                                         
+      5800            5~800|00$                                                                                                                                                                         
+      3500            3~500|00$                                                                                                                                                                         
+      3100            3~100|00$                                                                                                                                                                         
+      2600            2~600|00$                                                                                                                                                                         
+      2500            2~500|00$                                                                                                                                                                         
+     10500           10~500|00$                                                                                                                                                                         
+     11000           11~000|00$                                                                                                                                                                         
+      8600            8~600|00$                                                                                                                                                                         
+      7000            7~000|00$                                                                                                                                                                         
+      4400            4~400|00$                                                                                                                                                                         
+     13000           13~000|00$                                                                                                                                                                         
+      6000            6~000|00$                                                                                                                                                                         
+     12000           12~000|00$                                                                                                                                                                         
+      8300            8~300|00$                                                                                                                                                                         
+
+20 rows selected.
+
+SQL> SELECT SALARY , TO_CHAR(SALARY,'99G090D90$') FROM EMPLOYEES;
+
+    SALARY TO_CHAR(SAL                                                                                                                                                                                  
+---------- -----------                                                                                                                                                                                  
+     24000  $24~000|00                                                                                                                                                                                  
+     17000  $17~000|00                                                                                                                                                                                  
+     17000  $17~000|00                                                                                                                                                                                  
+      9000   $9~000|00                                                                                                                                                                                  
+      6000   $6~000|00                                                                                                                                                                                  
+      4200   $4~200|00                                                                                                                                                                                  
+      5800   $5~800|00                                                                                                                                                                                  
+      3500   $3~500|00                                                                                                                                                                                  
+      3100   $3~100|00                                                                                                                                                                                  
+      2600   $2~600|00                                                                                                                                                                                  
+      2500   $2~500|00                                                                                                                                                                                  
+     10500  $10~500|00                                                                                                                                                                                  
+     11000  $11~000|00                                                                                                                                                                                  
+      8600   $8~600|00                                                                                                                                                                                  
+      7000   $7~000|00                                                                                                                                                                                  
+      4400   $4~400|00                                                                                                                                                                                  
+     13000  $13~000|00                                                                                                                                                                                  
+      6000   $6~000|00                                                                                                                                                                                  
+     12000  $12~000|00                                                                                                                                                                                  
+      8300   $8~300|00                                                                                                                                                                                  
+
+20 rows selected.
+
+SQL> SELECT SALARY , TO_CHAR(SALARY,'99G090D90U') FROM EMPLOYEES;
+
+    SALARY TO_CHAR(SALARY,'99G0                                                                                                                                                                         
+---------- --------------------                                                                                                                                                                         
+     24000           24~000|00$                                                                                                                                                                         
+     17000           17~000|00$                                                                                                                                                                         
+     17000           17~000|00$                                                                                                                                                                         
+      9000            9~000|00$                                                                                                                                                                         
+      6000            6~000|00$                                                                                                                                                                         
+      4200            4~200|00$                                                                                                                                                                         
+      5800            5~800|00$                                                                                                                                                                         
+      3500            3~500|00$                                                                                                                                                                         
+      3100            3~100|00$                                                                                                                                                                         
+      2600            2~600|00$                                                                                                                                                                         
+      2500            2~500|00$                                                                                                                                                                         
+     10500           10~500|00$                                                                                                                                                                         
+     11000           11~000|00$                                                                                                                                                                         
+      8600            8~600|00$                                                                                                                                                                         
+      7000            7~000|00$                                                                                                                                                                         
+      4400            4~400|00$                                                                                                                                                                         
+     13000           13~000|00$                                                                                                                                                                         
+      6000            6~000|00$                                                                                                                                                                         
+     12000           12~000|00$                                                                                                                                                                         
+      8300            8~300|00$                                                                                                                                                                         
+
+20 rows selected.
+
+SQL> SELECT SALARY , TO_CHAR(SALARY,'U99G090D90') FROM EMPLOYEES;
+
+    SALARY TO_CHAR(SALARY,'U99G                                                                                                                                                                         
+---------- --------------------                                                                                                                                                                         
+     24000           $24~000|00                                                                                                                                                                         
+     17000           $17~000|00                                                                                                                                                                         
+     17000           $17~000|00                                                                                                                                                                         
+      9000            $9~000|00                                                                                                                                                                         
+      6000            $6~000|00                                                                                                                                                                         
+      4200            $4~200|00                                                                                                                                                                         
+      5800            $5~800|00                                                                                                                                                                         
+      3500            $3~500|00                                                                                                                                                                         
+      3100            $3~100|00                                                                                                                                                                         
+      2600            $2~600|00                                                                                                                                                                         
+      2500            $2~500|00                                                                                                                                                                         
+     10500           $10~500|00                                                                                                                                                                         
+     11000           $11~000|00                                                                                                                                                                         
+      8600            $8~600|00                                                                                                                                                                         
+      7000            $7~000|00                                                                                                                                                                         
+      4400            $4~400|00                                                                                                                                                                         
+     13000           $13~000|00                                                                                                                                                                         
+      6000            $6~000|00                                                                                                                                                                         
+     12000           $12~000|00                                                                                                                                                                         
+      8300            $8~300|00                                                                                                                                                                         
+
+20 rows selected.
+
+SQL> SELECT SALARY , TO_CHAR(SALARY,'U99G090D90U') FROM EMPLOYEES;
+SELECT SALARY , TO_CHAR(SALARY,'U99G090D90U') FROM EMPLOYEES
+                               *
+ERROR at line 1:
+ORA-01481: invalid number format model 
+
+
+SQL> ALTER SESSION SET NLS_CURRENCY = 'Rs.';
+
+Session altered.
+
+SQL> ALTER SESSION SET NLS_DUAL_CURRENCY = ' CAD';
+
+Session altered.
+
+SQL> SELECT * FROM NLS_SESSION_PARAMETERS;
+
+PARAMETER                      VALUE                                                                                                                                                                    
+------------------------------ ------------------------------                                                                                                                                           
+NLS_LANGUAGE                   AMERICAN                                                                                                                                                                 
+NLS_TERRITORY                  AMERICA                                                                                                                                                                  
+NLS_CURRENCY                   Rs.                                                                                                                                                                      
+NLS_ISO_CURRENCY               AMERICA                                                                                                                                                                  
+NLS_NUMERIC_CHARACTERS         |~                                                                                                                                                                       
+NLS_CALENDAR                   GREGORIAN                                                                                                                                                                
+NLS_DATE_FORMAT                DD-MON-RR                                                                                                                                                                
+NLS_DATE_LANGUAGE              AMERICAN                                                                                                                                                                 
+NLS_SORT                       BINARY                                                                                                                                                                   
+NLS_TIME_FORMAT                HH.MI.SSXFF AM                                                                                                                                                           
+NLS_TIMESTAMP_FORMAT           DD-MON-RR HH.MI.SSXFF AM                                                                                                                                                 
+NLS_TIME_TZ_FORMAT             HH.MI.SSXFF AM TZR                                                                                                                                                       
+NLS_TIMESTAMP_TZ_FORMAT        DD-MON-RR HH.MI.SSXFF AM TZR                                                                                                                                             
+NLS_DUAL_CURRENCY               CAD                                                                                                                                                                     
+NLS_COMP                       BINARY                                                                                                                                                                   
+NLS_LENGTH_SEMANTICS           BYTE                                                                                                                                                                     
+NLS_NCHAR_CONV_EXCP            FALSE                                                                                                                                                                    
+
+17 rows selected.
+
+SQL> SELECT SALARY , TO_CHAR(SALARY,'L99G090D90') FROM EMPLOYEES;
+
+    SALARY TO_CHAR(SALARY,'L99G                                                                                                                                                                         
+---------- --------------------                                                                                                                                                                         
+     24000         Rs.24~000|00                                                                                                                                                                         
+     17000         Rs.17~000|00                                                                                                                                                                         
+     17000         Rs.17~000|00                                                                                                                                                                         
+      9000          Rs.9~000|00                                                                                                                                                                         
+      6000          Rs.6~000|00                                                                                                                                                                         
+      4200          Rs.4~200|00                                                                                                                                                                         
+      5800          Rs.5~800|00                                                                                                                                                                         
+      3500          Rs.3~500|00                                                                                                                                                                         
+      3100          Rs.3~100|00                                                                                                                                                                         
+      2600          Rs.2~600|00                                                                                                                                                                         
+      2500          Rs.2~500|00                                                                                                                                                                         
+     10500         Rs.10~500|00                                                                                                                                                                         
+     11000         Rs.11~000|00                                                                                                                                                                         
+      8600          Rs.8~600|00                                                                                                                                                                         
+      7000          Rs.7~000|00                                                                                                                                                                         
+      4400          Rs.4~400|00                                                                                                                                                                         
+     13000         Rs.13~000|00                                                                                                                                                                         
+      6000          Rs.6~000|00                                                                                                                                                                         
+     12000         Rs.12~000|00                                                                                                                                                                         
+      8300          Rs.8~300|00                                                                                                                                                                         
+
+20 rows selected.
+
+SQL> SELECT SALARY , TO_CHAR(SALARY,'U99G090D90') FROM EMPLOYEES;
+
+    SALARY TO_CHAR(SALARY,'U99G                                                                                                                                                                         
+---------- --------------------                                                                                                                                                                         
+     24000         CAD24~000|00                                                                                                                                                                         
+     17000         CAD17~000|00                                                                                                                                                                         
+     17000         CAD17~000|00                                                                                                                                                                         
+      9000          CAD9~000|00                                                                                                                                                                         
+      6000          CAD6~000|00                                                                                                                                                                         
+      4200          CAD4~200|00                                                                                                                                                                         
+      5800          CAD5~800|00                                                                                                                                                                         
+      3500          CAD3~500|00                                                                                                                                                                         
+      3100          CAD3~100|00                                                                                                                                                                         
+      2600          CAD2~600|00                                                                                                                                                                         
+      2500          CAD2~500|00                                                                                                                                                                         
+     10500         CAD10~500|00                                                                                                                                                                         
+     11000         CAD11~000|00                                                                                                                                                                         
+      8600          CAD8~600|00                                                                                                                                                                         
+      7000          CAD7~000|00                                                                                                                                                                         
+      4400          CAD4~400|00                                                                                                                                                                         
+     13000         CAD13~000|00                                                                                                                                                                         
+      6000          CAD6~000|00                                                                                                                                                                         
+     12000         CAD12~000|00                                                                                                                                                                         
+      8300          CAD8~300|00                                                                                                                                                                         
+
+20 rows selected.
+
+SQL> SELECT SALARY , TO_CHAR(SALARY,'99G090D90U') FROM EMPLOYEES;
+
+    SALARY TO_CHAR(SALARY,'99G0                                                                                                                                                                         
+---------- --------------------                                                                                                                                                                         
+     24000        24~000|00 CAD                                                                                                                                                                         
+     17000        17~000|00 CAD                                                                                                                                                                         
+     17000        17~000|00 CAD                                                                                                                                                                         
+      9000         9~000|00 CAD                                                                                                                                                                         
+      6000         6~000|00 CAD                                                                                                                                                                         
+      4200         4~200|00 CAD                                                                                                                                                                         
+      5800         5~800|00 CAD                                                                                                                                                                         
+      3500         3~500|00 CAD                                                                                                                                                                         
+      3100         3~100|00 CAD                                                                                                                                                                         
+      2600         2~600|00 CAD                                                                                                                                                                         
+      2500         2~500|00 CAD                                                                                                                                                                         
+     10500        10~500|00 CAD                                                                                                                                                                         
+     11000        11~000|00 CAD                                                                                                                                                                         
+      8600         8~600|00 CAD                                                                                                                                                                         
+      7000         7~000|00 CAD                                                                                                                                                                         
+      4400         4~400|00 CAD                                                                                                                                                                         
+     13000        13~000|00 CAD                                                                                                                                                                         
+      6000         6~000|00 CAD                                                                                                                                                                         
+     12000        12~000|00 CAD                                                                                                                                                                         
+      8300         8~300|00 CAD                                                                                                                                                                         
+
+20 rows selected.
+
+SQL> SELECT SALARY , TO_CHAR(SALARY,'L99G090D90','NLS_NUMERIC_CHARACTERS=!/ NLS_CURRENCY=@') FROM EMPLOYEES;
+
+    SALARY TO_CHAR(SALARY,'L99G                                                                                                                                                                         
+---------- --------------------                                                                                                                                                                         
+     24000           @24/000!00                                                                                                                                                                         
+     17000           @17/000!00                                                                                                                                                                         
+     17000           @17/000!00                                                                                                                                                                         
+      9000            @9/000!00                                                                                                                                                                         
+      6000            @6/000!00                                                                                                                                                                         
+      4200            @4/200!00                                                                                                                                                                         
+      5800            @5/800!00                                                                                                                                                                         
+      3500            @3/500!00                                                                                                                                                                         
+      3100            @3/100!00                                                                                                                                                                         
+      2600            @2/600!00                                                                                                                                                                         
+      2500            @2/500!00                                                                                                                                                                         
+     10500           @10/500!00                                                                                                                                                                         
+     11000           @11/000!00                                                                                                                                                                         
+      8600            @8/600!00                                                                                                                                                                         
+      7000            @7/000!00                                                                                                                                                                         
+      4400            @4/400!00                                                                                                                                                                         
+     13000           @13/000!00                                                                                                                                                                         
+      6000            @6/000!00                                                                                                                                                                         
+     12000           @12/000!00                                                                                                                                                                         
+      8300            @8/300!00                                                                                                                                                                         
+
+20 rows selected.
+
+SQL> SELECT SALARY , TO_CHAR(SALARY,'L99G090D90') FROM EMPLOYEES;
+
+    SALARY TO_CHAR(SALARY,'L99G                                                                                                                                                                         
+---------- --------------------                                                                                                                                                                         
+     24000         Rs.24~000|00                                                                                                                                                                         
+     17000         Rs.17~000|00                                                                                                                                                                         
+     17000         Rs.17~000|00                                                                                                                                                                         
+      9000          Rs.9~000|00                                                                                                                                                                         
+      6000          Rs.6~000|00                                                                                                                                                                         
+      4200          Rs.4~200|00                                                                                                                                                                         
+      5800          Rs.5~800|00                                                                                                                                                                         
+      3500          Rs.3~500|00                                                                                                                                                                         
+      3100          Rs.3~100|00                                                                                                                                                                         
+      2600          Rs.2~600|00                                                                                                                                                                         
+      2500          Rs.2~500|00                                                                                                                                                                         
+     10500         Rs.10~500|00                                                                                                                                                                         
+     11000         Rs.11~000|00                                                                                                                                                                         
+      8600          Rs.8~600|00                                                                                                                                                                         
+      7000          Rs.7~000|00                                                                                                                                                                         
+      4400          Rs.4~400|00                                                                                                                                                                         
+     13000         Rs.13~000|00                                                                                                                                                                         
+      6000          Rs.6~000|00                                                                                                                                                                         
+     12000         Rs.12~000|00                                                                                                                                                                         
+      8300          Rs.8~300|00                                                                                                                                                                         
+
+20 rows selected.
+
+SQL> REM NUMBER VALID FORMAT CHARACTERS : 9 0   . ,    D G    $ L U  S MI PR   EEEE OR eeee   V
+SQL> 
+SQL> SELECT * FROM POSNEGNO;
+
+        NO                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+        12                                                                                                                                                                                              
+                                                                                                                                                                                                        
+         0                                                                                                                                                                                              
+       -12                                                                                                                                                                                              
+
+SQL> SELECT NO , TO_CHAR(NO,'S99') FROM DUAL;
+SELECT NO , TO_CHAR(NO,'S99') FROM DUAL
+                    *
+ERROR at line 1:
+ORA-00904: "NO": invalid identifier 
+
+
+SQL> SELECT NO , TO_CHAR(NO,'S99') FROM POSNEGNO;
+
+        NO TO_                                                                                                                                                                                          
+---------- ---                                                                                                                                                                                          
+        12 +12                                                                                                                                                                                          
+                                                                                                                                                                                                        
+         0  +0                                                                                                                                                                                          
+       -12 -12                                                                                                                                                                                          
+
+SQL> SELECT NO , TO_CHAR(NO,'99S') FROM POSNEGNO;
+
+        NO TO_                                                                                                                                                                                          
+---------- ---                                                                                                                                                                                          
+        12 12+                                                                                                                                                                                          
+                                                                                                                                                                                                        
+         0  0+                                                                                                                                                                                          
+       -12 12-                                                                                                                                                                                          
+
+SQL> SELECT NO , TO_CHAR(NO,'99MI') FROM POSNEGNO;
+
+        NO TO_                                                                                                                                                                                          
+---------- ---                                                                                                                                                                                          
+        12 12                                                                                                                                                                                           
+                                                                                                                                                                                                        
+         0  0                                                                                                                                                                                           
+       -12 12-                                                                                                                                                                                          
+
+SQL> SELECT NO , TO_CHAR(NO,'MI99') FROM POSNEGNO;
+SELECT NO , TO_CHAR(NO,'MI99') FROM POSNEGNO
+                       *
+ERROR at line 1:
+ORA-01481: invalid number format model 
+
+
+SQL> SELECT NO , TO_CHAR(NO,'99PR') FROM POSNEGNO;
+
+        NO TO_C                                                                                                                                                                                         
+---------- ----                                                                                                                                                                                         
+        12  12                                                                                                                                                                                          
+                                                                                                                                                                                                        
+         0   0                                                                                                                                                                                          
+       -12 <12>                                                                                                                                                                                         
+
+SQL> REM PR : PARENTHESIS : () [] {} <>
+SQL> 
+SQL> SELECT NO , TO_CHAR(NO,'PR99') FROM POSNEGNO;
+SELECT NO , TO_CHAR(NO,'PR99') FROM POSNEGNO
+                       *
+ERROR at line 1:
+ORA-01481: invalid number format model 
+
+
+SQL> REM EEEE OR eeee : IS USED FOR DISPLAYING VERY BIG AND VERY SMALL NUMBERS USING SIMILAR FORMAT
+SQL> 
+SQL> SELECT TO_CHAR(2400000,'99.99EEEE') , TO_CHAR(.00000024,'99.99EEEE') FROM DUAL;
+
+TO_CHAR(24 TO_CHAR(.0                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+  2.40E+06   2.40E-07                                                                                                                                                                                   
+
+SQL> SELECT 2.4 * POWER(10,6) FROM DUAL;
+
+2.4*POWER(10,6)                                                                                                                                                                                         
+---------------                                                                                                                                                                                         
+        2400000                                                                                                                                                                                         
+
+SQL> SELECT 2.4 / POWER(10,7) FROM DUAL;
+
+2.4/POWER(10,7)                                                                                                                                                                                         
+---------------                                                                                                                                                                                         
+      |00000024                                                                                                                                                                                         
+
+SQL> CONN SCOTT/TIGER
+Connected.
+SQL> SELECT 2.4 / POWER(10,7) FROM DUAL;
+
+2.4/POWER(10,7)                                                                                                                                                                                         
+---------------                                                                                                                                                                                         
+      .00000024                                                                                                                                                                                         
+
+SQL> SELECT TO_CHAR(2400000,'99.99EEEEE') , TO_CHAR(.00000024,'99.99EEE') FROM DUAL;
+SELECT TO_CHAR(2400000,'99.99EEEEE') , TO_CHAR(.00000024,'99.99EEE') FROM DUAL
+                       *
+ERROR at line 1:
+ORA-01481: invalid number format model 
+
+
+SQL> SELECT TO_CHAR(2400000,'99.99EEEE') , TO_CHAR(.00000024,'99.99eeee') FROM DUAL;
+
+TO_CHAR(24 TO_CHAR(.0                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+  2.40E+06   2.40E-07                                                                                                                                                                                   
+
+SQL> SELECT TO_CHAR(2400000,'99.99EEEE') , TO_CHAR(.00000024,'99.99EEee') FROM DUAL;
+SELECT TO_CHAR(2400000,'99.99EEEE') , TO_CHAR(.00000024,'99.99EEee') FROM DUAL
+                                                        *
+ERROR at line 1:
+ORA-01481: invalid number format model 
+
+
+SQL> REM V
+SQL> 
+SQL> SELECT 2460 , TO_CHAR(2460,'9999V0000000') FROM DUAL;
+
+      2460 TO_CHAR(2460                                                                                                                                                                                 
+---------- ------------                                                                                                                                                                                 
+      2460  24600000000                                                                                                                                                                                 
+
+SQL> SELECT 2460 , TO_CHAR(2460,'9999V00000') FROM DUAL;
+
+      2460 TO_CHAR(24                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+      2460  246000000                                                                                                                                                                                   
+
+SQL> SELECT 2460 , TO_CHAR(2460,'9999V000') FROM DUAL;
+
+      2460 TO_CHAR(                                                                                                                                                                                     
+---------- --------                                                                                                                                                                                     
+      2460  2460000                                                                                                                                                                                     
+
+SQL> SELECT 2460 , TO_CHAR(2460,'9999V999') FROM DUAL;
+
+      2460 TO_CHAR(                                                                                                                                                                                     
+---------- --------                                                                                                                                                                                     
+      2460  2460000                                                                                                                                                                                     
+
+SQL> SPOOL OFF

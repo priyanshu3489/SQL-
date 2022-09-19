@@ -1,0 +1,423 @@
+SQL> 
+SQL> REM SUB QUERY : IS NOTHING BUT SELECT STATEMENT WITHIN ANOTHER STATEMENT
+SQL> 
+SQL> REM OUTER STATEMENT MAY BE SELECT , CREATE , INSERT , UPDATE , DELETE ...
+SQL> 
+SQL> REM INNER STATEMENT IS GENERALLY SELECT ONLY.
+SQL> 
+SQL> 
+SQL> REM PARENT/CHILD
+SQL> 
+SQL> REM OUTER/INNER
+SQL> 
+SQL> REM MAIN/SUB
+SQL> 
+SQL> 
+SQL> 
+SQL> REM INNER QUERY GETS EXECUTED FIRST, IT'S RESULT IS REPLACED AND USED BY OUTER QUERY.
+SQL> 
+SQL> 
+SQL> 
+SQL> REM 4 SITUATIONS WHEN WE NEED TO USER SUB QUERY
+SQL> 
+SQL> REM 1 WHEN WE WANT TO COMPARE SUMMARY ITEM IN 'WHERE' CLAUSE
+SQL> 
+SQL> REM 2 WHEN OUR MAIN REQUITEMENT HAS HIDDEN REQUIREMENT
+SQL> 
+SQL> REM 3 WHEN WE WANT TO COMPARE NESTED SUMMARY ITEM IN 'HAVING' CLAUSE
+SQL> 
+SQL> REM 4 WHEN WE WANT TO USE RESULT OF SUB QUERY AS TABLE FOR MAIN QUERY
+SQL> \
+SP2-0042: unknown command "\" - rest of line ignored.
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> REM 1 WHEN WE WANT TO COMPARE SUMMARY ITEM IN 'WHERE' CLAUSE
+SQL> 
+SQL> REM SELECT SYNTAX : SELECT ... FROM ... WHERE ... GROUP BY / HAVING ... ORDER BY ... OFFSET ... FETCH ...;
+SQL> 
+SQL> REM EXECUTION PRECEDENCE : FROM -> WHERE -> GROUP BY -> HAVING -> COLUMN ALIAS -> ORDER BY -> OFFSET -> FETCH -> SELECT
+SQL> 
+SQL> 
+SQL> REM DISPLAY INFO. ABOUT EMPLOYEE WHO GETS HIGHEST SALARY IN COMPANY
+SQL> 
+SQL> REM SALARY = MAX(SALARY)
+SQL> 
+SQL> REM SCALAR/NON SUMMARY ITEM = SUMMARY ITEM
+SQL> 
+SQL> SELECT FIRST_NAME , SALARY
+  2  FROM EMPLOYEES
+  3  WHERE SALARY = MAX(SALARY);
+WHERE SALARY = MAX(SALARY)
+               *
+ERROR at line 3:
+ORA-00934: group function is not allowed here 
+
+
+SQL> SELECT FIRST_NAME , SALARY
+  2  FROM EMPLOYEES
+  3  WHERE SALARY = (SELECT MAX(SALARY) FROM EMPLOYEES);
+
+FIRST_NAME     SALARY                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+Steven          24000                                                                                                                                                                                   
+
+SQL> REM DISPLAY INFO. ABOUT EMPLOYEE WHO WERE HIRED FIRST IN COMPANY
+SQL> 
+SQL> SELECT FIRST_NAME , HIRE_DATE
+  2  FROM EMPLOYEES
+  3  WHERE HIRE_dATE = MIN(HIRE_DATE);
+WHERE HIRE_dATE = MIN(HIRE_DATE)
+                  *
+ERROR at line 3:
+ORA-00934: group function is not allowed here 
+
+
+SQL> SELECT FIRST_NAME , HIRE_DATE
+  2  FROM EMPLOYEES
+  3  WHERE HIRE_dATE = (SELECT MIN(HIRE_DATE) FROM EMPLOYEES);
+
+FIRST_NAME HIRE_DATE                                                                                                                                                                                    
+---------- ---------                                                                                                                                                                                    
+Steven     17-JUL-87                                                                                                                                                                                    
+
+SQL> REM DISPLAY INFO. ABOUT EMPLOYEE WHO GETS HIGHEST COMMISSION_PCT
+SQL> 
+SQL> SELECT FIRST_NAME , COMMISSION_PCT FROM EMPLOYEES WHERE COMMISSION_PCT=(SELECT MAX(COMMISSION_PCT) FROM EMPLOYEES);
+
+FIRST_NAME COMMISSION_PCT                                                                                                                                                                               
+---------- --------------                                                                                                                                                                               
+Ellen                  .3                                                                                                                                                                               
+Jonathon               .3                                                                                                                                                                               
+
+SQL> REM DISPLAY INFO. ABOUT EMPLOYEE WHO GETS HIGHEST COMMISSION AMOUNT
+SQL> 
+SQL> REM COMMISSION AMOUNT = SALARY * COMMISSION_PCT
+SQL> 
+SQL> SELECT FIRST_NAME , SALARY , COMMISSION_PCT FROM EMPLOYEES WHERE COMMISSION_PCT * SALARY ( SELECT  MAX(COMMISSION_PCT * SALARY) FROM EMPLOYEES) ;
+SELECT FIRST_NAME , SALARY , COMMISSION_PCT FROM EMPLOYEES WHERE COMMISSION_PCT * SALARY ( SELECT  MAX(COMMISSION_PCT * SALARY) FROM EMPLOYEES) 
+                                                                                           *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> SELECT FIRST_NAME , SALARY , COMMISSION_PCT FROM EMPLOYEES WHERE COMMISSION_PCT * SALARY = ( SELECT  MAX(COMMISSION_PCT * SALARY) FROM EMPLOYEES) ;
+
+FIRST_NAME     SALARY COMMISSION_PCT                                                                                                                                                                    
+---------- ---------- --------------                                                                                                                                                                    
+Ellen           11000             .3                                                                                                                                                                    
+
+SQL> SELECT FIRST_NAME , SALARY * COMMISSION_PCT COMM_AMOUNT FROM EMPLOYEES WHERE COMMISSION_PCT * SALARY = ( SELECT  MAX(COMMISSION_PCT * SALARY) FROM EMPLOYEES) ;
+
+FIRST_NAME COMM_AMOUNT                                                                                                                                                                                  
+---------- -----------                                                                                                                                                                                  
+Ellen             3300                                                                                                                                                                                  
+
+SQL> REM DISPLAY INFO. ABOUT EMPLOYEES WHO GETS HIGHER SALARY THAN AVERAGE SALARY PAID BY COMPANY
+SQL> 
+SQL> REM SALARY > AVG(SALARY)
+SQL> 
+SQL> SELECT FIRST_NAME , SALARY
+  2  FROM EMPLOYEES
+  3  WHERE SALARY > AVG(SALARY);
+WHERE SALARY > AVG(SALARY)
+               *
+ERROR at line 3:
+ORA-00934: group function is not allowed here 
+
+
+SQL> SELECT FIRST_NAME , SALARY
+  2  FROM EMPLOYEES
+  3  WHERE SALARY > (SELECT AVG(SALARY) FROM EMPLOYEES);
+
+FIRST_NAME     SALARY                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+Steven          24000                                                                                                                                                                                   
+Neena           17000                                                                                                                                                                                   
+Lex             17000                                                                                                                                                                                   
+Alexander        9000                                                                                                                                                                                   
+Eleni           10500                                                                                                                                                                                   
+Ellen           11000                                                                                                                                                                                   
+Michael         13000                                                                                                                                                                                   
+Shelley         12000                                                                                                                                                                                   
+
+8 rows selected.
+
+SQL> REM DISPLAY INFO. ABOUT EMPLOYEES WHO GET LOWER SALARY THAN AVERAGE SALARY PAID BY COMPANY
+SQL> 
+SQL> SELECT FIRST_NAME ,SALARY FROM EMPLOYEES WHERE SALARY < (SELECT AVG(SALARY) FROM EMPLOYEES);
+
+FIRST_NAME     SALARY                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+Bruce            6000                                                                                                                                                                                   
+Diana            4200                                                                                                                                                                                   
+Kevin            5800                                                                                                                                                                                   
+Trenna           3500                                                                                                                                                                                   
+Curtis           3100                                                                                                                                                                                   
+Randall          2600                                                                                                                                                                                   
+Peter            2500                                                                                                                                                                                   
+Jonathon         8600                                                                                                                                                                                   
+Kimerely         7000                                                                                                                                                                                   
+Jennifer         4400                                                                                                                                                                                   
+Pat              6000                                                                                                                                                                                   
+William          8300                                                                                                                                                                                   
+
+12 rows selected.
+
+SQL> REM DISPLAY INFO. ABOUT EMPLOYEES WHO GET LOWER SALARY THAN AVERAGE SALARY PAID TO IT_PROG
+SQL> 
+SQL> SELECT FIRST_NAME , JOB_ID , SALARY
+  2  FROM EMPLOYEES
+  3  WHERE SALARY < (SELECT AVG(SALARY) FROM EMPLOYEES WHERE JOB_ID = 'IT_PROG');
+
+FIRST_NAME JOB_ID         SALARY                                                                                                                                                                        
+---------- ---------- ----------                                                                                                                                                                        
+Bruce      IT_PROG          6000                                                                                                                                                                        
+Diana      IT_PROG          4200                                                                                                                                                                        
+Kevin      ST_MAN           5800                                                                                                                                                                        
+Trenna     ST_CLERK         3500                                                                                                                                                                        
+Curtis     ST_CLERK         3100                                                                                                                                                                        
+Randall    ST_CLERK         2600                                                                                                                                                                        
+Peter      ST_CLERK         2500                                                                                                                                                                        
+Jennifer   AD_ASST          4400                                                                                                                                                                        
+Pat        MK_REP           6000                                                                                                                                                                        
+
+9 rows selected.
+
+SQL> REM DISPLAY INFO. ABOUT EMPLOYEES WHO GETS HIGHER SALARY THAN AVERAGE SALARY PAID TO DEPARTMENT 80
+SQL> 
+SQL> SELECT FIRST_NAME , SALARY , JOB_ID
+  2  FROM EMPLOYEES
+  3  WHERE SALARY > (SELECT AVG(SALARY) FROM EMPLOYEES WHERE DEPAERTMENT_ID=80);
+WHERE SALARY > (SELECT AVG(SALARY) FROM EMPLOYEES WHERE DEPAERTMENT_ID=80)
+                                                        *
+ERROR at line 3:
+ORA-00904: "DEPAERTMENT_ID": invalid identifier 
+
+
+SQL> WHERE SALARY > (SELECT AVG(SALARY) FROM EMPLOYEES WHERE DEPAERTMENT_ID=80);
+SP2-0734: unknown command beginning "WHERE SALA..." - rest of line ignored.
+SQL> 
+SQL> SELECT FIRST_NAME , SALARY , JOB_ID
+  2  FROM EMPLOYEES
+  3  WHERE SALARY > (SELECT AVG(SALARY) FROM EMPLOYEES WHERE DEPARTMENT_ID=80);
+
+FIRST_NAME     SALARY JOB_ID                                                                                                                                                                            
+---------- ---------- ----------                                                                                                                                                                        
+Steven          24000 AD_PRES                                                                                                                                                                           
+Neena           17000 AD_VP                                                                                                                                                                             
+Lex             17000 AD_VP                                                                                                                                                                             
+Eleni           10500 SA_MAN                                                                                                                                                                            
+Ellen           11000 SA_REP                                                                                                                                                                            
+Michael         13000 MK_MAN                                                                                                                                                                            
+Shelley         12000 AC_MGR                                                                                                                                                                            
+
+7 rows selected.
+
+SQL> REM DISPLAY INFO. ABOUT IT_PROG WHO GETS LOWER SALARY THAN AVERAGE SALARY PAID BY COMPANY
+SQL> 
+SQL> SELECT FIRST_NAME , SALARY , JOB_ID
+  2  FROM EMPLOYEES
+  3  WHERE JOB_ID = 'IT_PROG'
+  4  AND SALARY < (SELECT AVG(SALARY) FROM EMPLOYEES);
+
+FIRST_NAME     SALARY JOB_ID                                                                                                                                                                            
+---------- ---------- ----------                                                                                                                                                                        
+Bruce            6000 IT_PROG                                                                                                                                                                           
+Diana            4200 IT_PROG                                                                                                                                                                           
+
+SQL> REM DISPLAY INFO. ABOUT SA_REP WHO GETS HIGHER SALARY THAN AVERAGE SALARY PAID BY COMPANY
+SQL> 
+SQL> SELECT FIRST_NAME , JOB_ID ,SALARY FROM EMPLOYEES WHERE JOB_ID='SA_REP' AND  WHERE SALARY > (SELECT AVG(SALARY) FROM EMPLOYEES);
+SELECT FIRST_NAME , JOB_ID ,SALARY FROM EMPLOYEES WHERE JOB_ID='SA_REP' AND  WHERE SALARY > (SELECT AVG(SALARY) FROM EMPLOYEES)
+                                                                             *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> SELECT FIRST_NAME , JOB_ID ,SALARY FROM EMPLOYEES WHERE JOB_ID='SA_REP' AND SALARY > (SELECT AVG(SALARY) FROM EMPLOYEES);
+
+FIRST_NAME JOB_ID         SALARY                                                                                                                                                                        
+---------- ---------- ----------                                                                                                                                                                        
+Ellen      SA_REP          11000                                                                                                                                                                        
+
+SQL> REM WHEN OUR MAIN REQUIREMENT HAS HIDDEN REQUIREMENT
+SQL> 
+SQL> REM DISPLAY THOSE WHO GETS HIGHER SALARY THAN Abel
+SQL> 
+SQL> SELECT SALARY FROM EMPLOYEES WHERE LAST_NAME = 'Abel';
+
+    SALARY                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+     11000                                                                                                                                                                                              
+
+SQL> SELECT LAST_NAME , SALARY FROM EMPLOYEES
+  2  WHERE SALARY > (SELECT SALARY FROM EMPLOYEES WHERE LAST_NAME = 'Abel');
+
+LAST_NAME      SALARY                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+King            24000                                                                                                                                                                                   
+Kochhar         17000                                                                                                                                                                                   
+De Haan         17000                                                                                                                                                                                   
+Hartstein       13000                                                                                                                                                                                   
+Higgins         12000                                                                                                                                                                                   
+
+SQL> REM DISPLAY THOSE WHO WERE HIRED BEFORE Hartstein
+SQL> 
+SQL> SELECT LAST_NAME,HIRE_DATE FROM EMPLOYEES WHERE HIRE_DATE<(SELECT HIRE_DATE FROM EMPLOYESS WHERE LAST NAME='Hartstein');
+SELECT LAST_NAME,HIRE_DATE FROM EMPLOYEES WHERE HIRE_DATE<(SELECT HIRE_DATE FROM EMPLOYESS WHERE LAST NAME='Hartstein')
+                                                                                                      *
+ERROR at line 1:
+ORA-00920: invalid relational operator 
+
+
+SQL> SELECT LAST_NAME,HIRE_DATE FROM EMPLOYEES WHERE HIRE_DATE<(SELECT HIRE_DATE FROM EMPLOYESS WHERE LAST_NAME='Hartstein');
+SELECT LAST_NAME,HIRE_DATE FROM EMPLOYEES WHERE HIRE_DATE<(SELECT HIRE_DATE FROM EMPLOYESS WHERE LAST_NAME='Hartstein')
+                                                                                 *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> SELECT LAST_NAME,HIRE_DATE FROM EMPLOYEES WHERE HIRE_DATE<(SELECT HIRE_DATE FROM EMPLOYEES WHERE LAST_NAME='Hartstein');
+
+LAST_NAME  HIRE_DATE                                                                                                                                                                                    
+---------- ---------                                                                                                                                                                                    
+King       17-JUL-87                                                                                                                                                                                    
+Kochhar    21-SEP-89                                                                                                                                                                                    
+De Haan    13-JAN-93                                                                                                                                                                                    
+Hunold     03-JAN-90                                                                                                                                                                                    
+Ernst      21-MAY-91                                                                                                                                                                                    
+Rajs       17-OCT-95                                                                                                                                                                                    
+Whalen     17-SEP-87                                                                                                                                                                                    
+Higgins    07-JUN-94                                                                                                                                                                                    
+Gietz      07-JUN-94                                                                                                                                                                                    
+
+9 rows selected.
+
+SQL> REM DISPLAY THOSE WHO REPORTS TO Steven
+SQL> 
+SQL> SELECT EMPLOYEE_ID FROM EMPLOYEES WHERE FIRST_NAME = 'Steven';
+
+EMPLOYEE_ID                                                                                                                                                                                             
+-----------                                                                                                                                                                                             
+        100                                                                                                                                                                                             
+
+SQL> SELECT FIRST_NAME , MANAGER_ID
+  2  FROM EMPLOYEES
+  3  WHERE MANAGER_ID = (SELECT EMPLOYEE_ID FROM EMPLOYEES WHERE FIRST_NAME = 'Steven');
+
+FIRST_NAME MANAGER_ID                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+Neena             100                                                                                                                                                                                   
+Lex               100                                                                                                                                                                                   
+Kevin             100                                                                                                                                                                                   
+Eleni             100                                                                                                                                                                                   
+Michael           100                                                                                                                                                                                   
+
+SQL> REM DISPLAY THOSE WHO WORKS IN Executive DEPARTMENT
+SQL> 
+SQL> SELECT * FROM EMPLOYEES;
+
+EMPLOYEE_ID FIRST_NAME LAST_NAME  EMAIL      PHONE_NUMBER         HIRE_DATE JOB_ID         SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID                                                               
+----------- ---------- ---------- ---------- -------------------- --------- ---------- ---------- -------------- ---------- -------------                                                               
+        100 Steven     King       SKING      515.123.4567         17-JUL-87 AD_PRES         24000                                      90                                                               
+        101 Neena      Kochhar    NKOCHHAR   515.123.4568         21-SEP-89 AD_VP           17000                       100            90                                                               
+        102 Lex        De Haan    LDEHAAN    515.123.4569         13-JAN-93 AD_VP           17000                       100            90                                                               
+        103 Alexander  Hunold     AHUNOLD    590.423.4567         03-JAN-90 IT_PROG          9000                       102            60                                                               
+        104 Bruce      Ernst      BERNST     590.423.4568         21-MAY-91 IT_PROG          6000                       103            60                                                               
+        107 Diana      Lorentz    DLORENTZ   590.423.5567         07-FEB-99 IT_PROG          4200                       103            60                                                               
+        124 Kevin      Mourgos    KMOURGOS   650.123.5234         16-NOV-99 ST_MAN           5800                       100            50                                                               
+        141 Trenna     Rajs       TRAJS      650.121.8009         17-OCT-95 ST_CLERK         3500                       124            50                                                               
+        142 Curtis     Davies     CDAVIES    650.121.2994         29-JAN-97 ST_CLERK         3100                       124            50                                                               
+        143 Randall    Matos      RMATOS     650.121.2874         15-MAR-98 ST_CLERK         2600                       124            50                                                               
+        144 Peter      Vargas     PVARGAS    650.121.2004         09-JUL-98 ST_CLERK         2500                       124            50                                                               
+        149 Eleni      Zlotkey    EZLOTKEY   011.44.1344.429018   29-JAN-00 SA_MAN          10500             .2        100            80                                                               
+        174 Ellen      Abel       EABEL      011.44.1644.429267   11-MAY-96 SA_REP          11000             .3        149            80                                                               
+        176 Jonathon   Taylor     JTAYLOR    011.44.1644.429265   24-MAR-98 SA_REP           8600             .3        149            80                                                               
+        178 Kimerely   Grant      KGRANT     011.44.1644.429263   24-MAY-99 SA_REP           7000            .15        149                                                                             
+        200 Jennifer   Whalen     JWAHLEN    515.123.4444         17-SEP-87 AD_ASST          4400                       101            10                                                               
+        201 Michael    Hartstein  MHARTSTE   515.123.5555         17-FEB-96 MK_MAN          13000                       100            20                                                               
+        202 Pat        Fay        PFAY       603.123.6666         17-AUG-97 MK_REP           6000                       201            20                                                               
+        205 Shelley    Higgins    SHIGGINS   515.123.8080         07-JUN-94 AC_MGR          12000                       101           110                                                               
+        206 William    Gietz      WGIETZ     515.123.8181         07-JUN-94 AC_ACCOUNT       8300                       205           110                                                               
+
+20 rows selected.
+
+SQL> SELECT * FROM DEPARTMENTS;
+
+DEPARTMENT_ID DEPARTMENT_NAME                MANAGER_ID LOCATION_ID                                                                                                                                     
+------------- ------------------------------ ---------- -----------                                                                                                                                     
+           10 Administration                        200        1700                                                                                                                                     
+           20 Marketing                             201        1800                                                                                                                                     
+           50 Shiping                               124        1500                                                                                                                                     
+           60 IT                                    103        1400                                                                                                                                     
+           80 Sales                                 149        2500                                                                                                                                     
+           90 Executive                             100        1700                                                                                                                                     
+          110 Accounting                            205        1700                                                                                                                                     
+          190 Contracting                                      1700                                                                                                                                     
+
+8 rows selected.
+
+SQL> REM E D L C R
+SQL> 
+SQL> REM E D
+SQL> 
+SQL> SELECT DEPARTMENT_ID FROM DEPARTMENTS WHERE DEPARTMENT_NAME = 'Executive';
+
+DEPARTMENT_ID                                                                                                                                                                                           
+-------------                                                                                                                                                                                           
+           90                                                                                                                                                                                           
+
+SQL> SELECT FIRST_NAME , DEPARTMENT_ID
+  2  FROM EMPLOYEES
+  3  WHERE DEPARTMENT_ID = (SELECT DEPARTMENT_ID FROM DEPARTMENTS WHERE DEPARTMENT_NAME = 'Executive');
+
+FIRST_NAME DEPARTMENT_ID                                                                                                                                                                                
+---------- -------------                                                                                                                                                                                
+Steven                90                                                                                                                                                                                
+Neena                 90                                                                                                                                                                                
+Lex                   90                                                                                                                                                                                
+
+SQL> REM DISPLAY DEPARTMENT_NAME WHICH ARE LOCATED IN Toronto
+SQL> 
+SQL> SELECT * FROM DEPARTMENTS;
+
+DEPARTMENT_ID DEPARTMENT_NAME                MANAGER_ID LOCATION_ID                                                                                                                                     
+------------- ------------------------------ ---------- -----------                                                                                                                                     
+           10 Administration                        200        1700                                                                                                                                     
+           20 Marketing                             201        1800                                                                                                                                     
+           50 Shiping                               124        1500                                                                                                                                     
+           60 IT                                    103        1400                                                                                                                                     
+           80 Sales                                 149        2500                                                                                                                                     
+           90 Executive                             100        1700                                                                                                                                     
+          110 Accounting                            205        1700                                                                                                                                     
+          190 Contracting                                      1700                                                                                                                                     
+
+8 rows selected.
+
+SQL> SELECT * FROM LOCATIONS;
+
+LOCATION_ID STREET_ADRESS                            POSTAL_CODE  CITY                           STATE_PROVINCE            CO                                                                           
+----------- ---------------------------------------- ------------ ------------------------------ ------------------------- --                                                                           
+       1400 2014 Jabberwocky Rd                      26192        Southlake                      Texas                     US                                                                           
+       1500 2011 Interiors Blvd                      99236        South San Francisco            California                US                                                                           
+       1700 2004 Charade Rd                          98199        Seattle                        Washington                US                                                                           
+       1800 460 Bloor St. W.                         ON M5S 1X8   Toronto                        Ontario                   CA                                                                           
+       2500 Magdalen Centre, The Oxford Science Park OX9 9ZB      Oxford                         Oxford                    UK                                                                           
+
+SQL> SELECT DEPARTMENT_NAME,LOCATION_ID FROM DEPARTMET WHERE LOCATION_ID=(SELECT LOCATION_ID FROM LOCATIONS WHERE CITY='Toronto');
+SELECT DEPARTMENT_NAME,LOCATION_ID FROM DEPARTMET WHERE LOCATION_ID=(SELECT LOCATION_ID FROM LOCATIONS WHERE CITY='Toronto')
+                                        *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> SELECT DEPARTMENT_NAME,LOCATION_ID FROM DEPARTMENTS WHERE LOCATION_ID=(SELECT LOCATION_ID FROM LOCATIONS WHERE CITY='Toronto');
+
+DEPARTMENT_NAME                LOCATION_ID                                                                                                                                                              
+------------------------------ -----------                                                                                                                                                              
+Marketing                             1800                                                                                                                                                              
+
+SQL> SPOOL OFF

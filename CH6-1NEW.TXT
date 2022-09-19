@@ -1,0 +1,734 @@
+SQL> 
+SQL> REM JOIN : WHEN WE NEED TO REFER COLUMNS FROM MULTIPLE TABLES, WE USE JOIN
+SQL> 
+SQL> SELECT * FROM DEPARTMENTS;
+
+DEPARTMENT_ID DEPARTMENT_NAME                MANAGER_ID LOCATION_ID             
+------------- ------------------------------ ---------- -----------             
+           10 Administration                        200        1700             
+           20 Marketing                             201        1800             
+           50 Shiping                               124        1500             
+           60 IT                                    103        1400             
+           80 Sales                                 149        2500             
+           90 Executive                             100        1700             
+          110 Accounting                            205        1700             
+          190 Contracting                                      1700             
+
+8 rows selected.
+
+SQL> SELECT * FROM LOCATIONS;
+
+LOCATION_ID STREET_ADRESS                            POSTAL_CODE                
+----------- ---------------------------------------- ------------               
+CITY                           STATE_PROVINCE            CO                     
+------------------------------ ------------------------- --                     
+       1400 2014 Jabberwocky Rd                      26192                      
+Southlake                      Texas                     US                     
+                                                                                
+       1500 2011 Interiors Blvd                      99236                      
+South San Francisco            California                US                     
+                                                                                
+       1700 2004 Charade Rd                          98199                      
+Seattle                        Washington                US                     
+                                                                                
+
+LOCATION_ID STREET_ADRESS                            POSTAL_CODE                
+----------- ---------------------------------------- ------------               
+CITY                           STATE_PROVINCE            CO                     
+------------------------------ ------------------------- --                     
+       1800 460 Bloor St. W.                         ON M5S 1X8                 
+Toronto                        Ontario                   CA                     
+                                                                                
+       2500 Magdalen Centre, The Oxford Science Park OX9 9ZB                    
+Oxford                         Oxford                    UK                     
+                                                                                
+
+SQL> SET LINES 200 PAGES 24
+SQL> 
+SQL> SELECT * FROM DEPARTMENTS;
+
+DEPARTMENT_ID DEPARTMENT_NAME                MANAGER_ID LOCATION_ID                                                                                                                                     
+------------- ------------------------------ ---------- -----------                                                                                                                                     
+           10 Administration                        200        1700                                                                                                                                     
+           20 Marketing                             201        1800                                                                                                                                     
+           50 Shiping                               124        1500                                                                                                                                     
+           60 IT                                    103        1400                                                                                                                                     
+           80 Sales                                 149        2500                                                                                                                                     
+           90 Executive                             100        1700                                                                                                                                     
+          110 Accounting                            205        1700                                                                                                                                     
+          190 Contracting                                      1700                                                                                                                                     
+
+8 rows selected.
+
+SQL> SELECT * FROM LOCATIONS;
+
+LOCATION_ID STREET_ADRESS                            POSTAL_CODE  CITY                           STATE_PROVINCE            CO                                                                           
+----------- ---------------------------------------- ------------ ------------------------------ ------------------------- --                                                                           
+       1400 2014 Jabberwocky Rd                      26192        Southlake                      Texas                     US                                                                           
+       1500 2011 Interiors Blvd                      99236        South San Francisco            California                US                                                                           
+       1700 2004 Charade Rd                          98199        Seattle                        Washington                US                                                                           
+       1800 460 Bloor St. W.                         ON M5S 1X8   Toronto                        Ontario                   CA                                                                           
+       2500 Magdalen Centre, The Oxford Science Park OX9 9ZB      Oxford                         Oxford                    UK                                                                           
+
+SQL> REM TYPES OF JOINS ORACLE SUPPORTS : 1 NATURAL 2 CROSS 3 INNER (DEFAULT) 4 OUTER
+SQL> 
+SQL> REM E D L C R
+SQL> 
+SQL> REM  EMPLOYEES   DEPARTMENTS   LOCATIONS   COUNTRIES   REGIONS
+SQL> 
+SQL> REM        DEPARTMENT_ID  LOCATION_ID  COUNTRY_ID  REGION_ID
+SQL> 
+SQL> 
+SQL> REM        MANAGER_ID  : MEANING DIFFERENT
+SQL> 
+SQL> 
+SQL> 
+SQL> REM PRE-REQUISITES FOR USING NATURAL JOIN
+SQL> 
+SQL> REM 1 BOTH TABLES MUST HAVE ATLEAST SINGLE COMMON COLUMN
+SQL> 
+SQL> REM 2 THEIR DATA TYPES MUST MATCH
+SQL> 
+SQL> REM 3 THEIR DATA SHOULD BE SIMILAR
+SQL> 
+SQL> REM 4 THIER MEANINGS MUST BE
+SQL> 
+SQL> 
+SQL> REM SYNTAX OF NATURAL JOIN : FROM TABLE1 NATURAL JOIN TABLE2
+SQL> 
+SQL> REM SYNTAX OF CROSS   JOIN : FROM TABLE1 CROSS   JOIN TABLE2
+SQL> 
+SQL> REM SYNTAX 1 OF INNER JOIN : FROM TABLE1 INNER JOIN TABLE2 USING (COMMON COLUMN LIST)
+SQL> 
+SQL> REM SYNTAX 2 OF INNER JOIN : FROM TABLE1 INNER JOIN TABLE2 ON JOIN CONDITION
+SQL> 
+SQL>          `
+SP2-0042: unknown command "`" - rest of line ignored.
+SQL> 
+SQL> REM SYNTAX 1 OF OUTER JOIN : FROM TABLE1 LEFT/RIGHT/FULL OUTER JOIN TABLE2 USING (COMMON COLUMN LIST)
+SQL> 
+SQL> REM SYNTAX 2 OF OUTER JOIN : FROM TABLE1 LEFT/RIGHT/FULL OUTER JOIN TABLE2 ON JOIN CONDITION
+SQL> 
+SQL> 
+SQL> REM NATURAL JOIN EXMAPLES
+SQL> 
+SQL> 
+SQL> SELECT * FROM DEPARTMENTS;
+
+DEPARTMENT_ID DEPARTMENT_NAME                MANAGER_ID LOCATION_ID                                                                                                                                     
+------------- ------------------------------ ---------- -----------                                                                                                                                     
+           10 Administration                        200        1700                                                                                                                                     
+           20 Marketing                             201        1800                                                                                                                                     
+           50 Shiping                               124        1500                                                                                                                                     
+           60 IT                                    103        1400                                                                                                                                     
+           80 Sales                                 149        2500                                                                                                                                     
+           90 Executive                             100        1700                                                                                                                                     
+          110 Accounting                            205        1700                                                                                                                                     
+          190 Contracting                                      1700                                                                                                                                     
+
+8 rows selected.
+
+SQL> SELECT * FROM LOCATIONS;
+
+LOCATION_ID STREET_ADRESS                            POSTAL_CODE  CITY                           STATE_PROVINCE            CO                                                                           
+----------- ---------------------------------------- ------------ ------------------------------ ------------------------- --                                                                           
+       1400 2014 Jabberwocky Rd                      26192        Southlake                      Texas                     US                                                                           
+       1500 2011 Interiors Blvd                      99236        South San Francisco            California                US                                                                           
+       1700 2004 Charade Rd                          98199        Seattle                        Washington                US                                                                           
+       1800 460 Bloor St. W.                         ON M5S 1X8   Toronto                        Ontario                   CA                                                                           
+       2500 Magdalen Centre, The Oxford Science Park OX9 9ZB      Oxford                         Oxford                    UK                                                                           
+
+SQL> REM DISPLAY DEPARTMENT_NAME AND CITY
+SQL> 
+SQL> 
+SQL> SELECT DEPARTMENT_NAME , CITY
+  2  FROM DEPARTMENTS
+  3  NATURAL JOIN LOCATIONS;
+
+DEPARTMENT_NAME                CITY                                                                                                                                                                     
+------------------------------ ------------------------------                                                                                                                                           
+Administration                 Seattle                                                                                                                                                                  
+Marketing                      Toronto                                                                                                                                                                  
+Shiping                        South San Francisco                                                                                                                                                      
+IT                             Southlake                                                                                                                                                                
+Sales                          Oxford                                                                                                                                                                   
+Executive                      Seattle                                                                                                                                                                  
+Accounting                     Seattle                                                                                                                                                                  
+Contracting                    Seattle                                                                                                                                                                  
+
+8 rows selected.
+
+SQL> SELECT * FROM COUNTRIES;
+
+CO COUNTRY_NAME                              REGION_ID                                                                                                                                                  
+-- ---------------------------------------- ----------                                                                                                                                                  
+CA Canada                                            2                                                                                                                                                  
+DE Germany                                           1                                                                                                                                                  
+UK United Kingdom                                    1                                                                                                                                                  
+US United States of America                          2                                                                                                                                                  
+
+SQL> SELECT * FROM REGIONS;
+
+ REGION_ID REGION_NAME                                                                                                                                                                                  
+---------- -------------------------                                                                                                                                                                    
+         1 Europe                                                                                                                                                                                       
+         2 Americas                                                                                                                                                                                     
+         3 Asia                                                                                                                                                                                         
+         4 Middle East and Africa                                                                                                                                                                       
+
+SQL> REM DISPLAY COUNTRY_NAME AND REGION_NAME
+SQL> 
+SQL> SELECT COUNTRY_NAME , REGION_NAME
+  2  FROM COUNTRIES
+  3  NATURAL JOIN REGIONS;
+
+COUNTRY_NAME                             REGION_NAME                                                                                                                                                    
+---------------------------------------- -------------------------                                                                                                                                      
+Germany                                  Europe                                                                                                                                                         
+United Kingdom                           Europe                                                                                                                                                         
+Canada                                   Americas                                                                                                                                                       
+United States of America                 Americas                                                                                                                                                       
+
+SQL> SELECT * FROM DEPARTMENTS;
+
+DEPARTMENT_ID DEPARTMENT_NAME                MANAGER_ID LOCATION_ID                                                                                                                                     
+------------- ------------------------------ ---------- -----------                                                                                                                                     
+           10 Administration                        200        1700                                                                                                                                     
+           20 Marketing                             201        1800                                                                                                                                     
+           50 Shiping                               124        1500                                                                                                                                     
+           60 IT                                    103        1400                                                                                                                                     
+           80 Sales                                 149        2500                                                                                                                                     
+           90 Executive                             100        1700                                                                                                                                     
+          110 Accounting                            205        1700                                                                                                                                     
+          190 Contracting                                      1700                                                                                                                                     
+
+8 rows selected.
+
+SQL> SELECT * FROM LOCATIONS;
+
+LOCATION_ID STREET_ADRESS                            POSTAL_CODE  CITY                           STATE_PROVINCE            CO                                                                           
+----------- ---------------------------------------- ------------ ------------------------------ ------------------------- --                                                                           
+       1400 2014 Jabberwocky Rd                      26192        Southlake                      Texas                     US                                                                           
+       1500 2011 Interiors Blvd                      99236        South San Francisco            California                US                                                                           
+       1700 2004 Charade Rd                          98199        Seattle                        Washington                US                                                                           
+       1800 460 Bloor St. W.                         ON M5S 1X8   Toronto                        Ontario                   CA                                                                           
+       2500 Magdalen Centre, The Oxford Science Park OX9 9ZB      Oxford                         Oxford                    UK                                                                           
+
+SQL> SELECT * FROM COUNTRIES;
+
+CO COUNTRY_NAME                              REGION_ID                                                                                                                                                  
+-- ---------------------------------------- ----------                                                                                                                                                  
+CA Canada                                            2                                                                                                                                                  
+DE Germany                                           1                                                                                                                                                  
+UK United Kingdom                                    1                                                                                                                                                  
+US United States of America                          2                                                                                                                                                  
+
+SQL> REM DEPARTMENT_NAME , CITY , COUNTRY_NAME
+SQL> 
+SQL> REM DEPARTMENTS      LOCATIONS   COUNTRIES
+SQL> 
+SQL> 
+SQL> SELECT DEPARTMENT_NAME , CITY , COUNTRY_NAME
+  2  FROM DEPARTMENTS
+  3  NATURAL JOIN LOCATIONS
+  4  NATURAL JOIN COUNTRIES;
+
+DEPARTMENT_NAME                CITY                           COUNTRY_NAME                                                                                                                              
+------------------------------ ------------------------------ ----------------------------------------                                                                                                  
+Administration                 Seattle                        United States of America                                                                                                                  
+Marketing                      Toronto                        Canada                                                                                                                                    
+Shiping                        South San Francisco            United States of America                                                                                                                  
+IT                             Southlake                      United States of America                                                                                                                  
+Sales                          Oxford                         United Kingdom                                                                                                                            
+Executive                      Seattle                        United States of America                                                                                                                  
+Accounting                     Seattle                        United States of America                                                                                                                  
+Contracting                    Seattle                        United States of America                                                                                                                  
+
+8 rows selected.
+
+SQL> SELECT * FROM LOCATIONS;
+
+LOCATION_ID STREET_ADRESS                            POSTAL_CODE  CITY                           STATE_PROVINCE            CO                                                                           
+----------- ---------------------------------------- ------------ ------------------------------ ------------------------- --                                                                           
+       1400 2014 Jabberwocky Rd                      26192        Southlake                      Texas                     US                                                                           
+       1500 2011 Interiors Blvd                      99236        South San Francisco            California                US                                                                           
+       1700 2004 Charade Rd                          98199        Seattle                        Washington                US                                                                           
+       1800 460 Bloor St. W.                         ON M5S 1X8   Toronto                        Ontario                   CA                                                                           
+       2500 Magdalen Centre, The Oxford Science Park OX9 9ZB      Oxford                         Oxford                    UK                                                                           
+
+SQL> SELECT * FROM COUNTRIES;
+
+CO COUNTRY_NAME                              REGION_ID                                                                                                                                                  
+-- ---------------------------------------- ----------                                                                                                                                                  
+CA Canada                                            2                                                                                                                                                  
+DE Germany                                           1                                                                                                                                                  
+UK United Kingdom                                    1                                                                                                                                                  
+US United States of America                          2                                                                                                                                                  
+
+SQL> SELECT * FROM REGIONS;
+
+ REGION_ID REGION_NAME                                                                                                                                                                                  
+---------- -------------------------                                                                                                                                                                    
+         1 Europe                                                                                                                                                                                       
+         2 Americas                                                                                                                                                                                     
+         3 Asia                                                                                                                                                                                         
+         4 Middle East and Africa                                                                                                                                                                       
+
+SQL> REM DISPLAY CITY , STATE_PROVINCE , COUNTRY_NAME , REGION_NAME
+SQL> 
+SQL> SELECT CITY , STATE_PROVINCE , COUNTRY_NAME , REGION_NAME
+  2  FROM LOCATIONS
+  3  NATURAL JOIN COUNTRIES
+  4  NATURAL JOIN REGIONS;
+
+CITY                           STATE_PROVINCE            COUNTRY_NAME                             REGION_NAME                                                                                           
+------------------------------ ------------------------- ---------------------------------------- -------------------------                                                                             
+Southlake                      Texas                     United States of America                 Americas                                                                                              
+South San Francisco            California                United States of America                 Americas                                                                                              
+Seattle                        Washington                United States of America                 Americas                                                                                              
+Toronto                        Ontario                   Canada                                   Americas                                                                                              
+Oxford                         Oxford                    United Kingdom                           Europe                                                                                                
+
+SQL> REM DISPLAY DEPARTMENT_NAME , CITY , STATE_PROVINCE , COUNTRY_NAME , REGION_NAME
+SQL> 
+SQL> REM         DEPARTMENTS       LOCATIONS               COUNTRIES      REGIONS
+SQL> 
+SQL> 
+SQL> SELECT DEPARTMENT_NAME , CITY , STATE_PROVINCE , COUNTRY_NAME , REGION_NAME
+  2  FROM DEPARTMENTS
+  3  NATURAL JOIN LOCATIONS
+  4  NATURAL JOIN COUNTRIES
+  5  NATURAL JOIN REGIONS;
+
+DEPARTMENT_NAME                CITY                           STATE_PROVINCE            COUNTRY_NAME                             REGION_NAME                                                            
+------------------------------ ------------------------------ ------------------------- ---------------------------------------- -------------------------                                              
+Administration                 Seattle                        Washington                United States of America                 Americas                                                               
+Marketing                      Toronto                        Ontario                   Canada                                   Americas                                                               
+Shiping                        South San Francisco            California                United States of America                 Americas                                                               
+IT                             Southlake                      Texas                     United States of America                 Americas                                                               
+Sales                          Oxford                         Oxford                    United Kingdom                           Europe                                                                 
+Executive                      Seattle                        Washington                United States of America                 Americas                                                               
+Accounting                     Seattle                        Washington                United States of America                 Americas                                                               
+Contracting                    Seattle                        Washington                United States of America                 Americas                                                               
+
+8 rows selected.
+
+SQL> SELECT * FROM DEPARTMENTS;
+
+DEPARTMENT_ID DEPARTMENT_NAME                MANAGER_ID LOCATION_ID                                                                                                                                     
+------------- ------------------------------ ---------- -----------                                                                                                                                     
+           10 Administration                        200        1700                                                                                                                                     
+           20 Marketing                             201        1800                                                                                                                                     
+           50 Shiping                               124        1500                                                                                                                                     
+           60 IT                                    103        1400                                                                                                                                     
+           80 Sales                                 149        2500                                                                                                                                     
+           90 Executive                             100        1700                                                                                                                                     
+          110 Accounting                            205        1700                                                                                                                                     
+          190 Contracting                                      1700                                                                                                                                     
+
+8 rows selected.
+
+SQL> SELECT * FROM LOCATIONS;
+
+LOCATION_ID STREET_ADRESS                            POSTAL_CODE  CITY                           STATE_PROVINCE            CO                                                                           
+----------- ---------------------------------------- ------------ ------------------------------ ------------------------- --                                                                           
+       1400 2014 Jabberwocky Rd                      26192        Southlake                      Texas                     US                                                                           
+       1500 2011 Interiors Blvd                      99236        South San Francisco            California                US                                                                           
+       1700 2004 Charade Rd                          98199        Seattle                        Washington                US                                                                           
+       1800 460 Bloor St. W.                         ON M5S 1X8   Toronto                        Ontario                   CA                                                                           
+       2500 Magdalen Centre, The Oxford Science Park OX9 9ZB      Oxford                         Oxford                    UK                                                                           
+
+SQL> SELECT * FROM COUNTRIES;
+
+CO COUNTRY_NAME                              REGION_ID                                                                                                                                                  
+-- ---------------------------------------- ----------                                                                                                                                                  
+CA Canada                                            2                                                                                                                                                  
+DE Germany                                           1                                                                                                                                                  
+UK United Kingdom                                    1                                                                                                                                                  
+US United States of America                          2                                                                                                                                                  
+
+SQL> REM DISPLAY DEPARTMENT_NAME , COUNTRY_NAME
+SQL> 
+SQL> SELECT DEPARTMENT_NAME , COUNTRY_NAME
+  2  FROM DEPARTMENTS
+  3  NATURAL JOIN COUNTRIES;
+
+DEPARTMENT_NAME                COUNTRY_NAME                                                                                                                                                             
+------------------------------ ----------------------------------------                                                                                                                                 
+Administration                 Canada                                                                                                                                                                   
+Marketing                      Canada                                                                                                                                                                   
+Shiping                        Canada                                                                                                                                                                   
+IT                             Canada                                                                                                                                                                   
+Sales                          Canada                                                                                                                                                                   
+Executive                      Canada                                                                                                                                                                   
+Accounting                     Canada                                                                                                                                                                   
+Contracting                    Canada                                                                                                                                                                   
+Administration                 Germany                                                                                                                                                                  
+Marketing                      Germany                                                                                                                                                                  
+Shiping                        Germany                                                                                                                                                                  
+IT                             Germany                                                                                                                                                                  
+Sales                          Germany                                                                                                                                                                  
+Executive                      Germany                                                                                                                                                                  
+Accounting                     Germany                                                                                                                                                                  
+Contracting                    Germany                                                                                                                                                                  
+Administration                 United Kingdom                                                                                                                                                           
+Marketing                      United Kingdom                                                                                                                                                           
+Shiping                        United Kingdom                                                                                                                                                           
+IT                             United Kingdom                                                                                                                                                           
+Sales                          United Kingdom                                                                                                                                                           
+
+DEPARTMENT_NAME                COUNTRY_NAME                                                                                                                                                             
+------------------------------ ----------------------------------------                                                                                                                                 
+Executive                      United Kingdom                                                                                                                                                           
+Accounting                     United Kingdom                                                                                                                                                           
+Contracting                    United Kingdom                                                                                                                                                           
+Administration                 United States of America                                                                                                                                                 
+Marketing                      United States of America                                                                                                                                                 
+Shiping                        United States of America                                                                                                                                                 
+IT                             United States of America                                                                                                                                                 
+Sales                          United States of America                                                                                                                                                 
+Executive                      United States of America                                                                                                                                                 
+Accounting                     United States of America                                                                                                                                                 
+Contracting                    United States of America                                                                                                                                                 
+
+32 rows selected.
+
+SQL> REM CARTESIAN PRODUCT OR CROSS JOIN RESULT
+SQL> 
+SQL> REM E D L C R
+SQL> 
+SQL> REM   D L C
+SQL> 
+SQL> 
+SQL> SELECT DEPARTMENT_NAME , COUNTRY_NAME
+  2  FROM DEPARTMENTS
+  3  NATURAL JOIN COUNTRIES;
+
+DEPARTMENT_NAME                COUNTRY_NAME                                                                                                                                                             
+------------------------------ ----------------------------------------                                                                                                                                 
+Administration                 Canada                                                                                                                                                                   
+Marketing                      Canada                                                                                                                                                                   
+Shiping                        Canada                                                                                                                                                                   
+IT                             Canada                                                                                                                                                                   
+Sales                          Canada                                                                                                                                                                   
+Executive                      Canada                                                                                                                                                                   
+Accounting                     Canada                                                                                                                                                                   
+Contracting                    Canada                                                                                                                                                                   
+Administration                 Germany                                                                                                                                                                  
+Marketing                      Germany                                                                                                                                                                  
+Shiping                        Germany                                                                                                                                                                  
+IT                             Germany                                                                                                                                                                  
+Sales                          Germany                                                                                                                                                                  
+Executive                      Germany                                                                                                                                                                  
+Accounting                     Germany                                                                                                                                                                  
+Contracting                    Germany                                                                                                                                                                  
+Administration                 United Kingdom                                                                                                                                                           
+Marketing                      United Kingdom                                                                                                                                                           
+Shiping                        United Kingdom                                                                                                                                                           
+IT                             United Kingdom                                                                                                                                                           
+Sales                          United Kingdom                                                                                                                                                           
+
+DEPARTMENT_NAME                COUNTRY_NAME                                                                                                                                                             
+------------------------------ ----------------------------------------                                                                                                                                 
+Executive                      United Kingdom                                                                                                                                                           
+Accounting                     United Kingdom                                                                                                                                                           
+Contracting                    United Kingdom                                                                                                                                                           
+Administration                 United States of America                                                                                                                                                 
+Marketing                      United States of America                                                                                                                                                 
+Shiping                        United States of America                                                                                                                                                 
+IT                             United States of America                                                                                                                                                 
+Sales                          United States of America                                                                                                                                                 
+Executive                      United States of America                                                                                                                                                 
+Accounting                     United States of America                                                                                                                                                 
+Contracting                    United States of America                                                                                                                                                 
+
+32 rows selected.
+
+SQL> SELECT DEPARTMENT_NAME , COUNTRY_NAME
+  2  FROM DEPARTMENTS
+  3  NATURAL JOIN LOCATIONS
+  4  NATURAL JOIN COUNTRIES;
+
+DEPARTMENT_NAME                COUNTRY_NAME                                                                                                                                                             
+------------------------------ ----------------------------------------                                                                                                                                 
+Administration                 United States of America                                                                                                                                                 
+Marketing                      Canada                                                                                                                                                                   
+Shiping                        United States of America                                                                                                                                                 
+IT                             United States of America                                                                                                                                                 
+Sales                          United Kingdom                                                                                                                                                           
+Executive                      United States of America                                                                                                                                                 
+Accounting                     United States of America                                                                                                                                                 
+Contracting                    United States of America                                                                                                                                                 
+
+8 rows selected.
+
+SQL> SELECT * FROM LOCATIONS;
+
+LOCATION_ID STREET_ADRESS                            POSTAL_CODE  CITY                           STATE_PROVINCE            CO                                                                           
+----------- ---------------------------------------- ------------ ------------------------------ ------------------------- --                                                                           
+       1400 2014 Jabberwocky Rd                      26192        Southlake                      Texas                     US                                                                           
+       1500 2011 Interiors Blvd                      99236        South San Francisco            California                US                                                                           
+       1700 2004 Charade Rd                          98199        Seattle                        Washington                US                                                                           
+       1800 460 Bloor St. W.                         ON M5S 1X8   Toronto                        Ontario                   CA                                                                           
+       2500 Magdalen Centre, The Oxford Science Park OX9 9ZB      Oxford                         Oxford                    UK                                                                           
+
+SQL> SELECT * FROM COUNTRIES;
+
+CO COUNTRY_NAME                              REGION_ID                                                                                                                                                  
+-- ---------------------------------------- ----------                                                                                                                                                  
+CA Canada                                            2                                                                                                                                                  
+DE Germany                                           1                                                                                                                                                  
+UK United Kingdom                                    1                                                                                                                                                  
+US United States of America                          2                                                                                                                                                  
+
+SQL> SELECT * FROM REGIONS;
+
+ REGION_ID REGION_NAME                                                                                                                                                                                  
+---------- -------------------------                                                                                                                                                                    
+         1 Europe                                                                                                                                                                                       
+         2 Americas                                                                                                                                                                                     
+         3 Asia                                                                                                                                                                                         
+         4 Middle East and Africa                                                                                                                                                                       
+
+SQL> REM DISPLAY CITY AND REGION_NAME
+SQL> 
+SQL> 
+SQL> SELECT CITY , REGION_NAME
+  2  FROM LOCATIONS
+  3  NATURAL JOIN COUNTRIES
+  4  NATURAL JOIN REGIONS;
+
+CITY                           REGION_NAME                                                                                                                                                              
+------------------------------ -------------------------                                                                                                                                                
+Southlake                      Americas                                                                                                                                                                 
+South San Francisco            Americas                                                                                                                                                                 
+Seattle                        Americas                                                                                                                                                                 
+Toronto                        Americas                                                                                                                                                                 
+Oxford                         Europe                                                                                                                                                                   
+
+SQL> 
+SQL> 
+SQL> SELECT * FROM DEPARTMENTS;
+
+DEPARTMENT_ID DEPARTMENT_NAME                MANAGER_ID LOCATION_ID                                                                                                                                     
+------------- ------------------------------ ---------- -----------                                                                                                                                     
+           10 Administration                        200        1700                                                                                                                                     
+           20 Marketing                             201        1800                                                                                                                                     
+           50 Shiping                               124        1500                                                                                                                                     
+           60 IT                                    103        1400                                                                                                                                     
+           80 Sales                                 149        2500                                                                                                                                     
+           90 Executive                             100        1700                                                                                                                                     
+          110 Accounting                            205        1700                                                                                                                                     
+          190 Contracting                                      1700                                                                                                                                     
+
+8 rows selected.
+
+SQL> SELECT * FROM LOCATIONS;
+
+LOCATION_ID STREET_ADRESS                            POSTAL_CODE  CITY                           STATE_PROVINCE            CO                                                                           
+----------- ---------------------------------------- ------------ ------------------------------ ------------------------- --                                                                           
+       1400 2014 Jabberwocky Rd                      26192        Southlake                      Texas                     US                                                                           
+       1500 2011 Interiors Blvd                      99236        South San Francisco            California                US                                                                           
+       1700 2004 Charade Rd                          98199        Seattle                        Washington                US                                                                           
+       1800 460 Bloor St. W.                         ON M5S 1X8   Toronto                        Ontario                   CA                                                                           
+       2500 Magdalen Centre, The Oxford Science Park OX9 9ZB      Oxford                         Oxford                    UK                                                                           
+
+SQL> SELECT DEPARTMENT_NAME , CITY
+  2  FROM DEPARTMENTS
+  3  NATURAL JOIN LOCATIONS;
+
+DEPARTMENT_NAME                CITY                                                                                                                                                                     
+------------------------------ ------------------------------                                                                                                                                           
+Administration                 Seattle                                                                                                                                                                  
+Marketing                      Toronto                                                                                                                                                                  
+Shiping                        South San Francisco                                                                                                                                                      
+IT                             Southlake                                                                                                                                                                
+Sales                          Oxford                                                                                                                                                                   
+Executive                      Seattle                                                                                                                                                                  
+Accounting                     Seattle                                                                                                                                                                  
+Contracting                    Seattle                                                                                                                                                                  
+
+8 rows selected.
+
+SQL> SELECT DEPARTMENT_NAME , CITY
+  2  FROM DEPARTMENTS
+  3  CROSS JOIN LOCATIONS;
+
+DEPARTMENT_NAME                CITY                                                                                                                                                                     
+------------------------------ ------------------------------                                                                                                                                           
+Administration                 Southlake                                                                                                                                                                
+Marketing                      Southlake                                                                                                                                                                
+Shiping                        Southlake                                                                                                                                                                
+IT                             Southlake                                                                                                                                                                
+Sales                          Southlake                                                                                                                                                                
+Executive                      Southlake                                                                                                                                                                
+Accounting                     Southlake                                                                                                                                                                
+Contracting                    Southlake                                                                                                                                                                
+Administration                 South San Francisco                                                                                                                                                      
+Marketing                      South San Francisco                                                                                                                                                      
+Shiping                        South San Francisco                                                                                                                                                      
+IT                             South San Francisco                                                                                                                                                      
+Sales                          South San Francisco                                                                                                                                                      
+Executive                      South San Francisco                                                                                                                                                      
+Accounting                     South San Francisco                                                                                                                                                      
+Contracting                    South San Francisco                                                                                                                                                      
+Administration                 Seattle                                                                                                                                                                  
+Marketing                      Seattle                                                                                                                                                                  
+Shiping                        Seattle                                                                                                                                                                  
+IT                             Seattle                                                                                                                                                                  
+Sales                          Seattle                                                                                                                                                                  
+
+DEPARTMENT_NAME                CITY                                                                                                                                                                     
+------------------------------ ------------------------------                                                                                                                                           
+Executive                      Seattle                                                                                                                                                                  
+Accounting                     Seattle                                                                                                                                                                  
+Contracting                    Seattle                                                                                                                                                                  
+Administration                 Toronto                                                                                                                                                                  
+Marketing                      Toronto                                                                                                                                                                  
+Shiping                        Toronto                                                                                                                                                                  
+IT                             Toronto                                                                                                                                                                  
+Sales                          Toronto                                                                                                                                                                  
+Executive                      Toronto                                                                                                                                                                  
+Accounting                     Toronto                                                                                                                                                                  
+Contracting                    Toronto                                                                                                                                                                  
+Administration                 Oxford                                                                                                                                                                   
+Marketing                      Oxford                                                                                                                                                                   
+Shiping                        Oxford                                                                                                                                                                   
+IT                             Oxford                                                                                                                                                                   
+Sales                          Oxford                                                                                                                                                                   
+Executive                      Oxford                                                                                                                                                                   
+Accounting                     Oxford                                                                                                                                                                   
+Contracting                    Oxford                                                                                                                                                                   
+
+40 rows selected.
+
+SQL> SELECT * FROM DEPARTMENTS;
+
+DEPARTMENT_ID DEPARTMENT_NAME                MANAGER_ID LOCATION_ID                                                                                                                                     
+------------- ------------------------------ ---------- -----------                                                                                                                                     
+           10 Administration                        200        1700                                                                                                                                     
+           20 Marketing                             201        1800                                                                                                                                     
+           50 Shiping                               124        1500                                                                                                                                     
+           60 IT                                    103        1400                                                                                                                                     
+           80 Sales                                 149        2500                                                                                                                                     
+           90 Executive                             100        1700                                                                                                                                     
+          110 Accounting                            205        1700                                                                                                                                     
+          190 Contracting                                      1700                                                                                                                                     
+
+8 rows selected.
+
+SQL> SELECT * FROM LOCATIONS;
+
+LOCATION_ID STREET_ADRESS                            POSTAL_CODE  CITY                           STATE_PROVINCE            CO                                                                           
+----------- ---------------------------------------- ------------ ------------------------------ ------------------------- --                                                                           
+       1400 2014 Jabberwocky Rd                      26192        Southlake                      Texas                     US                                                                           
+       1500 2011 Interiors Blvd                      99236        South San Francisco            California                US                                                                           
+       1700 2004 Charade Rd                          98199        Seattle                        Washington                US                                                                           
+       1800 460 Bloor St. W.                         ON M5S 1X8   Toronto                        Ontario                   CA                                                                           
+       2500 Magdalen Centre, The Oxford Science Park OX9 9ZB      Oxford                         Oxford                    UK                                                                           
+
+SQL> SELECT * FROM COUNTRIES;
+
+CO COUNTRY_NAME                              REGION_ID                                                                                                                                                  
+-- ---------------------------------------- ----------                                                                                                                                                  
+CA Canada                                            2                                                                                                                                                  
+DE Germany                                           1                                                                                                                                                  
+UK United Kingdom                                    1                                                                                                                                                  
+US United States of America                          2                                                                                                                                                  
+
+SQL> REM CROSS JOIN : HOW MANY ROWS?
+SQL> 
+SQL> REM 8 5 4
+SQL> 
+SQL> SELECT 8 * 5 * 4 FRO DUAL;
+SELECT 8 * 5 * 4 FRO DUAL
+                     *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> SELECT 8 * 5 * 4 FROM DUAL;
+
+     8*5*4                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+       160                                                                                                                                                                                              
+
+SQL> REM DEPARTMENT_NAME , REGION_NAME
+SQL> 
+SQL> SELECT DEPARTMENT_NAME , REGION_NAME
+  2  FROM DEPARTMENTS
+  3  NATURAL JOIN LOCATIONS
+  4  NATURAL JOIN COUNTRIES
+  5  NATURAL JOIN REGIONS;
+
+DEPARTMENT_NAME                REGION_NAME                                                                                                                                                              
+------------------------------ -------------------------                                                                                                                                                
+Administration                 Americas                                                                                                                                                                 
+Marketing                      Americas                                                                                                                                                                 
+Shiping                        Americas                                                                                                                                                                 
+IT                             Americas                                                                                                                                                                 
+Sales                          Europe                                                                                                                                                                   
+Executive                      Americas                                                                                                                                                                 
+Accounting                     Americas                                                                                                                                                                 
+Contracting                    Americas                                                                                                                                                                 
+
+8 rows selected.
+
+SQL> REM WHEN DO WE NEED INNER JOIN?
+SQL> 
+SQL> REM 1 WHEN BOTH TABLES HAVE MULTIPLE COMMON COLUMNS, BUT FOR SOME REASON WE DON'T WANT TO COMPARE ALL OF THEM.
+SQL> 
+SQL> REM 2 WHEN BOTH TABLES DO NOT HAVE COMMON COLUMN. LOCATION_ID , LID
+SQL> 
+SQL> REM 3 WHEN BOTH TABLES DO NOT HAVE COMMON COLUMN AND SIMILAR DATA, BUT HAS RELATED DATA.
+SQL> 
+SQL> SELECT FIRST_NAME , SALARY FROM EMPLOYEES ORDER BY 2;
+
+FIRST_NAME     SALARY                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+Peter            2500                                                                                                                                                                                   
+Randall          2600                                                                                                                                                                                   
+Curtis           3100                                                                                                                                                                                   
+Trenna           3500                                                                                                                                                                                   
+Diana            4200                                                                                                                                                                                   
+Jennifer         4400                                                                                                                                                                                   
+Kevin            5800                                                                                                                                                                                   
+Bruce            6000                                                                                                                                                                                   
+Pat              6000                                                                                                                                                                                   
+Kimerely         7000                                                                                                                                                                                   
+William          8300                                                                                                                                                                                   
+Jonathon         8600                                                                                                                                                                                   
+Alexander        9000                                                                                                                                                                                   
+Eleni           10500                                                                                                                                                                                   
+Ellen           11000                                                                                                                                                                                   
+Shelley         12000                                                                                                                                                                                   
+Michael         13000                                                                                                                                                                                   
+Neena           17000                                                                                                                                                                                   
+Lex             17000                                                                                                                                                                                   
+Steven          24000                                                                                                                                                                                   
+
+20 rows selected.
+
+SQL> SELECT * FROM JOB_GRADES;
+
+GRA LOWEST_SAL HIGHEST_SAL                                                                                                                                                                              
+--- ---------- -----------                                                                                                                                                                              
+A         1000        2999                                                                                                                                                                              
+B         3000        5999                                                                                                                                                                              
+C         6000        9999                                                                                                                                                                              
+D        10000       14999                                                                                                                                                                              
+E        15000       24999                                                                                                                                                                              
+F        25000       40000                                                                                                                                                                              
+
+6 rows selected.
+
+SQL> 
+SQL> REM 1 WHEN BOTH TABLES HAVE MULTIPLE COMMON COLUMNS, BUT FOR SOME REASON WE DON'T WANT TO COMPARE ALL OF THEM. :  USING/ON
+SQL> 
+SQL> REM 2 WHEN BOTH TABLES DO NOT HAVE COMMON COLUMN. LOCATION_ID , LID : ON
+SQL> 
+SQL> REM 3 WHEN BOTH TABLES DO NOT HAVE COMMON COLUMN AND SIMILAR DATA, BUT HAS RELATED DATA. : ON
+SQL> 
+SQL> REM EMPLOYEES DEPARTMENTS LOCATIONS COUNTRIES REGIONS JOBS JOB_GRADES
+SQL> 
+SQL> SPOOL OFF

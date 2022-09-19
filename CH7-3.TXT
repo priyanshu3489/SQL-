@@ -1,0 +1,303 @@
+SQL> 
+SQL> REM 3 WHEN WE NEED TO COMPARE NESTED SUMMARY ITEM/FUNCTION IN 'HAVING' CLAUSE.
+SQL> 
+SQL> REM DISPLAY DEPARTMENT_ID WISE HIGHEST SALARY
+SQL> 
+SQL> SELECT DEPARTMENT_ID , MAX(SALARY) FROM EMPLOYEES GROUP BY DEPARTMENT_ID;
+
+DEPARTMENT_ID MAX(SALARY)                                                                                                                                                                               
+------------- -----------                                                                                                                                                                               
+                     7000                                                                                                                                                                               
+           90       24000                                                                                                                                                                               
+           20       13000                                                                                                                                                                               
+          110       12000                                                                                                                                                                               
+           50        5800                                                                                                                                                                               
+           80       11000                                                                                                                                                                               
+           60        9000                                                                                                                                                                               
+           10        4400                                                                                                                                                                               
+
+8 rows selected.
+
+SQL> SELECT MAX(SALARY) FROM EMPLOYEES GROUP BY DEPARTMENT_ID;
+
+MAX(SALARY)                                                                                                                                                                                             
+-----------                                                                                                                                                                                             
+       7000                                                                                                                                                                                             
+      24000                                                                                                                                                                                             
+      13000                                                                                                                                                                                             
+      12000                                                                                                                                                                                             
+       5800                                                                                                                                                                                             
+      11000                                                                                                                                                                                             
+       9000                                                                                                                                                                                             
+       4400                                                                                                                                                                                             
+
+8 rows selected.
+
+SQL> REM DISPLAY DEPARTMENT_ID AND AVERAGE SALARY FOR THE DEPARTMENT TO WHICH HIGHEST AVERAGE SALARY IS PAID.
+SQL> 
+SQL> SELECT DEPARTMENT_ID , AVG(SALARY) FROM EMPLOYEES GROUP BY DEPARTMENT_ID;
+
+DEPARTMENT_ID AVG(SALARY)                                                                                                                                                                               
+------------- -----------                                                                                                                                                                               
+                     7000                                                                                                                                                                               
+           90  19333.3333                                                                                                                                                                               
+           20        9500                                                                                                                                                                               
+          110       10150                                                                                                                                                                               
+           50        3500                                                                                                                                                                               
+           80  10033.3333                                                                                                                                                                               
+           60        6400                                                                                                                                                                               
+           10        4400                                                                                                                                                                               
+
+8 rows selected.
+
+SQL> SELECT DEPARTMENT_ID , AVG(SALARY) FROM EMPLOYEES GROUP BY DEPARTMENT_ID
+  2  HAVING AVG(SALARY) = MAX(AVG(SALARY));
+HAVING AVG(SALARY) = MAX(AVG(SALARY))
+                         *
+ERROR at line 2:
+ORA-00935: group function is nested too deeply 
+
+
+SQL> SELECT DEPARTMENT_ID , AVG(SALARY) FROM EMPLOYEES GROUP BY DEPARTMENT_ID
+  2  HAVING AVG(SALARY) = (SELECT MAX(AVG(SALARY)) FROM EMPLOYEES GROUP BY DEPARTMENT_ID);
+
+DEPARTMENT_ID AVG(SALARY)                                                                                                                                                                               
+------------- -----------                                                                                                                                                                               
+           90  19333.3333                                                                                                                                                                               
+
+SQL> REM DISPLAY JOB_ID AND COUNT OF EMPLOYEES FOR WHICH LOWEST NO. OF EMPLOYEE WORK
+SQL> 
+SQL> SELECT JOB_ID , COUNT(*) FROM EMPLOYEES GROUP BY JOB_ID;
+
+JOB_ID       COUNT(*)                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+AC_ACCOUNT          1                                                                                                                                                                                   
+AC_MGR              1                                                                                                                                                                                   
+AD_ASST             1                                                                                                                                                                                   
+AD_PRES             1                                                                                                                                                                                   
+AD_VP               2                                                                                                                                                                                   
+IT_PROG             3                                                                                                                                                                                   
+MK_MAN              1                                                                                                                                                                                   
+MK_REP              1                                                                                                                                                                                   
+SA_MAN              1                                                                                                                                                                                   
+SA_REP              3                                                                                                                                                                                   
+ST_CLERK            4                                                                                                                                                                                   
+ST_MAN              1                                                                                                                                                                                   
+
+12 rows selected.
+
+SQL> SELECT JOB_ID , COUNT(*) FROM EMPLOYEES GROUP BY JOB_ID
+  2  HAVING COUNT(*) = MIN(COUNT(*));
+HAVING COUNT(*) = MIN(COUNT(*))
+                      *
+ERROR at line 2:
+ORA-00935: group function is nested too deeply 
+
+
+SQL> SELECT JOB_ID , COUNT(*) FROM EMPLOYEES GROUP BY JOB_ID
+  2  HAVING COUNT(*) = (SELECT MIN(COUNT(*)) FROM EMPLOYEES GROUP BY JOB_ID);
+
+JOB_ID       COUNT(*)                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+AC_ACCOUNT          1                                                                                                                                                                                   
+AC_MGR              1                                                                                                                                                                                   
+AD_ASST             1                                                                                                                                                                                   
+AD_PRES             1                                                                                                                                                                                   
+MK_MAN              1                                                                                                                                                                                   
+MK_REP              1                                                                                                                                                                                   
+SA_MAN              1                                                                                                                                                                                   
+ST_MAN              1                                                                                                                                                                                   
+
+8 rows selected.
+
+SQL> SELECT JOB_ID , COUNT(*) FROM EMPLOYEES GROUP BY JOB_ID
+  2  HAVING COUNT(*) <> (SELECT MIN(COUNT(*)) FROM EMPLOYEES GROUP BY JOB_ID);
+
+JOB_ID       COUNT(*)                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+AD_VP               2                                                                                                                                                                                   
+IT_PROG             3                                                                                                                                                                                   
+SA_REP              3                                                                                                                                                                                   
+ST_CLERK            4                                                                                                                                                                                   
+
+SQL> SELECT JOB_ID , COUNT(*) FROM EMPLOYEES GROUP BY JOB_ID
+  2  HAVING COUNT(*) = (SELECT MIN(COUNT(*)) FROM EMPLOYEES GROUP BY JOB_ID)
+  3  OR     COUNT(*) = (SELECT MAX(COUNT(*)) FROM EMPLOYEES GROUP BY JOB_ID);
+
+JOB_ID       COUNT(*)                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+AC_ACCOUNT          1                                                                                                                                                                                   
+AC_MGR              1                                                                                                                                                                                   
+AD_ASST             1                                                                                                                                                                                   
+AD_PRES             1                                                                                                                                                                                   
+MK_MAN              1                                                                                                                                                                                   
+MK_REP              1                                                                                                                                                                                   
+SA_MAN              1                                                                                                                                                                                   
+ST_CLERK            4                                                                                                                                                                                   
+ST_MAN              1                                                                                                                                                                                   
+
+9 rows selected.
+
+SQL> SELECT JOB_ID , COUNT(*) FROM EMPLOYEES GROUP BY JOB_ID
+  2  HAVING COUNT(*) = (SELECT MIN(COUNT(*)) FROM EMPLOYEES GROUP BY JOB_ID)
+  3  AND    COUNT(*) = (SELECT MAX(COUNT(*)) FROM EMPLOYEES GROUP BY JOB_ID);
+
+no rows selected
+
+SQL> SELECT JOB_ID , COUNT(*) FROM EMPLOYEES GROUP BY JOB_ID
+  2  HAVING COUNT(*) <> (SELECT MIN(COUNT(*)) FROM EMPLOYEES GROUP BY JOB_ID)
+  3  OR     COUNT(*) <> (SELECT MAX(COUNT(*)) FROM EMPLOYEES GROUP BY JOB_ID);
+
+JOB_ID       COUNT(*)                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+AC_ACCOUNT          1                                                                                                                                                                                   
+AC_MGR              1                                                                                                                                                                                   
+AD_ASST             1                                                                                                                                                                                   
+AD_PRES             1                                                                                                                                                                                   
+AD_VP               2                                                                                                                                                                                   
+IT_PROG             3                                                                                                                                                                                   
+MK_MAN              1                                                                                                                                                                                   
+MK_REP              1                                                                                                                                                                                   
+SA_MAN              1                                                                                                                                                                                   
+SA_REP              3                                                                                                                                                                                   
+ST_CLERK            4                                                                                                                                                                                   
+ST_MAN              1                                                                                                                                                                                   
+
+12 rows selected.
+
+SQL> SELECT JOB_ID , COUNT(*) FROM EMPLOYEES GROUP BY JOB_ID
+  2  HAVING COUNT(*) > (SELECT MIN(COUNT(*)) FROM EMPLOYEES GROUP BY JOB_ID)
+  3  AND    COUNT(*) < (SELECT MAX(COUNT(*)) FROM EMPLOYEES GROUP BY JOB_ID);
+
+JOB_ID       COUNT(*)                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+AD_VP               2                                                                                                                                                                                   
+IT_PROG             3                                                                                                                                                                                   
+SA_REP              3                                                                                                                                                                                   
+
+SQL> SELECT JOB_ID , COUNT(*) FROM EMPLOYEES GROUP BY JOB_ID
+  2  HAVING COUNT(*) BETWEEN (SELECT MIN(COUNT(*)) FROM EMPLOYEES GROUP BY JOB_ID)+1
+  3  AND    (SELECT MAX(COUNT(*)) FROM EMPLOYEES GROUP BY JOB_ID)-1;
+
+JOB_ID       COUNT(*)                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+AD_VP               2                                                                                                                                                                                   
+IT_PROG             3                                                                                                                                                                                   
+SA_REP              3                                                                                                                                                                                   
+
+SQL> SELECT JOB_ID , COUNT(*) FROM EMPLOYEES GROUP BY JOB_ID
+  2  HAVING COUNT(*) <> (SELECT MIN(COUNT(*)) FROM EMPLOYEES GROUP BY JOB_ID)
+  3  AND    COUNT(*) <> (SELECT MAX(COUNT(*)) FROM EMPLOYEES GROUP BY JOB_ID);
+
+JOB_ID       COUNT(*)                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+AD_VP               2                                                                                                                                                                                   
+IT_PROG             3                                                                                                                                                                                   
+SA_REP              3                                                                                                                                                                                   
+
+SQL> SELECT JOB_ID , COUNT(*) FROM EMPLOYEES GROUP BY JOB_ID
+  2  HAVING NOT (COUNT(*) = (SELECT MIN(COUNT(*)) FROM EMPLOYEES GROUP BY JOB_ID)
+  3  OR     COUNT(*) = (SELECT MAX(COUNT(*)) FROM EMPLOYEES GROUP BY JOB_ID));
+
+JOB_ID       COUNT(*)                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+AD_VP               2                                                                                                                                                                                   
+IT_PROG             3                                                                                                                                                                                   
+SA_REP              3                                                                                                                                                                                   
+
+SQL> REM DISPLAY DEPARTMENT_ID AND AVERAGE SALARY FOR THE DEPARTMENT TO WHICH LOWEST AVERAGE SALARY IS PAID.
+SQL> 
+SQL> SELECT DEPARTMENT_ID , AVG(SALARY)
+  2  FROM EMPLOYEES
+  3  GROUP BY DEPARTMENT_ID
+  4  HAVING AVG(SALARY) = (SELECT MIN(AVG(SALARY)) FROM EMPLOYEES GROUP BY DEPARTMENT_ID);
+
+DEPARTMENT_ID AVG(SALARY)                                                                                                                                                                               
+------------- -----------                                                                                                                                                                               
+           50        3500                                                                                                                                                                               
+
+SQL> REM DISPLAY MANAGER_ID AND COUNT OF EMPLOYEES REPORTING TO THEM FOR THE MANAGER TO WHOM HIGHEST EMPLOYEE REPORTS.
+SQL> 
+SQL> SELECT MANAGER_ID , COUNT(*)
+  2  FROM EMPLOYEES
+  3  GROUP BY MANAGER_ID
+  4  HAVING COUNT(*) = (SELECT MAX(COUNT(*)) FROM EMPLOYEES GROUP BY MANAGER_ID);
+
+MANAGER_ID   COUNT(*)                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+       100          5                                                                                                                                                                                   
+
+SQL> REM DISPLAY HIRE YEAR WISE COUNT OF EMPLOYEES FOR THE YEAR IN WHICH HIGHEST NO. OF EMPLOYEES HIRED.
+SQL> 
+SQL> SELECT TO_CHAR(HIRE_DATE,RRRR) HIRE_YEAR , COUNT(*) FROM EMPLOYEES GROUP BY TO_CHAR(HIRE_DATE,RRRR)
+  2  HAVING COUNT(*) = (SELECT MAX(COUNT(*)) FROM EMPLOYEES GROUP BY TO_CHAR(HIRE_DATE,RRRR));
+SELECT TO_CHAR(HIRE_DATE,RRRR) HIRE_YEAR , COUNT(*) FROM EMPLOYEES GROUP BY TO_CHAR(HIRE_DATE,RRRR)
+                                                                                              *
+ERROR at line 1:
+ORA-00904: "RRRR": invalid identifier 
+
+
+SQL> SELECT TO_CHAR(HIRE_DATE,'RRRR') HIRE_YEAR , COUNT(*) FROM EMPLOYEES GROUP BY TO_CHAR(HIRE_DATE,'RRRR')
+  2  HAVING COUNT(*) = (SELECT MAX(COUNT(*)) FROM EMPLOYEES GROUP BY TO_CHAR(HIRE_DATE,'RRRR'));
+
+HIRE   COUNT(*)                                                                                                                                                                                         
+---- ----------                                                                                                                                                                                         
+1999          3                                                                                                                                                                                         
+1998          3                                                                                                                                                                                         
+
+SQL> SELECT TO_CHAR(HIRE_DATE,'RRRR') , COUNT(*) FROM EMPLOYEES GROUP BY TO_CHAR(HIRE_DATE,'RRRR') HAVING COUNT(*)=(SELECT MAX(COUNT (*)) FROM EMPLOYEES GROUP BY TO_CHAR(HIRE_DATE,'RRRR'));
+
+TO_C   COUNT(*)                                                                                                                                                                                         
+---- ----------                                                                                                                                                                                         
+1999          3                                                                                                                                                                                         
+1998          3                                                                                                                                                                                         
+
+SQL> select substr(hire_date, -2), count(*) from employees groupby substr(hire_date, -2) having count(*)=(select max(count(*)) from employees group by substr(hire_date, -2)) ;
+select substr(hire_date, -2), count(*) from employees groupby substr(hire_date, -2) having count(*)=(select max(count(*)) from employees group by substr(hire_date, -2)) 
+                                                              *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> select substr(hire_date, -2), count(*) from employees group by substr(hire_date, -2) having count(*)=(select max(count(*)) from employees group by substr(hire_date, -2)) ;
+
+SUBSTR(H   COUNT(*)                                                                                                                                                                                     
+-------- ----------                                                                                                                                                                                     
+99                3                                                                                                                                                                                     
+98                3                                                                                                                                                                                     
+
+SQL> select substr(hire_date, 8), count(*) from employees group by substr(hire_date, 8) having count(*)=(select max(count(*)) from employees group by substr(hire_date, 8)) ;
+
+SUBSTR(HIRE_DATE,8)                            COUNT(*)                                                                                                                                                 
+-------------------------------------------- ----------                                                                                                                                                 
+99                                                    3                                                                                                                                                 
+98                                                    3                                                                                                                                                 
+
+SQL> SELECT * FROM EMPLOYEES;
+
+EMPLOYEE_ID FIRST_NAME LAST_NAME  EMAIL      PHONE_NUMBER         HIRE_DATE JOB_ID         SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID                                                               
+----------- ---------- ---------- ---------- -------------------- --------- ---------- ---------- -------------- ---------- -------------                                                               
+        100 Steven     King       SKING      515.123.4567         17-JUL-87 AD_PRES         24000                                      90                                                               
+        101 Neena      Kochhar    NKOCHHAR   515.123.4568         21-SEP-89 AD_VP           17000                       100            90                                                               
+        102 Lex        De Haan    LDEHAAN    515.123.4569         13-JAN-93 AD_VP           17000                       100            90                                                               
+        103 Alexander  Hunold     AHUNOLD    590.423.4567         03-JAN-90 IT_PROG          9000                       102            60                                                               
+        104 Bruce      Ernst      BERNST     590.423.4568         21-MAY-91 IT_PROG          6000                       103            60                                                               
+        107 Diana      Lorentz    DLORENTZ   590.423.5567         07-FEB-99 IT_PROG          4200                       103            60                                                               
+        124 Kevin      Mourgos    KMOURGOS   650.123.5234         16-NOV-99 ST_MAN           5800                       100            50                                                               
+        141 Trenna     Rajs       TRAJS      650.121.8009         17-OCT-95 ST_CLERK         3500                       124            50                                                               
+        142 Curtis     Davies     CDAVIES    650.121.2994         29-JAN-97 ST_CLERK         3100                       124            50                                                               
+        143 Randall    Matos      RMATOS     650.121.2874         15-MAR-98 ST_CLERK         2600                       124            50                                                               
+        144 Peter      Vargas     PVARGAS    650.121.2004         09-JUL-98 ST_CLERK         2500                       124            50                                                               
+        149 Eleni      Zlotkey    EZLOTKEY   011.44.1344.429018   29-JAN-00 SA_MAN          10500             .2        100            80                                                               
+        174 Ellen      Abel       EABEL      011.44.1644.429267   11-MAY-96 SA_REP          11000             .3        149            80                                                               
+        176 Jonathon   Taylor     JTAYLOR    011.44.1644.429265   24-MAR-98 SA_REP           8600             .3        149            80                                                               
+        178 Kimerely   Grant      KGRANT     011.44.1644.429263   24-MAY-99 SA_REP           7000            .15        149                                                                             
+        200 Jennifer   Whalen     JWAHLEN    515.123.4444         17-SEP-87 AD_ASST          4400                       101            10                                                               
+        201 Michael    Hartstein  MHARTSTE   515.123.5555         17-FEB-96 MK_MAN          13000                       100            20                                                               
+        202 Pat        Fay        PFAY       603.123.6666         17-AUG-97 MK_REP           6000                       201            20                                                               
+        205 Shelley    Higgins    SHIGGINS   515.123.8080         07-JUN-94 AC_MGR          12000                       101           110                                                               
+        206 William    Gietz      WGIETZ     515.123.8181         07-JUN-94 AC_ACCOUNT       8300                       205           110                                                               
+
+20 rows selected.
+
+SQL> SPOOL OFF

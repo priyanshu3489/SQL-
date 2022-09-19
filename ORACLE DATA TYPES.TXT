@@ -1,0 +1,89 @@
+DATA TYPE			MIN/MAX SIZE		DETAILS
+
+CHAR				1/2000 BYTES		CAN STORE ALL TYPES OF CHARACTERS 
+					DEFAULT SIZE 1		i.e. alphabets, digits and special characters
+										eg. gender , presence , marital status
+
+										LIMITATION : FIXED LENGTH DATA TYPE MEANS OCCUPIES
+										ALL BYTES EVENIF DATA LENGTH IS SMALLER.
+										NAME CHAR(10) : MADHUSUDAN OCCUPIES 10 BYTES
+										                RAM OCCUPIES 10 BYTES BY ADDING ADDITIONAL SPACE CHARACTERS
+
+==========================================================================================
+VARCHAR 			ANSI/SQL 1999 COMPLIANT MEANS IS AVAILABLE TO ALL OTHER RDBMS PRODCUTS
+					ORACLE , MYSQL , SQLSERVER , BERKLEYDB, SYBASE , INGRES , HANA , DB2 ...
+					
+VARCHAR2 			ORACLE SPECIFIC, IS NOT SUPPORTED BY OTHER RDBMS PRODUCTS
+
+VARCHAR/VARCHAR2    1/4000 BYTES		CAN STORE ALL TYPES OF CHARACERS
+					NO DEFAULT SIZE		BENEFIT : VARIABLE LENGTH DATA TYPE MEANS WILL 
+										OCCUPY ONLY REQUIRED BYTES.
+										NAME VARCHAR2(10) : MADHUSUDAN OCCUPIES 10 BYTES
+										                    RAM OCCUPIES ONLY 3 BYTES
+
+==========================================================================================
+
+NVARCHAR2			TO STORE DATA		WHEN WE WANT TO USE ASIAN LANGUAGES FOR STORING
+(1/2000)            USING MULTIBYTE     DATA WHICH REQUIRES MULTI BYTES FOR STORING EACH
+                    CHARACTERS          CHARACTER
+==========================================================================================
+
+NUMBER 				1/38				CAN STORE +/- (SIGN), DIGITS, . (CURRENCY SYMBOLE AND , ARE NOT SUPPORTED.)
+					DEFAULT 38			IT CAN STORE INTEGERS, DECIMAL , FRACTIONAL AND 
+										EXPONENT VALUES
+
+										NUMBER : UPTO 38 DIGITS
+										NUMBER(3) : RANGE -999 TO +999
+										NUMBER(5,2) : RANGE -999.99 TO +999.99 (ERROR/ROUND OFF)
+                                              (PRECISION,SCALE)
+										NUMBER(2,2) : RANGE -.99 TO +.99
+										NUMBER(3,-2) : RANGE -99900 TO +99900 (ROUND OFF WITH -2)
+										EG. 12345 -> 12300 , 56789 -> 56800 , 56989.453 -> 57000
+										1234 -> 1200 	854 -> 900  	99 -> 100  	9 -> 0
+==========================================================================================
+
+DATE 				WE CAN'T SPECIFY	IT STORES BOTH DATE AND TIME VALUES.
+					SIZE. IT REQUIRES	RANGE : 01-JAN-4712BC TO 31-DEC-9999AD
+					7 BYTES TO STORE    (BC=BEFORE CHRIST ,AD=ANNOE DOMINIE/AFTER DEATH)
+					DATE VALUE.         STORES CENTURY, YEAR, MONTH, DAY, HOUR(24), 
+										MINUTE, SECOND (REQUIRES 1 BYTE EACH)
+										DEFAULT TIME VALUE IS MIDNIGHT 12
+
+==========================================================================================
+
+TIMESTAMP			WE CAN'T SPEFICY 	IT ADDITIONALLY STORES FRACTIONAL SECONDS WITH 6 
+					SIZE, BUT SPECIFY	DIGITS ACCURACY. WE CAN SPECIFY IT FROM 0 TO 9.
+					ACCURACY FOR 
+					FRACTIONAL SECONDS  EG. ATM TRANSACTION, STOCK MKT TRANSACTION , INDIAN RAILWAY TICKET
+
+==========================================================================================
+
+TIMESTAMP WITH 		WE CAN'T SPECIFY 	IT ADDITIONALLY STORES TIME ZONE.
+TIME ZONE           SIZE, BUT SPECIFY	EG. FOR AIR TICKES FROM ONE COUNTRY TO ANOTHER 
+					ACCURACY FOR            COUNTRY
+					FRACTIONAL SECONDS		INDIA - DUBAI , DUBAI - CANADA
+
+==========================================================================================
+
+TIMESTAMP WITH		WE CAN'T SPECIFY	IT STORES DATA AS PER SERVER'S TIMEZONE BUT 
+LOCAL TIME ZONE     SIZE, BUT SPECIFY   FURNISHES DATA AS PER LOCAL TIME ZONE OF THE
+					ACCURACY FOR        REQUEST USER.
+					FRACTIONAL SECONDS  FOR MNC 
+
+==========================================================================================
+
+INTERVAL DAY(2) TO  WE CAN SPECIFY 		IT STORES 5 INTERVALS I.E. DAY, HOUR, MINUTE,
+SECOND			    SIZE FOR DAY AND    SECONDS, FRACTIONAL SECONDS
+                    SECONDS				EG. EUROPE TOUR, ASIAN GAMES
+										JOURNEY_DURATION , STAY_DURATION
+
+==========================================================================================
+
+INTERVAL YEAR(2) TO WE CAN SPECIFY		IF STORE 2 INTERVALS I.E. YEAR AND MONTH
+MONTH               SIZE FOR YEAR       EG. FIXED DEPOSIT, LIC POLICY
+
+==========================================================================================
+
+BFILE				CAN STORE 			WE CAN STORE LOCATOR FOR ANY TYPE OF FILE.
+                    UPTO 4GB            TO STORE BIG SIZE DATA LIKE EBOOK, MOVIE, SONGS, SIGNATURE, PHOTOGRAPH ...
+

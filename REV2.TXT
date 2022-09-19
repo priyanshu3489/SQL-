@@ -1,0 +1,1136 @@
+SQL> 
+SQL> CL SCR
+
+SQL> REM NUMBER FUNCTIONS : POWER SQRT MOD FLOOR CEIL TRUNC ROUND
+SQL> 
+SQL> SELECT POWER(5,2) FROM DUAL;
+
+POWER(5,2)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+        25                                                                                                                                                                                              
+
+SQL> SELECT POWER(25,1/2) FROM DUAL;
+
+POWER(25,1/2)                                                                                                                                                                                           
+-------------                                                                                                                                                                                           
+            5                                                                                                                                                                                           
+
+SQL> SELECT POWER(5,3) FROM DUAL;
+
+POWER(5,3)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+       125                                                                                                                                                                                              
+
+SQL> SELECT POWER(125,1/3) FROM DUAL;
+
+POWER(125,1/3)                                                                                                                                                                                          
+--------------                                                                                                                                                                                          
+             5                                                                                                                                                                                          
+
+SQL> SELECT SQRT(36) FROM DUAL;
+
+  SQRT(36)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+         6                                                                                                                                                                                              
+
+SQL> SELECT SQRT(37) FROM DUAL;
+
+  SQRT(37)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+6.08276253                                                                                                                                                                                              
+
+SQL> SELECT MOD(11,6) FROM DUAL;
+
+ MOD(11,6)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+         5                                                                                                                                                                                              
+
+SQL> SELECT MOD(11.34,6) FROM DUAL;
+
+MOD(11.34,6)                                                                                                                                                                                            
+------------                                                                                                                                                                                            
+        5.34                                                                                                                                                                                            
+
+SQL> SELECT MOD(-11.34,6) FROM DUAL;
+
+MOD(-11.34,6)                                                                                                                                                                                           
+-------------                                                                                                                                                                                           
+        -5.34                                                                                                                                                                                           
+
+SQL> REM FLOOR , CEIL :
+SQL> 
+SQL> SELECT FLOOR(4) , CEIL(4) FROM DUAL;
+
+  FLOOR(4)    CEIL(4)                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+         4          4                                                                                                                                                                                   
+
+SQL> SELECT FLOOR(4.01) , CEIL(4.01) FROM DUAL;
+
+FLOOR(4.01) CEIL(4.01)                                                                                                                                                                                  
+----------- ----------                                                                                                                                                                                  
+          4          5                                                                                                                                                                                  
+
+SQL> SELECT FLOOR(-4.01) , CEIL(-4.01) FROM DUAL;
+
+FLOOR(-4.01) CEIL(-4.01)                                                                                                                                                                                
+------------ -----------                                                                                                                                                                                
+          -5          -4                                                                                                                                                                                
+
+SQL> SELECT TRUNC(3456.78) FROM DUAL;
+
+TRUNC(3456.78)                                                                                                                                                                                          
+--------------                                                                                                                                                                                          
+          3456                                                                                                                                                                                          
+
+SQL> SELECT TRUNC(3456.78,0) FROM DUAL;
+
+TRUNC(3456.78,0)                                                                                                                                                                                        
+----------------                                                                                                                                                                                        
+            3456                                                                                                                                                                                        
+
+SQL> SELECT TRUNC(3456.78,1) FROM DUAL;
+
+TRUNC(3456.78,1)                                                                                                                                                                                        
+----------------                                                                                                                                                                                        
+          3456.7                                                                                                                                                                                        
+
+SQL> SELECT TRUNC(3456.78,-1) FROM DUAL;
+
+TRUNC(3456.78,-1)                                                                                                                                                                                       
+-----------------                                                                                                                                                                                       
+             3450                                                                                                                                                                                       
+
+SQL> SELECT TRUNC(3456.78,-2) FROM DUAL;
+
+TRUNC(3456.78,-2)                                                                                                                                                                                       
+-----------------                                                                                                                                                                                       
+             3400                                                                                                                                                                                       
+
+SQL> SELECT ROUND(3456.78) FROM DUAL;
+
+ROUND(3456.78)                                                                                                                                                                                          
+--------------                                                                                                                                                                                          
+          3457                                                                                                                                                                                          
+
+SQL> SELECT ROUND(3456.78,0) FROM DUAL;
+
+ROUND(3456.78,0)                                                                                                                                                                                        
+----------------                                                                                                                                                                                        
+            3457                                                                                                                                                                                        
+
+SQL> SELECT ROUND(3456.78,1) FROM DUAL;
+
+ROUND(3456.78,1)                                                                                                                                                                                        
+----------------                                                                                                                                                                                        
+          3456.8                                                                                                                                                                                        
+
+SQL> SELECT ROUND(3456.78,-1) FROM DUAL;
+
+ROUND(3456.78,-1)                                                                                                                                                                                       
+-----------------                                                                                                                                                                                       
+             3460                                                                                                                                                                                       
+
+SQL> SELECT ROUND(3456.78,-2) FROM DUAL;
+
+ROUND(3456.78,-2)                                                                                                                                                                                       
+-----------------                                                                                                                                                                                       
+             3500                                                                                                                                                                                       
+
+SQL> SELECT ROUND(3456.78,-5) FROM DUAL;
+
+ROUND(3456.78,-5)                                                                                                                                                                                       
+-----------------                                                                                                                                                                                       
+                0                                                                                                                                                                                       
+
+SQL> SELECT ROUND(3456.78,-4) FROM DUAL;
+
+ROUND(3456.78,-4)                                                                                                                                                                                       
+-----------------                                                                                                                                                                                       
+                0                                                                                                                                                                                       
+
+SQL> SELECT ROUND(6456.78,-4) FROM DUAL;
+
+ROUND(6456.78,-4)                                                                                                                                                                                       
+-----------------                                                                                                                                                                                       
+            10000                                                                                                                                                                                       
+
+SQL> REM DATE FUNCTIONS + DATE ARITHMETIC
+SQL> 
+SQL> REM DATE HAS 7 PARTS : CENTURY YEAR MONTH DAY/DATE HOUR MINUTE SECOND
+SQL> 
+SQL> SELECT SYSDATE , CURRENT_DATE FROM DUAL;
+
+SYSDATE   CURRENT_D                                                                                                                                                                                     
+--------- ---------                                                                                                                                                                                     
+09-MAY-22 09-MAY-22                                                                                                                                                                                     
+
+SQL> SELECT SYSDATE + 4 , SYSDATE - 3 FROM DUAL;
+
+SYSDATE+4 SYSDATE-3                                                                                                                                                                                     
+--------- ---------                                                                                                                                                                                     
+13-MAY-22 06-MAY-22                                                                                                                                                                                     
+
+SQL> REM 1 DAY = 24 HOURS = 1440 MINTUES = 86400 SECONDS
+SQL> 
+SQL> SELECT SYSDATE + (4/24) , SYSDATE - (6/24) FROM DUAL;
+
+SYSDATE+( SYSDATE-(                                                                                                                                                                                     
+--------- ---------                                                                                                                                                                                     
+09-MAY-22 09-MAY-22                                                                                                                                                                                     
+
+SQL> ALTER SESSION SET NLS_DATE_FORMAT = 'DD-MON-RRRR HH:MI.SS AM';
+
+Session altered.
+
+SQL> 
+SQL> SELECT SYSDATE + (4/24) , SYSDATE - (6/24) FROM DUAL;
+
+SYSDATE+(4/24)          SYSDATE-(6/24)                                                                                                                                                                  
+----------------------- -----------------------                                                                                                                                                         
+09-MAY-2022 11:19.09 PM 09-MAY-2022 01:19.09 PM                                                                                                                                                         
+
+SQL> SELECT SYSDATE , SYSDATE + (4/24) , SYSDATE - (6/24) FROM DUAL;
+
+SYSDATE                 SYSDATE+(4/24)          SYSDATE-(6/24)                                                                                                                                          
+----------------------- ----------------------- -----------------------                                                                                                                                 
+09-MAY-2022 07:19.14 PM 09-MAY-2022 11:19.14 PM 09-MAY-2022 01:19.14 PM                                                                                                                                 
+
+SQL> SELECT SYSDATE , SYSDATE + (4/24) , SYSDATE - (10/24) FROM DUAL;
+
+SYSDATE                 SYSDATE+(4/24)          SYSDATE-(10/24)                                                                                                                                         
+----------------------- ----------------------- -----------------------                                                                                                                                 
+09-MAY-2022 07:19.33 PM 09-MAY-2022 11:19.33 PM 09-MAY-2022 09:19.33 AM                                                                                                                                 
+
+SQL> SELECT SYSDATE , SYSDATE + (4/1440) , SYSDATE - (10/1440) FROM DUAL;
+
+SYSDATE                 SYSDATE+(4/1440)        SYSDATE-(10/1440)                                                                                                                                       
+----------------------- ----------------------- -----------------------                                                                                                                                 
+09-MAY-2022 07:21.02 PM 09-MAY-2022 07:25.02 PM 09-MAY-2022 07:11.02 PM                                                                                                                                 
+
+SQL> 
+SQL> SELECT SYSDATE , SYSDATE + (4/86400) , SYSDATE - (10/86400) FROM DUAL;
+
+SYSDATE                 SYSDATE+(4/86400)       SYSDATE-(10/86400)                                                                                                                                      
+----------------------- ----------------------- -----------------------                                                                                                                                 
+09-MAY-2022 07:21.24 PM 09-MAY-2022 07:21.28 PM 09-MAY-2022 07:21.14 PM                                                                                                                                 
+
+SQL> REM 1 MONTH = ?? DAYS : 28/29/30/31
+SQL> 
+SQL> REM ADD_MONTHS
+SQL> 
+SQL> SELECT SYSDATE , ADD_MONTHS(SYSDATE,4) , ADD_MONTHS(SYSDATE,-2) FROM EMPLOYEES;
+
+SYSDATE                 ADD_MONTHS(SYSDATE,4)   ADD_MONTHS(SYSDATE,-2)                                                                                                                                  
+----------------------- ----------------------- -----------------------                                                                                                                                 
+09-MAY-2022 07:22.22 PM 09-SEP-2022 07:22.22 PM 09-MAR-2022 07:22.22 PM                                                                                                                                 
+09-MAY-2022 07:22.22 PM 09-SEP-2022 07:22.22 PM 09-MAR-2022 07:22.22 PM                                                                                                                                 
+09-MAY-2022 07:22.22 PM 09-SEP-2022 07:22.22 PM 09-MAR-2022 07:22.22 PM                                                                                                                                 
+09-MAY-2022 07:22.22 PM 09-SEP-2022 07:22.22 PM 09-MAR-2022 07:22.22 PM                                                                                                                                 
+09-MAY-2022 07:22.22 PM 09-SEP-2022 07:22.22 PM 09-MAR-2022 07:22.22 PM                                                                                                                                 
+09-MAY-2022 07:22.22 PM 09-SEP-2022 07:22.22 PM 09-MAR-2022 07:22.22 PM                                                                                                                                 
+09-MAY-2022 07:22.22 PM 09-SEP-2022 07:22.22 PM 09-MAR-2022 07:22.22 PM                                                                                                                                 
+09-MAY-2022 07:22.22 PM 09-SEP-2022 07:22.22 PM 09-MAR-2022 07:22.22 PM                                                                                                                                 
+09-MAY-2022 07:22.22 PM 09-SEP-2022 07:22.22 PM 09-MAR-2022 07:22.22 PM                                                                                                                                 
+09-MAY-2022 07:22.22 PM 09-SEP-2022 07:22.22 PM 09-MAR-2022 07:22.22 PM                                                                                                                                 
+09-MAY-2022 07:22.22 PM 09-SEP-2022 07:22.22 PM 09-MAR-2022 07:22.22 PM                                                                                                                                 
+09-MAY-2022 07:22.22 PM 09-SEP-2022 07:22.22 PM 09-MAR-2022 07:22.22 PM                                                                                                                                 
+09-MAY-2022 07:22.22 PM 09-SEP-2022 07:22.22 PM 09-MAR-2022 07:22.22 PM                                                                                                                                 
+09-MAY-2022 07:22.22 PM 09-SEP-2022 07:22.22 PM 09-MAR-2022 07:22.22 PM                                                                                                                                 
+09-MAY-2022 07:22.22 PM 09-SEP-2022 07:22.22 PM 09-MAR-2022 07:22.22 PM                                                                                                                                 
+09-MAY-2022 07:22.22 PM 09-SEP-2022 07:22.22 PM 09-MAR-2022 07:22.22 PM                                                                                                                                 
+09-MAY-2022 07:22.22 PM 09-SEP-2022 07:22.22 PM 09-MAR-2022 07:22.22 PM                                                                                                                                 
+09-MAY-2022 07:22.22 PM 09-SEP-2022 07:22.22 PM 09-MAR-2022 07:22.22 PM                                                                                                                                 
+09-MAY-2022 07:22.22 PM 09-SEP-2022 07:22.22 PM 09-MAR-2022 07:22.22 PM                                                                                                                                 
+09-MAY-2022 07:22.22 PM 09-SEP-2022 07:22.22 PM 09-MAR-2022 07:22.22 PM                                                                                                                                 
+
+20 rows selected.
+
+SQL> SELECT SYSDATE , ADD_MONTHS(SYSDATE,4) , ADD_MONTHS(SYSDATE,-2) FROM DUAL;
+
+SYSDATE                 ADD_MONTHS(SYSDATE,4)   ADD_MONTHS(SYSDATE,-2)                                                                                                                                  
+----------------------- ----------------------- -----------------------                                                                                                                                 
+09-MAY-2022 07:22.27 PM 09-SEP-2022 07:22.27 PM 09-MAR-2022 07:22.27 PM                                                                                                                                 
+
+SQL> SELECT DISTINCT SYSDATE , ADD_MONTHS(SYSDATE,4) , ADD_MONTHS(SYSDATE,-2) FROM EMPLOYEES;
+
+SYSDATE                 ADD_MONTHS(SYSDATE,4)   ADD_MONTHS(SYSDATE,-2)                                                                                                                                  
+----------------------- ----------------------- -----------------------                                                                                                                                 
+09-MAY-2022 07:22.34 PM 09-SEP-2022 07:22.34 PM 09-MAR-2022 07:22.34 PM                                                                                                                                 
+
+SQL> REM 1 YEAR = 12 MONTHS
+SQL> 
+SQL> SELECT SYSDATE , ADD_MONTHS(SYSDATE,12) , ADD_MONTHS(SYSDATE,-12) FROM DUAL;
+
+SYSDATE                 ADD_MONTHS(SYSDATE,12)  ADD_MONTHS(SYSDATE,-12)                                                                                                                                 
+----------------------- ----------------------- -----------------------                                                                                                                                 
+09-MAY-2022 07:23.09 PM 09-MAY-2023 07:23.09 PM 09-MAY-2021 07:23.09 PM                                                                                                                                 
+
+SQL> SELECT SYSDATE , ADD_MONTHS(SYSDATE,12*2) , ADD_MONTHS(SYSDATE,-12*3) FROM DUAL;
+
+SYSDATE                 ADD_MONTHS(SYSDATE,12*2 ADD_MONTHS(SYSDATE,-12*                                                                                                                                 
+----------------------- ----------------------- -----------------------                                                                                                                                 
+09-MAY-2022 07:23.22 PM 09-MAY-2024 07:23.22 PM 09-MAY-2019 07:23.22 PM                                                                                                                                 
+
+SQL> REM 1 CENTURY = 100 YEARS = 1200 MONTHS
+SQL> 
+SQL> SELECT SYSDATE , ADD_MONTHS(SYSDATE,12*100) , ADD_MONTHS(SYSDATE,-12*100) FROM DUAL;
+
+SYSDATE                 ADD_MONTHS(SYSDATE,12*1 ADD_MONTHS(SYSDATE,-12*                                                                                                                                 
+----------------------- ----------------------- -----------------------                                                                                                                                 
+09-MAY-2022 07:23.45 PM 09-MAY-2122 07:23.45 PM 09-MAY-1922 07:23.45 PM                                                                                                                                 
+
+SQL> SELECT SYSDATE , ADD_MONTHS(SYSDATE,12*100*3) , ADD_MONTHS(SYSDATE,-12*100*2) FROM DUAL;
+
+SYSDATE                 ADD_MONTHS(SYSDATE,12*1 ADD_MONTHS(SYSDATE,-12*                                                                                                                                 
+----------------------- ----------------------- -----------------------                                                                                                                                 
+09-MAY-2022 07:24.00 PM 09-MAY-2322 07:24.00 PM 09-MAY-1822 07:24.00 PM                                                                                                                                 
+
+SQL> SELECT SYSDATE , ADD_MONTHS(SYSDATE,12.50) , ADD_MONTHS(SYSDATE,-12*100*2) FROM DUAL;
+
+SYSDATE                 ADD_MONTHS(SYSDATE,12.5 ADD_MONTHS(SYSDATE,-12*                                                                                                                                 
+----------------------- ----------------------- -----------------------                                                                                                                                 
+09-MAY-2022 07:25.05 PM 09-MAY-2023 07:25.05 PM 09-MAY-1822 07:25.05 PM                                                                                                                                 
+
+SQL> REM DATE FUNCTIONS : SYSDATE CURRENT_DATE ADD_MONTHS MONTHS_BETWEEN LAST_DAY NEXT_DAY TRUNC ROUND
+SQL> 
+SQL> SELECT FIRST_NAME , SYSDATE , HIRE_DATE , MONTHS_BETWEEN(SYSDATE,HIRE_DATE) MONTHS_WORKED FROM EMPLOYEES;
+
+FIRST_NAME SYSDATE                 HIRE_DATE               MONTHS_WORKED                                                                                                                                
+---------- ----------------------- ----------------------- -------------                                                                                                                                
+Steven     09-MAY-2022 07:26.15 PM 17-JUL-1987 12:00.00 AM    417.768061                                                                                                                                
+Neena      09-MAY-2022 07:26.15 PM 21-SEP-1989 12:00.00 AM    391.639029                                                                                                                                
+Lex        09-MAY-2022 07:26.15 PM 13-JAN-1993 12:00.00 AM    351.897093                                                                                                                                
+Alexander  09-MAY-2022 07:26.15 PM 03-JAN-1990 12:00.00 AM    388.219674                                                                                                                                
+Bruce      09-MAY-2022 07:26.15 PM 21-MAY-1991 12:00.00 AM    371.639029                                                                                                                                
+Diana      09-MAY-2022 07:26.15 PM 07-FEB-1999 12:00.00 AM    279.090642                                                                                                                                
+Kevin      09-MAY-2022 07:26.15 PM 16-NOV-1999 12:00.00 AM    269.800319                                                                                                                                
+Trenna     09-MAY-2022 07:26.15 PM 17-OCT-1995 12:00.00 AM    318.768061                                                                                                                                
+Curtis     09-MAY-2022 07:26.15 PM 29-JAN-1997 12:00.00 AM    303.380964                                                                                                                                
+Randall    09-MAY-2022 07:26.15 PM 15-MAR-1998 12:00.00 AM    289.832577                                                                                                                                
+Peter      09-MAY-2022 07:26.15 PM 09-JUL-1998 12:00.00 AM           286                                                                                                                                
+Eleni      09-MAY-2022 07:26.15 PM 29-JAN-2000 12:00.00 AM    267.380964                                                                                                                                
+Ellen      09-MAY-2022 07:26.15 PM 11-MAY-1996 12:00.00 AM     311.96161                                                                                                                                
+Jonathon   09-MAY-2022 07:26.15 PM 24-MAR-1998 12:00.00 AM    289.542255                                                                                                                                
+Kimerely   09-MAY-2022 07:26.15 PM 24-MAY-1999 12:00.00 AM    275.542255                                                                                                                                
+Jennifer   09-MAY-2022 07:26.15 PM 17-SEP-1987 12:00.00 AM    415.768061                                                                                                                                
+Michael    09-MAY-2022 07:26.15 PM 17-FEB-1996 12:00.00 AM    314.768061                                                                                                                                
+Pat        09-MAY-2022 07:26.15 PM 17-AUG-1997 12:00.00 AM    296.768061                                                                                                                                
+Shelley    09-MAY-2022 07:26.15 PM 07-JUN-1994 12:00.00 AM    335.090642                                                                                                                                
+William    09-MAY-2022 07:26.15 PM 07-JUN-1994 12:00.00 AM    335.090642                                                                                                                                
+
+20 rows selected.
+
+SQL> SELECT FIRST_NAME , SYSDATE , HIRE_DATE , TRUNC(MONTHS_BETWEEN(SYSDATE,HIRE_DATE)) MONTHS_WORKED FROM EMPLOYEES;
+
+FIRST_NAME SYSDATE                 HIRE_DATE               MONTHS_WORKED                                                                                                                                
+---------- ----------------------- ----------------------- -------------                                                                                                                                
+Steven     09-MAY-2022 07:26.58 PM 17-JUL-1987 12:00.00 AM           417                                                                                                                                
+Neena      09-MAY-2022 07:26.58 PM 21-SEP-1989 12:00.00 AM           391                                                                                                                                
+Lex        09-MAY-2022 07:26.58 PM 13-JAN-1993 12:00.00 AM           351                                                                                                                                
+Alexander  09-MAY-2022 07:26.58 PM 03-JAN-1990 12:00.00 AM           388                                                                                                                                
+Bruce      09-MAY-2022 07:26.58 PM 21-MAY-1991 12:00.00 AM           371                                                                                                                                
+Diana      09-MAY-2022 07:26.58 PM 07-FEB-1999 12:00.00 AM           279                                                                                                                                
+Kevin      09-MAY-2022 07:26.58 PM 16-NOV-1999 12:00.00 AM           269                                                                                                                                
+Trenna     09-MAY-2022 07:26.58 PM 17-OCT-1995 12:00.00 AM           318                                                                                                                                
+Curtis     09-MAY-2022 07:26.58 PM 29-JAN-1997 12:00.00 AM           303                                                                                                                                
+Randall    09-MAY-2022 07:26.58 PM 15-MAR-1998 12:00.00 AM           289                                                                                                                                
+Peter      09-MAY-2022 07:26.58 PM 09-JUL-1998 12:00.00 AM           286                                                                                                                                
+Eleni      09-MAY-2022 07:26.58 PM 29-JAN-2000 12:00.00 AM           267                                                                                                                                
+Ellen      09-MAY-2022 07:26.58 PM 11-MAY-1996 12:00.00 AM           311                                                                                                                                
+Jonathon   09-MAY-2022 07:26.58 PM 24-MAR-1998 12:00.00 AM           289                                                                                                                                
+Kimerely   09-MAY-2022 07:26.58 PM 24-MAY-1999 12:00.00 AM           275                                                                                                                                
+Jennifer   09-MAY-2022 07:26.58 PM 17-SEP-1987 12:00.00 AM           415                                                                                                                                
+Michael    09-MAY-2022 07:26.58 PM 17-FEB-1996 12:00.00 AM           314                                                                                                                                
+Pat        09-MAY-2022 07:26.58 PM 17-AUG-1997 12:00.00 AM           296                                                                                                                                
+Shelley    09-MAY-2022 07:26.58 PM 07-JUN-1994 12:00.00 AM           335                                                                                                                                
+William    09-MAY-2022 07:26.58 PM 07-JUN-1994 12:00.00 AM           335                                                                                                                                
+
+20 rows selected.
+
+SQL> SELECT FIRST_NAME , SYSDATE , HIRE_DATE , TRUNC(MONTHS_BETWEEN(SYSDATE,HIRE_DATE)/12) YEARS_COMLETED FROM EMPLOYEES;
+
+FIRST_NAME SYSDATE                 HIRE_DATE               YEARS_COMLETED                                                                                                                               
+---------- ----------------------- ----------------------- --------------                                                                                                                               
+Steven     09-MAY-2022 07:27.21 PM 17-JUL-1987 12:00.00 AM             34                                                                                                                               
+Neena      09-MAY-2022 07:27.21 PM 21-SEP-1989 12:00.00 AM             32                                                                                                                               
+Lex        09-MAY-2022 07:27.21 PM 13-JAN-1993 12:00.00 AM             29                                                                                                                               
+Alexander  09-MAY-2022 07:27.21 PM 03-JAN-1990 12:00.00 AM             32                                                                                                                               
+Bruce      09-MAY-2022 07:27.21 PM 21-MAY-1991 12:00.00 AM             30                                                                                                                               
+Diana      09-MAY-2022 07:27.21 PM 07-FEB-1999 12:00.00 AM             23                                                                                                                               
+Kevin      09-MAY-2022 07:27.21 PM 16-NOV-1999 12:00.00 AM             22                                                                                                                               
+Trenna     09-MAY-2022 07:27.21 PM 17-OCT-1995 12:00.00 AM             26                                                                                                                               
+Curtis     09-MAY-2022 07:27.21 PM 29-JAN-1997 12:00.00 AM             25                                                                                                                               
+Randall    09-MAY-2022 07:27.21 PM 15-MAR-1998 12:00.00 AM             24                                                                                                                               
+Peter      09-MAY-2022 07:27.21 PM 09-JUL-1998 12:00.00 AM             23                                                                                                                               
+Eleni      09-MAY-2022 07:27.21 PM 29-JAN-2000 12:00.00 AM             22                                                                                                                               
+Ellen      09-MAY-2022 07:27.21 PM 11-MAY-1996 12:00.00 AM             25                                                                                                                               
+Jonathon   09-MAY-2022 07:27.21 PM 24-MAR-1998 12:00.00 AM             24                                                                                                                               
+Kimerely   09-MAY-2022 07:27.21 PM 24-MAY-1999 12:00.00 AM             22                                                                                                                               
+Jennifer   09-MAY-2022 07:27.21 PM 17-SEP-1987 12:00.00 AM             34                                                                                                                               
+Michael    09-MAY-2022 07:27.21 PM 17-FEB-1996 12:00.00 AM             26                                                                                                                               
+Pat        09-MAY-2022 07:27.21 PM 17-AUG-1997 12:00.00 AM             24                                                                                                                               
+Shelley    09-MAY-2022 07:27.21 PM 07-JUN-1994 12:00.00 AM             27                                                                                                                               
+William    09-MAY-2022 07:27.21 PM 07-JUN-1994 12:00.00 AM             27                                                                                                                               
+
+20 rows selected.
+
+SQL> REM COMPANY PAYS SALARY ON LAST DATE OF EACH MONTH
+SQL> 
+SQL> SELECT FIRST_NAME , HIRE_DATE , LAST_DAY(HIRE_DATE) FROM EMPLOYEES;
+
+FIRST_NAME HIRE_DATE               LAST_DAY(HIRE_DATE)                                                                                                                                                  
+---------- ----------------------- -----------------------                                                                                                                                              
+Steven     17-JUL-1987 12:00.00 AM 31-JUL-1987 12:00.00 AM                                                                                                                                              
+Neena      21-SEP-1989 12:00.00 AM 30-SEP-1989 12:00.00 AM                                                                                                                                              
+Lex        13-JAN-1993 12:00.00 AM 31-JAN-1993 12:00.00 AM                                                                                                                                              
+Alexander  03-JAN-1990 12:00.00 AM 31-JAN-1990 12:00.00 AM                                                                                                                                              
+Bruce      21-MAY-1991 12:00.00 AM 31-MAY-1991 12:00.00 AM                                                                                                                                              
+Diana      07-FEB-1999 12:00.00 AM 28-FEB-1999 12:00.00 AM                                                                                                                                              
+Kevin      16-NOV-1999 12:00.00 AM 30-NOV-1999 12:00.00 AM                                                                                                                                              
+Trenna     17-OCT-1995 12:00.00 AM 31-OCT-1995 12:00.00 AM                                                                                                                                              
+Curtis     29-JAN-1997 12:00.00 AM 31-JAN-1997 12:00.00 AM                                                                                                                                              
+Randall    15-MAR-1998 12:00.00 AM 31-MAR-1998 12:00.00 AM                                                                                                                                              
+Peter      09-JUL-1998 12:00.00 AM 31-JUL-1998 12:00.00 AM                                                                                                                                              
+Eleni      29-JAN-2000 12:00.00 AM 31-JAN-2000 12:00.00 AM                                                                                                                                              
+Ellen      11-MAY-1996 12:00.00 AM 31-MAY-1996 12:00.00 AM                                                                                                                                              
+Jonathon   24-MAR-1998 12:00.00 AM 31-MAR-1998 12:00.00 AM                                                                                                                                              
+Kimerely   24-MAY-1999 12:00.00 AM 31-MAY-1999 12:00.00 AM                                                                                                                                              
+Jennifer   17-SEP-1987 12:00.00 AM 30-SEP-1987 12:00.00 AM                                                                                                                                              
+Michael    17-FEB-1996 12:00.00 AM 29-FEB-1996 12:00.00 AM                                                                                                                                              
+Pat        17-AUG-1997 12:00.00 AM 31-AUG-1997 12:00.00 AM                                                                                                                                              
+Shelley    07-JUN-1994 12:00.00 AM 30-JUN-1994 12:00.00 AM                                                                                                                                              
+William    07-JUN-1994 12:00.00 AM 30-JUN-1994 12:00.00 AM                                                                                                                                              
+
+20 rows selected.
+
+SQL> REM COMPANY PAYS WEEKLY ON EVERY FRIDAY
+SQL> 
+SQL> ALTER SESSION SET NLS_DATE_FORMAT = 'DD-MON-RRRR DAY';
+
+Session altered.
+
+SQL> 
+SQL> SELECT FIRST_NAME , HIRE_DATE , NEXT_DAY(HIRE_DATE,'FRI') FROM EMPLOYEES;
+
+FIRST_NAME HIRE_DATE             NEXT_DAY(HIRE_DATE,'F                                                                                                                                                  
+---------- --------------------- ---------------------                                                                                                                                                  
+Steven     17-JUL-1987 FRIDAY    24-JUL-1987 FRIDAY                                                                                                                                                     
+Neena      21-SEP-1989 THURSDAY  22-SEP-1989 FRIDAY                                                                                                                                                     
+Lex        13-JAN-1993 WEDNESDAY 15-JAN-1993 FRIDAY                                                                                                                                                     
+Alexander  03-JAN-1990 WEDNESDAY 05-JAN-1990 FRIDAY                                                                                                                                                     
+Bruce      21-MAY-1991 TUESDAY   24-MAY-1991 FRIDAY                                                                                                                                                     
+Diana      07-FEB-1999 SUNDAY    12-FEB-1999 FRIDAY                                                                                                                                                     
+Kevin      16-NOV-1999 TUESDAY   19-NOV-1999 FRIDAY                                                                                                                                                     
+Trenna     17-OCT-1995 TUESDAY   20-OCT-1995 FRIDAY                                                                                                                                                     
+Curtis     29-JAN-1997 WEDNESDAY 31-JAN-1997 FRIDAY                                                                                                                                                     
+Randall    15-MAR-1998 SUNDAY    20-MAR-1998 FRIDAY                                                                                                                                                     
+Peter      09-JUL-1998 THURSDAY  10-JUL-1998 FRIDAY                                                                                                                                                     
+Eleni      29-JAN-2000 SATURDAY  04-FEB-2000 FRIDAY                                                                                                                                                     
+Ellen      11-MAY-1996 SATURDAY  17-MAY-1996 FRIDAY                                                                                                                                                     
+Jonathon   24-MAR-1998 TUESDAY   27-MAR-1998 FRIDAY                                                                                                                                                     
+Kimerely   24-MAY-1999 MONDAY    28-MAY-1999 FRIDAY                                                                                                                                                     
+Jennifer   17-SEP-1987 THURSDAY  18-SEP-1987 FRIDAY                                                                                                                                                     
+Michael    17-FEB-1996 SATURDAY  23-FEB-1996 FRIDAY                                                                                                                                                     
+Pat        17-AUG-1997 SUNDAY    22-AUG-1997 FRIDAY                                                                                                                                                     
+Shelley    07-JUN-1994 TUESDAY   10-JUN-1994 FRIDAY                                                                                                                                                     
+William    07-JUN-1994 TUESDAY   10-JUN-1994 FRIDAY                                                                                                                                                     
+
+20 rows selected.
+
+SQL> SELECT FIRST_NAME , HIRE_DATE , NEXT_DAY(HIRE_DATE,'FRID') FROM EMPLOYEES;
+
+FIRST_NAME HIRE_DATE             NEXT_DAY(HIRE_DATE,'F                                                                                                                                                  
+---------- --------------------- ---------------------                                                                                                                                                  
+Steven     17-JUL-1987 FRIDAY    24-JUL-1987 FRIDAY                                                                                                                                                     
+Neena      21-SEP-1989 THURSDAY  22-SEP-1989 FRIDAY                                                                                                                                                     
+Lex        13-JAN-1993 WEDNESDAY 15-JAN-1993 FRIDAY                                                                                                                                                     
+Alexander  03-JAN-1990 WEDNESDAY 05-JAN-1990 FRIDAY                                                                                                                                                     
+Bruce      21-MAY-1991 TUESDAY   24-MAY-1991 FRIDAY                                                                                                                                                     
+Diana      07-FEB-1999 SUNDAY    12-FEB-1999 FRIDAY                                                                                                                                                     
+Kevin      16-NOV-1999 TUESDAY   19-NOV-1999 FRIDAY                                                                                                                                                     
+Trenna     17-OCT-1995 TUESDAY   20-OCT-1995 FRIDAY                                                                                                                                                     
+Curtis     29-JAN-1997 WEDNESDAY 31-JAN-1997 FRIDAY                                                                                                                                                     
+Randall    15-MAR-1998 SUNDAY    20-MAR-1998 FRIDAY                                                                                                                                                     
+Peter      09-JUL-1998 THURSDAY  10-JUL-1998 FRIDAY                                                                                                                                                     
+Eleni      29-JAN-2000 SATURDAY  04-FEB-2000 FRIDAY                                                                                                                                                     
+Ellen      11-MAY-1996 SATURDAY  17-MAY-1996 FRIDAY                                                                                                                                                     
+Jonathon   24-MAR-1998 TUESDAY   27-MAR-1998 FRIDAY                                                                                                                                                     
+Kimerely   24-MAY-1999 MONDAY    28-MAY-1999 FRIDAY                                                                                                                                                     
+Jennifer   17-SEP-1987 THURSDAY  18-SEP-1987 FRIDAY                                                                                                                                                     
+Michael    17-FEB-1996 SATURDAY  23-FEB-1996 FRIDAY                                                                                                                                                     
+Pat        17-AUG-1997 SUNDAY    22-AUG-1997 FRIDAY                                                                                                                                                     
+Shelley    07-JUN-1994 TUESDAY   10-JUN-1994 FRIDAY                                                                                                                                                     
+William    07-JUN-1994 TUESDAY   10-JUN-1994 FRIDAY                                                                                                                                                     
+
+20 rows selected.
+
+SQL> REM TRUNC DATE : 1 MONTH 2 Q 3 YEAR
+SQL> 
+SQL> REM IT WILL RETURN SAME MONTHS/QUARTERS/YEAR FIRST DATE
+SQL> 
+SQL> SELECT FIRST_NAME , HIRE_DATE , TRUNC(HIRE_DATE,'MONTH') FROM EMPLOYEES;
+
+FIRST_NAME HIRE_DATE             TRUNC(HIRE_DATE,'MONT                                                                                                                                                  
+---------- --------------------- ---------------------                                                                                                                                                  
+Steven     17-JUL-1987 FRIDAY    01-JUL-1987 WEDNESDAY                                                                                                                                                  
+Neena      21-SEP-1989 THURSDAY  01-SEP-1989 FRIDAY                                                                                                                                                     
+Lex        13-JAN-1993 WEDNESDAY 01-JAN-1993 FRIDAY                                                                                                                                                     
+Alexander  03-JAN-1990 WEDNESDAY 01-JAN-1990 MONDAY                                                                                                                                                     
+Bruce      21-MAY-1991 TUESDAY   01-MAY-1991 WEDNESDAY                                                                                                                                                  
+Diana      07-FEB-1999 SUNDAY    01-FEB-1999 MONDAY                                                                                                                                                     
+Kevin      16-NOV-1999 TUESDAY   01-NOV-1999 MONDAY                                                                                                                                                     
+Trenna     17-OCT-1995 TUESDAY   01-OCT-1995 SUNDAY                                                                                                                                                     
+Curtis     29-JAN-1997 WEDNESDAY 01-JAN-1997 WEDNESDAY                                                                                                                                                  
+Randall    15-MAR-1998 SUNDAY    01-MAR-1998 SUNDAY                                                                                                                                                     
+Peter      09-JUL-1998 THURSDAY  01-JUL-1998 WEDNESDAY                                                                                                                                                  
+Eleni      29-JAN-2000 SATURDAY  01-JAN-2000 SATURDAY                                                                                                                                                   
+Ellen      11-MAY-1996 SATURDAY  01-MAY-1996 WEDNESDAY                                                                                                                                                  
+Jonathon   24-MAR-1998 TUESDAY   01-MAR-1998 SUNDAY                                                                                                                                                     
+Kimerely   24-MAY-1999 MONDAY    01-MAY-1999 SATURDAY                                                                                                                                                   
+Jennifer   17-SEP-1987 THURSDAY  01-SEP-1987 TUESDAY                                                                                                                                                    
+Michael    17-FEB-1996 SATURDAY  01-FEB-1996 THURSDAY                                                                                                                                                   
+Pat        17-AUG-1997 SUNDAY    01-AUG-1997 FRIDAY                                                                                                                                                     
+Shelley    07-JUN-1994 TUESDAY   01-JUN-1994 WEDNESDAY                                                                                                                                                  
+William    07-JUN-1994 TUESDAY   01-JUN-1994 WEDNESDAY                                                                                                                                                  
+
+20 rows selected.
+
+SQL> SELECT FIRST_NAME , HIRE_DATE , TRUNC(HIRE_DATE,'Q') FROM EMPLOYEES;
+
+FIRST_NAME HIRE_DATE             TRUNC(HIRE_DATE,'Q')                                                                                                                                                   
+---------- --------------------- ---------------------                                                                                                                                                  
+Steven     17-JUL-1987 FRIDAY    01-JUL-1987 WEDNESDAY                                                                                                                                                  
+Neena      21-SEP-1989 THURSDAY  01-JUL-1989 SATURDAY                                                                                                                                                   
+Lex        13-JAN-1993 WEDNESDAY 01-JAN-1993 FRIDAY                                                                                                                                                     
+Alexander  03-JAN-1990 WEDNESDAY 01-JAN-1990 MONDAY                                                                                                                                                     
+Bruce      21-MAY-1991 TUESDAY   01-APR-1991 MONDAY                                                                                                                                                     
+Diana      07-FEB-1999 SUNDAY    01-JAN-1999 FRIDAY                                                                                                                                                     
+Kevin      16-NOV-1999 TUESDAY   01-OCT-1999 FRIDAY                                                                                                                                                     
+Trenna     17-OCT-1995 TUESDAY   01-OCT-1995 SUNDAY                                                                                                                                                     
+Curtis     29-JAN-1997 WEDNESDAY 01-JAN-1997 WEDNESDAY                                                                                                                                                  
+Randall    15-MAR-1998 SUNDAY    01-JAN-1998 THURSDAY                                                                                                                                                   
+Peter      09-JUL-1998 THURSDAY  01-JUL-1998 WEDNESDAY                                                                                                                                                  
+Eleni      29-JAN-2000 SATURDAY  01-JAN-2000 SATURDAY                                                                                                                                                   
+Ellen      11-MAY-1996 SATURDAY  01-APR-1996 MONDAY                                                                                                                                                     
+Jonathon   24-MAR-1998 TUESDAY   01-JAN-1998 THURSDAY                                                                                                                                                   
+Kimerely   24-MAY-1999 MONDAY    01-APR-1999 THURSDAY                                                                                                                                                   
+Jennifer   17-SEP-1987 THURSDAY  01-JUL-1987 WEDNESDAY                                                                                                                                                  
+Michael    17-FEB-1996 SATURDAY  01-JAN-1996 MONDAY                                                                                                                                                     
+Pat        17-AUG-1997 SUNDAY    01-JUL-1997 TUESDAY                                                                                                                                                    
+Shelley    07-JUN-1994 TUESDAY   01-APR-1994 FRIDAY                                                                                                                                                     
+William    07-JUN-1994 TUESDAY   01-APR-1994 FRIDAY                                                                                                                                                     
+
+20 rows selected.
+
+SQL> SELECT FIRST_NAME , HIRE_DATE , TRUNC(HIRE_DATE,'YEAR') FROM EMPLOYEES;
+
+FIRST_NAME HIRE_DATE             TRUNC(HIRE_DATE,'YEAR                                                                                                                                                  
+---------- --------------------- ---------------------                                                                                                                                                  
+Steven     17-JUL-1987 FRIDAY    01-JAN-1987 THURSDAY                                                                                                                                                   
+Neena      21-SEP-1989 THURSDAY  01-JAN-1989 SUNDAY                                                                                                                                                     
+Lex        13-JAN-1993 WEDNESDAY 01-JAN-1993 FRIDAY                                                                                                                                                     
+Alexander  03-JAN-1990 WEDNESDAY 01-JAN-1990 MONDAY                                                                                                                                                     
+Bruce      21-MAY-1991 TUESDAY   01-JAN-1991 TUESDAY                                                                                                                                                    
+Diana      07-FEB-1999 SUNDAY    01-JAN-1999 FRIDAY                                                                                                                                                     
+Kevin      16-NOV-1999 TUESDAY   01-JAN-1999 FRIDAY                                                                                                                                                     
+Trenna     17-OCT-1995 TUESDAY   01-JAN-1995 SUNDAY                                                                                                                                                     
+Curtis     29-JAN-1997 WEDNESDAY 01-JAN-1997 WEDNESDAY                                                                                                                                                  
+Randall    15-MAR-1998 SUNDAY    01-JAN-1998 THURSDAY                                                                                                                                                   
+Peter      09-JUL-1998 THURSDAY  01-JAN-1998 THURSDAY                                                                                                                                                   
+Eleni      29-JAN-2000 SATURDAY  01-JAN-2000 SATURDAY                                                                                                                                                   
+Ellen      11-MAY-1996 SATURDAY  01-JAN-1996 MONDAY                                                                                                                                                     
+Jonathon   24-MAR-1998 TUESDAY   01-JAN-1998 THURSDAY                                                                                                                                                   
+Kimerely   24-MAY-1999 MONDAY    01-JAN-1999 FRIDAY                                                                                                                                                     
+Jennifer   17-SEP-1987 THURSDAY  01-JAN-1987 THURSDAY                                                                                                                                                   
+Michael    17-FEB-1996 SATURDAY  01-JAN-1996 MONDAY                                                                                                                                                     
+Pat        17-AUG-1997 SUNDAY    01-JAN-1997 WEDNESDAY                                                                                                                                                  
+Shelley    07-JUN-1994 TUESDAY   01-JAN-1994 SATURDAY                                                                                                                                                   
+William    07-JUN-1994 TUESDAY   01-JAN-1994 SATURDAY                                                                                                                                                   
+
+20 rows selected.
+
+SQL> REM ROUND DATE : MONTH , Q , YEAR
+SQL> 
+SQL> REM IF DATE FALLS IN FIRST HALF IT WILL RETURN SAME MONTHS/QUARTERS/YEARS FIRST DATE
+SQL> 
+SQL> REM IF DATE FALLS IN SECOND HALF IT WILL RETURN NEXT MONTHS/QUARTERS/YEARS FIRST DATE
+SQL> 
+SQL> SELECT FIRST_NAME, HIRE_DATE , ROUND(HIRE_DATE,'MONTH') FROM EMPLOYEES;
+
+FIRST_NAME HIRE_DATE             ROUND(HIRE_DATE,'MONT                                                                                                                                                  
+---------- --------------------- ---------------------                                                                                                                                                  
+Steven     17-JUL-1987 FRIDAY    01-AUG-1987 SATURDAY                                                                                                                                                   
+Neena      21-SEP-1989 THURSDAY  01-OCT-1989 SUNDAY                                                                                                                                                     
+Lex        13-JAN-1993 WEDNESDAY 01-JAN-1993 FRIDAY                                                                                                                                                     
+Alexander  03-JAN-1990 WEDNESDAY 01-JAN-1990 MONDAY                                                                                                                                                     
+Bruce      21-MAY-1991 TUESDAY   01-JUN-1991 SATURDAY                                                                                                                                                   
+Diana      07-FEB-1999 SUNDAY    01-FEB-1999 MONDAY                                                                                                                                                     
+Kevin      16-NOV-1999 TUESDAY   01-DEC-1999 WEDNESDAY                                                                                                                                                  
+Trenna     17-OCT-1995 TUESDAY   01-NOV-1995 WEDNESDAY                                                                                                                                                  
+Curtis     29-JAN-1997 WEDNESDAY 01-FEB-1997 SATURDAY                                                                                                                                                   
+Randall    15-MAR-1998 SUNDAY    01-MAR-1998 SUNDAY                                                                                                                                                     
+Peter      09-JUL-1998 THURSDAY  01-JUL-1998 WEDNESDAY                                                                                                                                                  
+Eleni      29-JAN-2000 SATURDAY  01-FEB-2000 TUESDAY                                                                                                                                                    
+Ellen      11-MAY-1996 SATURDAY  01-MAY-1996 WEDNESDAY                                                                                                                                                  
+Jonathon   24-MAR-1998 TUESDAY   01-APR-1998 WEDNESDAY                                                                                                                                                  
+Kimerely   24-MAY-1999 MONDAY    01-JUN-1999 TUESDAY                                                                                                                                                    
+Jennifer   17-SEP-1987 THURSDAY  01-OCT-1987 THURSDAY                                                                                                                                                   
+Michael    17-FEB-1996 SATURDAY  01-MAR-1996 FRIDAY                                                                                                                                                     
+Pat        17-AUG-1997 SUNDAY    01-SEP-1997 MONDAY                                                                                                                                                     
+Shelley    07-JUN-1994 TUESDAY   01-JUN-1994 WEDNESDAY                                                                                                                                                  
+William    07-JUN-1994 TUESDAY   01-JUN-1994 WEDNESDAY                                                                                                                                                  
+
+20 rows selected.
+
+SQL> REM 1-15 : FIRST HALF , 16-..(28/29/30/31) SECOND HALF
+SQL> 
+SQL> REM Q1 : 01-JAN TO 31-MAR : FIRST HALF : 01-JAN TO 15-FEB , SECOND HALF : 16-FEB TO 31-MAR
+SQL> 
+SQL> REM Q2 : 01-APR TO 30-JUN : FIRST HALF : 01-APR TO 15-MAY , SECOND HALF : 16-MAY TO 30-JUN
+SQL> 
+SQL> REM Q3 : 01-JUL TO 30-SEP : FIRST HALF : 01-JUL TO 15-AUG , SECOND HALF : 16-AUG TO 30-SEP
+SQL> 
+SQL> REM Q4 : 01-OCT TO 31-DEC : FIRST HALF : 01-OCT TO 15-NOV , SECOND HALF : 16-NOV TO 31-DEC
+SQL> 
+SQL> 
+SQL> SELECT FIRST_NAME , HIRE_DATE , ROUND(HIRE_DATE,'Q') FROM EMPLOYEES;
+
+FIRST_NAME HIRE_DATE             ROUND(HIRE_DATE,'Q')                                                                                                                                                   
+---------- --------------------- ---------------------                                                                                                                                                  
+Steven     17-JUL-1987 FRIDAY    01-JUL-1987 WEDNESDAY                                                                                                                                                  
+Neena      21-SEP-1989 THURSDAY  01-OCT-1989 SUNDAY                                                                                                                                                     
+Lex        13-JAN-1993 WEDNESDAY 01-JAN-1993 FRIDAY                                                                                                                                                     
+Alexander  03-JAN-1990 WEDNESDAY 01-JAN-1990 MONDAY                                                                                                                                                     
+Bruce      21-MAY-1991 TUESDAY   01-JUL-1991 MONDAY                                                                                                                                                     
+Diana      07-FEB-1999 SUNDAY    01-JAN-1999 FRIDAY                                                                                                                                                     
+Kevin      16-NOV-1999 TUESDAY   01-JAN-2000 SATURDAY                                                                                                                                                   
+Trenna     17-OCT-1995 TUESDAY   01-OCT-1995 SUNDAY                                                                                                                                                     
+Curtis     29-JAN-1997 WEDNESDAY 01-JAN-1997 WEDNESDAY                                                                                                                                                  
+Randall    15-MAR-1998 SUNDAY    01-APR-1998 WEDNESDAY                                                                                                                                                  
+Peter      09-JUL-1998 THURSDAY  01-JUL-1998 WEDNESDAY                                                                                                                                                  
+Eleni      29-JAN-2000 SATURDAY  01-JAN-2000 SATURDAY                                                                                                                                                   
+Ellen      11-MAY-1996 SATURDAY  01-APR-1996 MONDAY                                                                                                                                                     
+Jonathon   24-MAR-1998 TUESDAY   01-APR-1998 WEDNESDAY                                                                                                                                                  
+Kimerely   24-MAY-1999 MONDAY    01-JUL-1999 THURSDAY                                                                                                                                                   
+Jennifer   17-SEP-1987 THURSDAY  01-OCT-1987 THURSDAY                                                                                                                                                   
+Michael    17-FEB-1996 SATURDAY  01-APR-1996 MONDAY                                                                                                                                                     
+Pat        17-AUG-1997 SUNDAY    01-OCT-1997 WEDNESDAY                                                                                                                                                  
+Shelley    07-JUN-1994 TUESDAY   01-JUL-1994 FRIDAY                                                                                                                                                     
+William    07-JUN-1994 TUESDAY   01-JUL-1994 FRIDAY                                                                                                                                                     
+
+20 rows selected.
+
+SQL> REM 1 YEAR : 12 MONTHS
+SQL> 
+SQL> REM FIRST HALF : 01-JAN TO 30-JUN , SECOND HALF : 01-JUL TO 31-DEC
+SQL> 
+SQL> SELECT FIRST_NAME , HIRE_DATE , ROUND(HIRE_DATE,'YEAR') FROM EMPLOYEES;
+
+FIRST_NAME HIRE_DATE             ROUND(HIRE_DATE,'YEAR                                                                                                                                                  
+---------- --------------------- ---------------------                                                                                                                                                  
+Steven     17-JUL-1987 FRIDAY    01-JAN-1988 FRIDAY                                                                                                                                                     
+Neena      21-SEP-1989 THURSDAY  01-JAN-1990 MONDAY                                                                                                                                                     
+Lex        13-JAN-1993 WEDNESDAY 01-JAN-1993 FRIDAY                                                                                                                                                     
+Alexander  03-JAN-1990 WEDNESDAY 01-JAN-1990 MONDAY                                                                                                                                                     
+Bruce      21-MAY-1991 TUESDAY   01-JAN-1991 TUESDAY                                                                                                                                                    
+Diana      07-FEB-1999 SUNDAY    01-JAN-1999 FRIDAY                                                                                                                                                     
+Kevin      16-NOV-1999 TUESDAY   01-JAN-2000 SATURDAY                                                                                                                                                   
+Trenna     17-OCT-1995 TUESDAY   01-JAN-1996 MONDAY                                                                                                                                                     
+Curtis     29-JAN-1997 WEDNESDAY 01-JAN-1997 WEDNESDAY                                                                                                                                                  
+Randall    15-MAR-1998 SUNDAY    01-JAN-1998 THURSDAY                                                                                                                                                   
+Peter      09-JUL-1998 THURSDAY  01-JAN-1999 FRIDAY                                                                                                                                                     
+Eleni      29-JAN-2000 SATURDAY  01-JAN-2000 SATURDAY                                                                                                                                                   
+Ellen      11-MAY-1996 SATURDAY  01-JAN-1996 MONDAY                                                                                                                                                     
+Jonathon   24-MAR-1998 TUESDAY   01-JAN-1998 THURSDAY                                                                                                                                                   
+Kimerely   24-MAY-1999 MONDAY    01-JAN-1999 FRIDAY                                                                                                                                                     
+Jennifer   17-SEP-1987 THURSDAY  01-JAN-1988 FRIDAY                                                                                                                                                     
+Michael    17-FEB-1996 SATURDAY  01-JAN-1996 MONDAY                                                                                                                                                     
+Pat        17-AUG-1997 SUNDAY    01-JAN-1998 THURSDAY                                                                                                                                                   
+Shelley    07-JUN-1994 TUESDAY   01-JAN-1994 SATURDAY                                                                                                                                                   
+William    07-JUN-1994 TUESDAY   01-JAN-1994 SATURDAY                                                                                                                                                   
+
+20 rows selected.
+
+SQL> REM CHPATER 4 :
+SQL> 
+SQL> REM CONVERSIONS FUNCTION , GENERAL FUNCTIONS
+SQL> 
+SQL> REM CONVERSION FUNCTIONS : 1 TO_CHAR 2 TO_NUMBER 3 TO_DATE
+SQL> 
+SQL> REM TO_NUMBER
+SQL> 
+SQL> SELECT 45 + 34.67 FROM DUAL;
+
+  45+34.67                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+     79.67                                                                                                                                                                                              
+
+SQL> SELECT 45 + 12,434.67 FROM DUAL;
+
+     45+12     434.67                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+        57     434.67                                                                                                                                                                                   
+
+SQL> SELECT 45 + $12,434.67 FROM DUAL;
+SELECT 45 + $12,434.67 FROM DUAL
+            *
+ERROR at line 1:
+ORA-00911: invalid character 
+
+
+SQL> SELECT 45 + TO_NUMBER('$12,434.67','$99,999.00') FROM DUAL;
+
+45+TO_NUMBER('$12,434.67','$99,999.00')                                                                                                                                                                 
+---------------------------------------                                                                                                                                                                 
+                               12479.67                                                                                                                                                                 
+
+SQL> ALTER SESSION SET NLS_DATE_FORMAT  ='DD-MON-RR';
+
+Session altered.
+
+SQL> SELECT '15-AUG-47' - '31-MAY-44' FROM DUAL;
+SELECT '15-AUG-47' - '31-MAY-44' FROM DUAL
+       *
+ERROR at line 1:
+ORA-01722: invalid number 
+
+
+SQL> SELECT 45 + '34.67' FROM DUAL;
+
+45+'34.67'                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+     79.67                                                                                                                                                                                              
+
+SQL> SELECT TO_DATE('15-AUG-47') - TO_DATE('31-MAY-44') FROM DUAL;
+
+TO_DATE('15-AUG-47')-TO_DATE('31-MAY-44')                                                                                                                                                               
+-----------------------------------------                                                                                                                                                               
+                                     1171                                                                                                                                                               
+
+SQL> SELECT TO_DATE('15-AUG-47') - TO_DATE('31-MAY-44') DAYS FROM DUAL;
+
+      DAYS                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+      1171                                                                                                                                                                                              
+
+SQL> REM TO_NUMBER , TO_DATE ARE USED FOR CALCUALATION OR COMPARISON
+SQL> 
+SQL> SELECT FIRST_NAME , SALARY FROM EMPLOYEES WHERE SALARY > 10000;
+
+FIRST_NAME     SALARY                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+Steven          24000                                                                                                                                                                                   
+Neena           17000                                                                                                                                                                                   
+Lex             17000                                                                                                                                                                                   
+Eleni           10500                                                                                                                                                                                   
+Ellen           11000                                                                                                                                                                                   
+Michael         13000                                                                                                                                                                                   
+Shelley         12000                                                                                                                                                                                   
+
+7 rows selected.
+
+SQL> SELECT FIRST_NAME , SALARY FROM EMPLOYEES WHERE SALARY > '10000';
+
+FIRST_NAME     SALARY                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+Steven          24000                                                                                                                                                                                   
+Neena           17000                                                                                                                                                                                   
+Lex             17000                                                                                                                                                                                   
+Eleni           10500                                                                                                                                                                                   
+Ellen           11000                                                                                                                                                                                   
+Michael         13000                                                                                                                                                                                   
+Shelley         12000                                                                                                                                                                                   
+
+7 rows selected.
+
+SQL> SELECT FIRST_NAME , SALARY FROM EMPLOYEES WHERE SALARY > '10,000';
+SELECT FIRST_NAME , SALARY FROM EMPLOYEES WHERE SALARY > '10,000'
+                                                         *
+ERROR at line 1:
+ORA-01722: invalid number 
+
+
+SQL> SELECT FIRST_NAME , SALARY FROM EMPLOYEES WHERE SALARY > TO_NUMBER('10,000','99,999');
+
+FIRST_NAME     SALARY                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+Steven          24000                                                                                                                                                                                   
+Neena           17000                                                                                                                                                                                   
+Lex             17000                                                                                                                                                                                   
+Eleni           10500                                                                                                                                                                                   
+Ellen           11000                                                                                                                                                                                   
+Michael         13000                                                                                                                                                                                   
+Shelley         12000                                                                                                                                                                                   
+
+7 rows selected.
+
+SQL> SELECT FIRST_NAME , HIRE_DATE FROM EMPLOYEES WHERE HIRE_DATE > '31-DEC-95';
+
+FIRST_NAME HIRE_DATE                                                                                                                                                                                    
+---------- ---------                                                                                                                                                                                    
+Diana      07-FEB-99                                                                                                                                                                                    
+Kevin      16-NOV-99                                                                                                                                                                                    
+Curtis     29-JAN-97                                                                                                                                                                                    
+Randall    15-MAR-98                                                                                                                                                                                    
+Peter      09-JUL-98                                                                                                                                                                                    
+Eleni      29-JAN-00                                                                                                                                                                                    
+Ellen      11-MAY-96                                                                                                                                                                                    
+Jonathon   24-MAR-98                                                                                                                                                                                    
+Kimerely   24-MAY-99                                                                                                                                                                                    
+Michael    17-FEB-96                                                                                                                                                                                    
+Pat        17-AUG-97                                                                                                                                                                                    
+
+11 rows selected.
+
+SQL> SELECT FIRST_NAME , HIRE_DATE FROM EMPLOYEES WHERE HIRE_DATE > '31-12-95';
+SELECT FIRST_NAME , HIRE_DATE FROM EMPLOYEES WHERE HIRE_DATE > '31-12-95'
+                                                               *
+ERROR at line 1:
+ORA-01843: not a valid month 
+
+
+SQL> SELECT FIRST_NAME , HIRE_DATE FROM EMPLOYEES WHERE HIRE_DATE > TO_DATE('31-12-95','DD-MM-RR');
+
+FIRST_NAME HIRE_DATE                                                                                                                                                                                    
+---------- ---------                                                                                                                                                                                    
+Diana      07-FEB-99                                                                                                                                                                                    
+Kevin      16-NOV-99                                                                                                                                                                                    
+Curtis     29-JAN-97                                                                                                                                                                                    
+Randall    15-MAR-98                                                                                                                                                                                    
+Peter      09-JUL-98                                                                                                                                                                                    
+Eleni      29-JAN-00                                                                                                                                                                                    
+Ellen      11-MAY-96                                                                                                                                                                                    
+Jonathon   24-MAR-98                                                                                                                                                                                    
+Kimerely   24-MAY-99                                                                                                                                                                                    
+Michael    17-FEB-96                                                                                                                                                                                    
+Pat        17-AUG-97                                                                                                                                                                                    
+
+11 rows selected.
+
+SQL> REM TO_CHAR
+SQL> 
+SQL> REM TO_CHAR : 1 CONVERTS NUMBER INTO CHARACTER TYPE VALUES 2 CONVERTS DATE INTO CHARACTER TYPE VALUES
+SQL> 
+SQL> REM TO DISPLAY NUMBER OR DATE TYPE VALUES IN USER DEFINED/NON-DEFAULT FORMATS
+SQL> 
+SQL> SELECT FIRST_NAME , HIRE_DATE FROM EMPLOYEES;
+
+FIRST_NAME HIRE_DATE                                                                                                                                                                                    
+---------- ---------                                                                                                                                                                                    
+Steven     17-JUL-87                                                                                                                                                                                    
+Neena      21-SEP-89                                                                                                                                                                                    
+Lex        13-JAN-93                                                                                                                                                                                    
+Alexander  03-JAN-90                                                                                                                                                                                    
+Bruce      21-MAY-91                                                                                                                                                                                    
+Diana      07-FEB-99                                                                                                                                                                                    
+Kevin      16-NOV-99                                                                                                                                                                                    
+Trenna     17-OCT-95                                                                                                                                                                                    
+Curtis     29-JAN-97                                                                                                                                                                                    
+Randall    15-MAR-98                                                                                                                                                                                    
+Peter      09-JUL-98                                                                                                                                                                                    
+Eleni      29-JAN-00                                                                                                                                                                                    
+Ellen      11-MAY-96                                                                                                                                                                                    
+Jonathon   24-MAR-98                                                                                                                                                                                    
+Kimerely   24-MAY-99                                                                                                                                                                                    
+Jennifer   17-SEP-87                                                                                                                                                                                    
+Michael    17-FEB-96                                                                                                                                                                                    
+Pat        17-AUG-97                                                                                                                                                                                    
+Shelley    07-JUN-94                                                                                                                                                                                    
+William    07-JUN-94                                                                                                                                                                                    
+
+20 rows selected.
+
+SQL> SELECT FIRST_NAME , HIRE_DATE , TO_CHAR(HIRE_DATE,'DD-MM-RRRR') FROM EMPLOYEES;
+
+FIRST_NAME HIRE_DATE TO_CHAR(HI                                                                                                                                                                         
+---------- --------- ----------                                                                                                                                                                         
+Steven     17-JUL-87 17-07-1987                                                                                                                                                                         
+Neena      21-SEP-89 21-09-1989                                                                                                                                                                         
+Lex        13-JAN-93 13-01-1993                                                                                                                                                                         
+Alexander  03-JAN-90 03-01-1990                                                                                                                                                                         
+Bruce      21-MAY-91 21-05-1991                                                                                                                                                                         
+Diana      07-FEB-99 07-02-1999                                                                                                                                                                         
+Kevin      16-NOV-99 16-11-1999                                                                                                                                                                         
+Trenna     17-OCT-95 17-10-1995                                                                                                                                                                         
+Curtis     29-JAN-97 29-01-1997                                                                                                                                                                         
+Randall    15-MAR-98 15-03-1998                                                                                                                                                                         
+Peter      09-JUL-98 09-07-1998                                                                                                                                                                         
+Eleni      29-JAN-00 29-01-2000                                                                                                                                                                         
+Ellen      11-MAY-96 11-05-1996                                                                                                                                                                         
+Jonathon   24-MAR-98 24-03-1998                                                                                                                                                                         
+Kimerely   24-MAY-99 24-05-1999                                                                                                                                                                         
+Jennifer   17-SEP-87 17-09-1987                                                                                                                                                                         
+Michael    17-FEB-96 17-02-1996                                                                                                                                                                         
+Pat        17-AUG-97 17-08-1997                                                                                                                                                                         
+Shelley    07-JUN-94 07-06-1994                                                                                                                                                                         
+William    07-JUN-94 07-06-1994                                                                                                                                                                         
+
+20 rows selected.
+
+SQL> SELECT FIRST_NAME , HIRE_DATE , TO_CHAR(HIRE_DATE,'DD-MM-RRRR HH:MI') FROM EMPLOYEES;
+
+FIRST_NAME HIRE_DATE TO_CHAR(HIRE_DAT                                                                                                                                                                   
+---------- --------- ----------------                                                                                                                                                                   
+Steven     17-JUL-87 17-07-1987 12:00                                                                                                                                                                   
+Neena      21-SEP-89 21-09-1989 12:00                                                                                                                                                                   
+Lex        13-JAN-93 13-01-1993 12:00                                                                                                                                                                   
+Alexander  03-JAN-90 03-01-1990 12:00                                                                                                                                                                   
+Bruce      21-MAY-91 21-05-1991 12:00                                                                                                                                                                   
+Diana      07-FEB-99 07-02-1999 12:00                                                                                                                                                                   
+Kevin      16-NOV-99 16-11-1999 12:00                                                                                                                                                                   
+Trenna     17-OCT-95 17-10-1995 12:00                                                                                                                                                                   
+Curtis     29-JAN-97 29-01-1997 12:00                                                                                                                                                                   
+Randall    15-MAR-98 15-03-1998 12:00                                                                                                                                                                   
+Peter      09-JUL-98 09-07-1998 12:00                                                                                                                                                                   
+Eleni      29-JAN-00 29-01-2000 12:00                                                                                                                                                                   
+Ellen      11-MAY-96 11-05-1996 12:00                                                                                                                                                                   
+Jonathon   24-MAR-98 24-03-1998 12:00                                                                                                                                                                   
+Kimerely   24-MAY-99 24-05-1999 12:00                                                                                                                                                                   
+Jennifer   17-SEP-87 17-09-1987 12:00                                                                                                                                                                   
+Michael    17-FEB-96 17-02-1996 12:00                                                                                                                                                                   
+Pat        17-AUG-97 17-08-1997 12:00                                                                                                                                                                   
+Shelley    07-JUN-94 07-06-1994 12:00                                                                                                                                                                   
+William    07-JUN-94 07-06-1994 12:00                                                                                                                                                                   
+
+20 rows selected.
+
+SQL> REM D DD DDD DY DAY MM RM MON MONTH Y YY YYY YYYY RR RRRR YEAR HH HH12 MI SS SSSSS AM PM
+SQL> 
+SQL> REM SP TH W WW Q J HH24 FM FX
+SQL> 
+SQL> SELECT SYSDATE , TO_CHAR(SYSDATE,'D DD DDD') FROM DUAL;
+
+SYSDATE   TO_CHAR(                                                                                                                                                                                      
+--------- --------                                                                                                                                                                                      
+09-MAY-22 2 09 129                                                                                                                                                                                      
+
+SQL> SELECT SYSDATE , TO_CHAR(SYSDATE,'RM MM MON MONTH') FROM DUAL;
+
+SYSDATE   TO_CHAR(SYSDATE,'RMMMMONMONTH')                                                                                                                                                               
+--------- ---------------------------------------------------------                                                                                                                                     
+09-MAY-22 V    05 MAY MAY                                                                                                                                                                               
+
+SQL> SELECT SYSDATE , TO_CHAR(SYSDATE,'Y YY YYY YYYY RR RRRR') FROM DUAL;
+
+SYSDATE   TO_CHAR(SYSDATE,'YYYY                                                                                                                                                                         
+--------- ---------------------                                                                                                                                                                         
+09-MAY-22 2 22 022 2022 22 2022                                                                                                                                                                         
+
+SQL> SELECT SYSDATE , TO_CHAR(SYSDATE,'YYYYSP YEAR') FROM DUAL;
+
+SYSDATE   TO_CHAR(SYSDATE,'YYYYSPYEAR')                                                                                                                                                                 
+--------- -------------------------------------------------------------------------------------                                                                                                         
+09-MAY-22 TWO THOUSAND TWENTY-TWO TWENTY TWENTY-TWO                                                                                                                                                     
+
+SQL> SELECT SYSDATE , TO_CHAR(SYSDATE,'W WW Q') FROM DUAL;
+
+SYSDATE   TO_CHA                                                                                                                                                                                        
+--------- ------                                                                                                                                                                                        
+09-MAY-22 2 19 2                                                                                                                                                                                        
+
+SQL> REM NUMBER FORMATS : 9 0 . , G D $ L U EEEE S MI PR
+SQL> 
+SQL> SELECT SALARY , TO_CHAR(SALARY , '99,999.99') FROM EMPLOYEES;
+
+    SALARY TO_CHAR(SA                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+     24000  24,000.00                                                                                                                                                                                   
+     17000  17,000.00                                                                                                                                                                                   
+     17000  17,000.00                                                                                                                                                                                   
+      9000   9,000.00                                                                                                                                                                                   
+      6000   6,000.00                                                                                                                                                                                   
+      4200   4,200.00                                                                                                                                                                                   
+      5800   5,800.00                                                                                                                                                                                   
+      3500   3,500.00                                                                                                                                                                                   
+      3100   3,100.00                                                                                                                                                                                   
+      2600   2,600.00                                                                                                                                                                                   
+      2500   2,500.00                                                                                                                                                                                   
+     10500  10,500.00                                                                                                                                                                                   
+     11000  11,000.00                                                                                                                                                                                   
+      8600   8,600.00                                                                                                                                                                                   
+      7000   7,000.00                                                                                                                                                                                   
+      4400   4,400.00                                                                                                                                                                                   
+     13000  13,000.00                                                                                                                                                                                   
+      6000   6,000.00                                                                                                                                                                                   
+     12000  12,000.00                                                                                                                                                                                   
+      8300   8,300.00                                                                                                                                                                                   
+
+20 rows selected.
+
+SQL> SELECT SALARY , TO_CHAR(SALARY , '$99,999.99') FROM EMPLOYEES;
+
+    SALARY TO_CHAR(SAL                                                                                                                                                                                  
+---------- -----------                                                                                                                                                                                  
+     24000  $24,000.00                                                                                                                                                                                  
+     17000  $17,000.00                                                                                                                                                                                  
+     17000  $17,000.00                                                                                                                                                                                  
+      9000   $9,000.00                                                                                                                                                                                  
+      6000   $6,000.00                                                                                                                                                                                  
+      4200   $4,200.00                                                                                                                                                                                  
+      5800   $5,800.00                                                                                                                                                                                  
+      3500   $3,500.00                                                                                                                                                                                  
+      3100   $3,100.00                                                                                                                                                                                  
+      2600   $2,600.00                                                                                                                                                                                  
+      2500   $2,500.00                                                                                                                                                                                  
+     10500  $10,500.00                                                                                                                                                                                  
+     11000  $11,000.00                                                                                                                                                                                  
+      8600   $8,600.00                                                                                                                                                                                  
+      7000   $7,000.00                                                                                                                                                                                  
+      4400   $4,400.00                                                                                                                                                                                  
+     13000  $13,000.00                                                                                                                                                                                  
+      6000   $6,000.00                                                                                                                                                                                  
+     12000  $12,000.00                                                                                                                                                                                  
+      8300   $8,300.00                                                                                                                                                                                  
+
+20 rows selected.
+
+SQL> SELECT SALARY , TO_CHAR(SALARY , 'Rs.99,999.99') FROM EMPLOYEES;
+SELECT SALARY , TO_CHAR(SALARY , 'Rs.99,999.99') FROM EMPLOYEES
+                                 *
+ERROR at line 1:
+ORA-01481: invalid number format model 
+
+
+SQL> SELECT SALARY , TO_CHAR(SALARY , '$99|999~99') FROM EMPLOYEES;
+SELECT SALARY , TO_CHAR(SALARY , '$99|999~99') FROM EMPLOYEES
+                                 *
+ERROR at line 1:
+ORA-01481: invalid number format model 
+
+
+SQL> ALTER SESSION SET NLS_CURRENCY = 'Rs.';
+
+Session altered.
+
+SQL> ALTER SESSION SET NLS_NUMERIC_CHARACTERS = '~|';
+
+Session altered.
+
+SQL> SELECT SALARY , TO_CHAR(SALARY , 'L99G999D99') FROM EMPLOYEES;
+
+    SALARY TO_CHAR(SALARY,'L99G                                                                                                                                                                         
+---------- --------------------                                                                                                                                                                         
+     24000         Rs.24|000~00                                                                                                                                                                         
+     17000         Rs.17|000~00                                                                                                                                                                         
+     17000         Rs.17|000~00                                                                                                                                                                         
+      9000          Rs.9|000~00                                                                                                                                                                         
+      6000          Rs.6|000~00                                                                                                                                                                         
+      4200          Rs.4|200~00                                                                                                                                                                         
+      5800          Rs.5|800~00                                                                                                                                                                         
+      3500          Rs.3|500~00                                                                                                                                                                         
+      3100          Rs.3|100~00                                                                                                                                                                         
+      2600          Rs.2|600~00                                                                                                                                                                         
+      2500          Rs.2|500~00                                                                                                                                                                         
+     10500         Rs.10|500~00                                                                                                                                                                         
+     11000         Rs.11|000~00                                                                                                                                                                         
+      8600          Rs.8|600~00                                                                                                                                                                         
+      7000          Rs.7|000~00                                                                                                                                                                         
+      4400          Rs.4|400~00                                                                                                                                                                         
+     13000         Rs.13|000~00                                                                                                                                                                         
+      6000          Rs.6|000~00                                                                                                                                                                         
+     12000         Rs.12|000~00                                                                                                                                                                         
+      8300          Rs.8|300~00                                                                                                                                                                         
+
+20 rows selected.
+
+SQL> SELECT SALARY , TO_CHAR(SALARY , 'L99G999D99','NLS_CURRENCY=@') FROM EMPLOYEES;
+
+    SALARY TO_CHAR(SALARY,'L99G                                                                                                                                                                         
+---------- --------------------                                                                                                                                                                         
+     24000           @24|000~00                                                                                                                                                                         
+     17000           @17|000~00                                                                                                                                                                         
+     17000           @17|000~00                                                                                                                                                                         
+      9000            @9|000~00                                                                                                                                                                         
+      6000            @6|000~00                                                                                                                                                                         
+      4200            @4|200~00                                                                                                                                                                         
+      5800            @5|800~00                                                                                                                                                                         
+      3500            @3|500~00                                                                                                                                                                         
+      3100            @3|100~00                                                                                                                                                                         
+      2600            @2|600~00                                                                                                                                                                         
+      2500            @2|500~00                                                                                                                                                                         
+     10500           @10|500~00                                                                                                                                                                         
+     11000           @11|000~00                                                                                                                                                                         
+      8600            @8|600~00                                                                                                                                                                         
+      7000            @7|000~00                                                                                                                                                                         
+      4400            @4|400~00                                                                                                                                                                         
+     13000           @13|000~00                                                                                                                                                                         
+      6000            @6|000~00                                                                                                                                                                         
+     12000           @12|000~00                                                                                                                                                                         
+      8300            @8|300~00                                                                                                                                                                         
+
+20 rows selected.
+
+SQL> SELECT SALARY , TO_CHAR(SALARY , 'L99G999D99','NLS_CURRENCY=@ NLS_NUMERIC_CHARACTERS=^!') FROM EMPLOYEES;
+
+    SALARY TO_CHAR(SALARY,'L99G                                                                                                                                                                         
+---------- --------------------                                                                                                                                                                         
+     24000           @24!000^00                                                                                                                                                                         
+     17000           @17!000^00                                                                                                                                                                         
+     17000           @17!000^00                                                                                                                                                                         
+      9000            @9!000^00                                                                                                                                                                         
+      6000            @6!000^00                                                                                                                                                                         
+      4200            @4!200^00                                                                                                                                                                         
+      5800            @5!800^00                                                                                                                                                                         
+      3500            @3!500^00                                                                                                                                                                         
+      3100            @3!100^00                                                                                                                                                                         
+      2600            @2!600^00                                                                                                                                                                         
+      2500            @2!500^00                                                                                                                                                                         
+     10500           @10!500^00                                                                                                                                                                         
+     11000           @11!000^00                                                                                                                                                                         
+      8600            @8!600^00                                                                                                                                                                         
+      7000            @7!000^00                                                                                                                                                                         
+      4400            @4!400^00                                                                                                                                                                         
+     13000           @13!000^00                                                                                                                                                                         
+      6000            @6!000^00                                                                                                                                                                         
+     12000           @12!000^00                                                                                                                                                                         
+      8300            @8!300^00                                                                                                                                                                         
+
+20 rows selected.
+
+SQL> SELECT * FROM POSNEGNO;
+
+        NO                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+        12                                                                                                                                                                                              
+                                                                                                                                                                                                        
+         0                                                                                                                                                                                              
+       -12                                                                                                                                                                                              
+
+SQL> SELECT NO , TO_CHAR(NO,'S99') FROM POSNEGNO;
+
+        NO TO_                                                                                                                                                                                          
+---------- ---                                                                                                                                                                                          
+        12 +12                                                                                                                                                                                          
+                                                                                                                                                                                                        
+         0  +0                                                                                                                                                                                          
+       -12 -12                                                                                                                                                                                          
+
+SQL> SELECT NO , TO_CHAR(NO,'99S') FROM POSNEGNO;
+
+        NO TO_                                                                                                                                                                                          
+---------- ---                                                                                                                                                                                          
+        12 12+                                                                                                                                                                                          
+                                                                                                                                                                                                        
+         0  0+                                                                                                                                                                                          
+       -12 12-                                                                                                                                                                                          
+
+SQL> SELECT NO , TO_CHAR(NO,'99MI') FROM POSNEGNO;
+
+        NO TO_                                                                                                                                                                                          
+---------- ---                                                                                                                                                                                          
+        12 12                                                                                                                                                                                           
+                                                                                                                                                                                                        
+         0  0                                                                                                                                                                                           
+       -12 12-                                                                                                                                                                                          
+
+SQL> SELECT NO , TO_CHAR(NO,'99PR') FROM POSNEGNO;
+
+        NO TO_C                                                                                                                                                                                         
+---------- ----                                                                                                                                                                                         
+        12  12                                                                                                                                                                                          
+                                                                                                                                                                                                        
+         0   0                                                                                                                                                                                          
+       -12 <12>                                                                                                                                                                                         
+
+SQL> SPOOL OFF

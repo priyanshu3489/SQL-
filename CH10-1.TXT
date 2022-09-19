@@ -1,0 +1,399 @@
+SQL> 
+SQL> CL SCR
+
+SQL> SET LINES 200 PAGES 24
+SQL> 
+SQL> SELECT * FROM REGIONS;
+
+ REGION_ID REGION_NAME                                                                                                                                                                                  
+---------- -------------------------                                                                                                                                                                    
+         1 Europe                                                                                                                                                                                       
+         2 Americas                                                                                                                                                                                     
+         3 Asia                                                                                                                                                                                         
+         4 Middle East and Africa                                                                                                                                                                       
+
+SQL> REM TABLE HAS : TABLE NAME , COLUMN NAMES , DATA TYPES , SIZES , DEFAULT default value, CONSTRAINTS (DATA VALIDATION RULES)
+SQL> 
+SQL> TABLE HAS : 1 DEFINITION 2 DATA
+SP2-0734: unknown command beginning "TABLE HAS ..." - rest of line ignored.
+SQL> 
+SQL> REM : TABLE HAS : 1 DEFINITION 2 DATA
+SQL> 
+SQL> REM TO SEE/DISPLAY DEFINITION/STRUCUTRE OF TABLE : DESCRIBE/DESC tablename
+SQL> 
+SQL> DESC REGIONS
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ REGION_ID                                                                                                         NOT NULL NUMBER
+ REGION_NAME                                                                                                                VARCHAR2(25)
+
+SQL> SELECT * FROM EMPLOYEES;
+
+EMPLOYEE_ID FIRST_NAME LAST_NAME  EMAIL      PHONE_NUMBER         HIRE_DATE JOB_ID         SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID                                                               
+----------- ---------- ---------- ---------- -------------------- --------- ---------- ---------- -------------- ---------- -------------                                                               
+        100 Steven     King       SKING      515.123.4567         17-JUL-87 AD_PRES         24000                                      90                                                               
+        101 Neena      Kochhar    NKOCHHAR   515.123.4568         21-SEP-89 AD_VP           17000                       100            90                                                               
+        102 Lex        De Haan    LDEHAAN    515.123.4569         13-JAN-93 AD_VP           17000                       100            90                                                               
+        103 Alexander  Hunold     AHUNOLD    590.423.4567         03-JAN-90 IT_PROG          9000                       102            60                                                               
+        104 Bruce      Ernst      BERNST     590.423.4568         21-MAY-91 IT_PROG          6000                       103            60                                                               
+        107 Diana      Lorentz    DLORENTZ   590.423.5567         07-FEB-99 IT_PROG          4200                       103            60                                                               
+        124 Kevin      Mourgos    KMOURGOS   650.123.5234         16-NOV-99 ST_MAN           5800                       100            50                                                               
+        141 Trenna     Rajs       TRAJS      650.121.8009         17-OCT-95 ST_CLERK         3500                       124            50                                                               
+        142 Curtis     Davies     CDAVIES    650.121.2994         29-JAN-97 ST_CLERK         3100                       124            50                                                               
+        143 Randall    Matos      RMATOS     650.121.2874         15-MAR-98 ST_CLERK         2600                       124            50                                                               
+        144 Peter      Vargas     PVARGAS    650.121.2004         09-JUL-98 ST_CLERK         2500                       124            50                                                               
+        149 Eleni      Zlotkey    EZLOTKEY   011.44.1344.429018   29-JAN-00 SA_MAN          10500             .2        100            80                                                               
+        174 Ellen      Abel       EABEL      011.44.1644.429267   11-MAY-96 SA_REP          11000             .3        149            80                                                               
+        176 Jonathon   Taylor     JTAYLOR    011.44.1644.429265   24-MAR-98 SA_REP           8600             .3        149            80                                                               
+        178 Kimerely   Grant      KGRANT     011.44.1644.429263   24-MAY-99 SA_REP           7000            .15        149                                                                             
+        200 Jennifer   Whalen     JWAHLEN    515.123.4444         17-SEP-87 AD_ASST          4400                       101            10                                                               
+        201 Michael    Hartstein  MHARTSTE   515.123.5555         17-FEB-96 MK_MAN          13000                       100            20                                                               
+        202 Pat        Fay        PFAY       603.123.6666         17-AUG-97 MK_REP           6000                       201            20                                                               
+        205 Shelley    Higgins    SHIGGINS   515.123.8080         07-JUN-94 AC_MGR          12000                       101           110                                                               
+        206 William    Gietz      WGIETZ     515.123.8181         07-JUN-94 AC_ACCOUNT       8300                       205           110                                                               
+
+20 rows selected.
+
+SQL> SET LINES 80
+SQL> 
+SQL> SELECT * FROM EMPLOYEES;
+
+EMPLOYEE_ID FIRST_NAME LAST_NAME  EMAIL      PHONE_NUMBER         HIRE_DATE     
+----------- ---------- ---------- ---------- -------------------- ---------     
+JOB_ID         SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID                   
+---------- ---------- -------------- ---------- -------------                   
+        100 Steven     King       SKING      515.123.4567         17-JUL-87     
+AD_PRES         24000                                      90                   
+                                                                                
+        101 Neena      Kochhar    NKOCHHAR   515.123.4568         21-SEP-89     
+AD_VP           17000                       100            90                   
+                                                                                
+        102 Lex        De Haan    LDEHAAN    515.123.4569         13-JAN-93     
+AD_VP           17000                       100            90                   
+                                                                                
+        103 Alexander  Hunold     AHUNOLD    590.423.4567         03-JAN-90     
+IT_PROG          9000                       102            60                   
+                                                                                
+        104 Bruce      Ernst      BERNST     590.423.4568         21-MAY-91     
+IT_PROG          6000                       103            60                   
+                                                                                
+        107 Diana      Lorentz    DLORENTZ   590.423.5567         07-FEB-99     
+IT_PROG          4200                       103            60                   
+                                                                                
+        124 Kevin      Mourgos    KMOURGOS   650.123.5234         16-NOV-99     
+
+EMPLOYEE_ID FIRST_NAME LAST_NAME  EMAIL      PHONE_NUMBER         HIRE_DATE     
+----------- ---------- ---------- ---------- -------------------- ---------     
+JOB_ID         SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID                   
+---------- ---------- -------------- ---------- -------------                   
+ST_MAN           5800                       100            50                   
+                                                                                
+        141 Trenna     Rajs       TRAJS      650.121.8009         17-OCT-95     
+ST_CLERK         3500                       124            50                   
+                                                                                
+        142 Curtis     Davies     CDAVIES    650.121.2994         29-JAN-97     
+ST_CLERK         3100                       124            50                   
+                                                                                
+        143 Randall    Matos      RMATOS     650.121.2874         15-MAR-98     
+ST_CLERK         2600                       124            50                   
+                                                                                
+        144 Peter      Vargas     PVARGAS    650.121.2004         09-JUL-98     
+ST_CLERK         2500                       124            50                   
+                                                                                
+        149 Eleni      Zlotkey    EZLOTKEY   011.44.1344.429018   29-JAN-00     
+SA_MAN          10500             .2        100            80                   
+                                                                                
+        174 Ellen      Abel       EABEL      011.44.1644.429267   11-MAY-96     
+SA_REP          11000             .3        149            80                   
+
+EMPLOYEE_ID FIRST_NAME LAST_NAME  EMAIL      PHONE_NUMBER         HIRE_DATE     
+----------- ---------- ---------- ---------- -------------------- ---------     
+JOB_ID         SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID                   
+---------- ---------- -------------- ---------- -------------                   
+                                                                                
+        176 Jonathon   Taylor     JTAYLOR    011.44.1644.429265   24-MAR-98     
+SA_REP           8600             .3        149            80                   
+                                                                                
+        178 Kimerely   Grant      KGRANT     011.44.1644.429263   24-MAY-99     
+SA_REP           7000            .15        149                                 
+                                                                                
+        200 Jennifer   Whalen     JWAHLEN    515.123.4444         17-SEP-87     
+AD_ASST          4400                       101            10                   
+                                                                                
+        201 Michael    Hartstein  MHARTSTE   515.123.5555         17-FEB-96     
+MK_MAN          13000                       100            20                   
+                                                                                
+        202 Pat        Fay        PFAY       603.123.6666         17-AUG-97     
+MK_REP           6000                       201            20                   
+                                                                                
+        205 Shelley    Higgins    SHIGGINS   515.123.8080         07-JUN-94     
+AC_MGR          12000                       101           110                   
+                                                                                
+
+EMPLOYEE_ID FIRST_NAME LAST_NAME  EMAIL      PHONE_NUMBER         HIRE_DATE     
+----------- ---------- ---------- ---------- -------------------- ---------     
+JOB_ID         SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID                   
+---------- ---------- -------------- ---------- -------------                   
+        206 William    Gietz      WGIETZ     515.123.8181         07-JUN-94     
+AC_ACCOUNT       8300                       205           110                   
+                                                                                
+
+20 rows selected.
+
+SQL> SET LINES 200
+SQL> SELECT * FROM EMPLOYEES;
+
+EMPLOYEE_ID FIRST_NAME LAST_NAME  EMAIL      PHONE_NUMBER         HIRE_DATE JOB_ID         SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID                                                               
+----------- ---------- ---------- ---------- -------------------- --------- ---------- ---------- -------------- ---------- -------------                                                               
+        100 Steven     King       SKING      515.123.4567         17-JUL-87 AD_PRES         24000                                      90                                                               
+        101 Neena      Kochhar    NKOCHHAR   515.123.4568         21-SEP-89 AD_VP           17000                       100            90                                                               
+        102 Lex        De Haan    LDEHAAN    515.123.4569         13-JAN-93 AD_VP           17000                       100            90                                                               
+        103 Alexander  Hunold     AHUNOLD    590.423.4567         03-JAN-90 IT_PROG          9000                       102            60                                                               
+        104 Bruce      Ernst      BERNST     590.423.4568         21-MAY-91 IT_PROG          6000                       103            60                                                               
+        107 Diana      Lorentz    DLORENTZ   590.423.5567         07-FEB-99 IT_PROG          4200                       103            60                                                               
+        124 Kevin      Mourgos    KMOURGOS   650.123.5234         16-NOV-99 ST_MAN           5800                       100            50                                                               
+        141 Trenna     Rajs       TRAJS      650.121.8009         17-OCT-95 ST_CLERK         3500                       124            50                                                               
+        142 Curtis     Davies     CDAVIES    650.121.2994         29-JAN-97 ST_CLERK         3100                       124            50                                                               
+        143 Randall    Matos      RMATOS     650.121.2874         15-MAR-98 ST_CLERK         2600                       124            50                                                               
+        144 Peter      Vargas     PVARGAS    650.121.2004         09-JUL-98 ST_CLERK         2500                       124            50                                                               
+        149 Eleni      Zlotkey    EZLOTKEY   011.44.1344.429018   29-JAN-00 SA_MAN          10500             .2        100            80                                                               
+        174 Ellen      Abel       EABEL      011.44.1644.429267   11-MAY-96 SA_REP          11000             .3        149            80                                                               
+        176 Jonathon   Taylor     JTAYLOR    011.44.1644.429265   24-MAR-98 SA_REP           8600             .3        149            80                                                               
+        178 Kimerely   Grant      KGRANT     011.44.1644.429263   24-MAY-99 SA_REP           7000            .15        149                                                                             
+        200 Jennifer   Whalen     JWAHLEN    515.123.4444         17-SEP-87 AD_ASST          4400                       101            10                                                               
+        201 Michael    Hartstein  MHARTSTE   515.123.5555         17-FEB-96 MK_MAN          13000                       100            20                                                               
+        202 Pat        Fay        PFAY       603.123.6666         17-AUG-97 MK_REP           6000                       201            20                                                               
+        205 Shelley    Higgins    SHIGGINS   515.123.8080         07-JUN-94 AC_MGR          12000                       101           110                                                               
+        206 William    Gietz      WGIETZ     515.123.8181         07-JUN-94 AC_ACCOUNT       8300                       205           110                                                               
+
+20 rows selected.
+
+SQL> SELECT * FROM REGIONS;
+
+ REGION_ID REGION_NAME                                                                                                                                                                                  
+---------- -------------------------                                                                                                                                                                    
+         1 Europe                                                                                                                                                                                       
+         2 Americas                                                                                                                                                                                     
+         3 Asia                                                                                                                                                                                         
+         4 Middle East and Africa                                                                                                                                                                       
+
+SQL> SET LINES 100
+SQL> 
+SQL> DESC REGIONS
+ Name                                                  Null?    Type
+ ----------------------------------------------------- -------- ------------------------------------
+ REGION_ID                                             NOT NULL NUMBER
+ REGION_NAME                                                    VARCHAR2(25)
+
+SQL> REM TABLE HAS : TABLE NAME , COLUMN NAMES , DATA TYPES , SIZES , DEFAULT default value, CONSTRAINTS (DATA VALIDATION RULES)
+SQL> 
+SQL> SELECT * FROM DEPARTMENTS;
+
+DEPARTMENT_ID DEPARTMENT_NAME                MANAGER_ID LOCATION_ID                                 
+------------- ------------------------------ ---------- -----------                                 
+           10 Administration                        200        1700                                 
+           20 Marketing                             201        1800                                 
+           50 Shiping                               124        1500                                 
+           60 IT                                    103        1400                                 
+           80 Sales                                 149        2500                                 
+           90 Executive                             100        1700                                 
+          110 Accounting                            205        1700                                 
+          190 Contracting                                      1700                                 
+
+8 rows selected.
+
+SQL> DESC DEPARTMENTS
+ Name                                                  Null?    Type
+ ----------------------------------------------------- -------- ------------------------------------
+ DEPARTMENT_ID                                         NOT NULL NUMBER(4)
+ DEPARTMENT_NAME                                       NOT NULL VARCHAR2(30)
+ MANAGER_ID                                                     NUMBER(6)
+ LOCATION_ID                                                    NUMBER(4)
+
+SQL> DESC EMPLOYEES
+ Name                                                  Null?    Type
+ ----------------------------------------------------- -------- ------------------------------------
+ EMPLOYEE_ID                                           NOT NULL NUMBER(6)
+ FIRST_NAME                                                     VARCHAR2(10)
+ LAST_NAME                                             NOT NULL VARCHAR2(10)
+ EMAIL                                                 NOT NULL VARCHAR2(10)
+ PHONE_NUMBER                                                   VARCHAR2(20)
+ HIRE_DATE                                             NOT NULL DATE
+ JOB_ID                                                NOT NULL VARCHAR2(10)
+ SALARY                                                         NUMBER(8,2)
+ COMMISSION_PCT                                                 NUMBER(2,2)
+ MANAGER_ID                                                     NUMBER(6)
+ DEPARTMENT_ID                                                  NUMBER(4)
+
+SQL> REM CREATE TABLE tablename(columnname datatype(size),...);
+SQL> 
+SQL> REM PLAYERS : PNO , NAME
+SQL> 
+SQL> REM           NUMBER  VARCHAR2(40)
+SQL> 
+SQL> CREATE TABLE PLAYERS(PNO NUMBER(2),PNAME VARCHAR2(40));
+
+Table created.
+
+SQL> ESC PLAYERS
+SP2-0734: unknown command beginning "ESC PLAYER..." - rest of line ignored.
+SQL> DESC PLAYERS
+ Name                                                  Null?    Type
+ ----------------------------------------------------- -------- ------------------------------------
+ PNO                                                            NUMBER(2)
+ PNAME                                                          VARCHAR2(40)
+
+SQL> SELECT * FROM PLAYERS;
+
+no rows selected
+
+SQL> INSERT INTO PLAYERS VALUES (1,'DHONI');
+
+1 row created.
+
+SQL> SELECT * FROM PLAYERS;
+
+       PNO PNAME                                                                                    
+---------- ----------------------------------------                                                 
+         1 DHONI                                                                                    
+
+SQL> INSERT INTO PLAYERS VALUES (2,'VIRAT');
+
+1 row created.
+
+SQL> SELECT * FROM PLAYERS;
+
+       PNO PNAME                                                                                    
+---------- ----------------------------------------                                                 
+         1 DHONI                                                                                    
+         2 VIRAT                                                                                    
+
+SQL> INSERT INTO PLAYERS VALUES (3);
+INSERT INTO PLAYERS VALUES (3)
+            *
+ERROR at line 1:
+ORA-00947: not enough values 
+
+
+SQL> INSERT INTO PLAYERS VALUES (3,NULL);
+
+1 row created.
+
+SQL> INSERT INTO PLAYERS VALUES (NULL,'PANT');
+
+1 row created.
+
+SQL> SELECT * FROM PLAYERS;
+
+       PNO PNAME                                                                                    
+---------- ----------------------------------------                                                 
+         1 DHONI                                                                                    
+         2 VIRAT                                                                                    
+         3                                                                                          
+           PANT                                                                                     
+
+SQL> INSERT INTO PLAYERS VALUES ('FIVE',7);
+INSERT INTO PLAYERS VALUES ('FIVE',7)
+                            *
+ERROR at line 1:
+ORA-01722: invalid number 
+
+
+SQL> INSERT INTO PLAYERS VALUES (5,7);
+
+1 row created.
+
+SQL> SELECT * FROM PLAYERS;
+
+       PNO PNAME                                                                                    
+---------- ----------------------------------------                                                 
+         1 DHONI                                                                                    
+         2 VIRAT                                                                                    
+         3                                                                                          
+           PANT                                                                                     
+         5 7                                                                                        
+
+SQL> REM STUDENT : RNO , NAME , BIRTHDATE
+SQL> 
+SQL> REM           NUMBER VARCHAR2  DATE
+SQL> 
+SQL> REM           3      15
+SQL> 
+SQL> CREATE TABLE STUDENT
+  2  (RNO NUMBER(3),
+  3  NAME VARCHAR2(15),
+  4  BIRTHDATE DATE);
+
+Table created.
+
+SQL> REM VARCHAR2 : ORACLE SPECIFIC/SUPPORTED
+SQL> 
+SQL> REM VARCHAR  : ANSI SUPPORTED. SUPPORTED IN ALL RDBMS PRODUCTS OF ALL COMPANIES : DB2 , MYSQL , SQLSERVER , HANA ,POSTGRE , SYBASE ,INGRCE , BERKLEYDB , ACCESS ...
+SQL> 
+SQL> REM VAR : VARIABLE LENGTH
+SQL> 
+SQL> REM VARCHAR2(10) : RAM : IT WILL OCCUPY ONLY 3 BYTES
+SQL> 
+SQL> REM VARCHAR2(10) : SITA : IT WILL OCCUPY ONLY 4 BYTES
+SQL> 
+SQL> REM VARCHAR2(10) : MADHUSUDAN : IT WILL OCCUPY ONLY 10 BYTES
+SQL> 
+SQL> 
+SQL> REM CHAR : FIXED LENGTH DATA TYPE
+SQL> 
+SQL> REM CHAR(10) : RAM : IT WILL OCCUPY ALL 10 BYTES
+SQL> 
+SQL> 
+SQL> REM CHAR MAX SIZE : 2000 BYTES
+SQL> 
+SQL> REM VARCHAR/VARCHAR2 MAX SIZE : 4000 BYTES
+SQL> 
+SQL> 
+SQL> 
+SQL> REM NUMBER : MAX/DEFAULT SIZE : 38 DIGITS
+SQL> 
+SQL> REM NUMBER(3) : RANGE : -999 TO +999
+SQL> 
+SQL> REM NUMBER(5,2) : RANGE : -999.99 TO +999.99 :
+SQL> 
+SQL> REM NUMBER(2,2) : RANGE : -.99 TO +.99
+SQL> 
+SQL> REM NUMBER(3,-2) : RANGE : -99900 TO +99900 : 12345 -> 12300 , 45678 -> 45700 , 12345.67 -> 12300
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> REM RNO
+SQL> 
+SQL> REM PERCENT
+SQL> 
+SQL> REM TEMPERATURES
+SQL> 
+SQL> REM NO. OF GOALS SCORED IN FOOTBALL MATCH
+SQL> 
+SQL> REM PRICE OF TV
+SQL> 
+SQL> 
+SQL> REM RNO  : NUMBER(3)
+SQL> 
+SQL> REM PERCENT : NUMBER(5,2)
+SQL> 
+SQL> REM TEMPERATURES : NUMBER(2)
+SQL> 
+SQL> REM NO. OF GOALS SCORED IN FOOTBALL MATCH : NUMBER(2)
+SQL> 
+SQL> REM PRICE OF TV : NUMBER(6)
+SQL> 
+SQL> 
+SQL> 
+SQL> REM DATE : SECONDS ACCURACY
+SQL> 
+SQL> REM TIMESTAMP : FRACTIONAL SECONDS : 6 DIGIT DEFAULT ACCURACY , DISPLAY ACCURACY IS 3, MAX ALLOWED 9 DIGITS
+SQL> 
+SQL> REM TIMESTAMP WITH TIME ZONE : INDIA - DUBAI , DUBAI - CANADA
+SQL> 
+SQL> REM TIMESTAMP WITH LOCAL TIME ZONE :
+SQL> 
+SQL> 
+SQL> 
+SQL> SPOOL OFF

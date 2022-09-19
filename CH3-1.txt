@@ -1,0 +1,443 @@
+SQL> 
+SQL> REM FUNCTIONS :
+SQL> 
+SQL> SELECT POWER(5,2) FROM DUAL;
+
+POWER(5,2)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+        25                                                                                                                                                                                              
+
+SQL> SELECT 5 * 5 FROM DUAL;
+
+       5*5                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+        25                                                                                                                                                                                              
+
+SQL> 
+SQL> SELECT POWER(5,3) FROM DUAL;
+
+POWER(5,3)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+       125                                                                                                                                                                                              
+
+SQL> SELECT 5 * 5 * 5 FROM DUAL;
+
+     5*5*5                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+       125                                                                                                                                                                                              
+
+SQL> REM TWO TYPES OF FUNCTIONS : 1 SINGLE ROW 2 MULTI ROW
+SQL> 
+SQL> REM SINGLE ROW/SCALAR FUNCTION
+SQL> 
+SQL> REM SINGLE ROW/SCALAR FUNCTION : IT TAKES ONE ROW AS INPUT AND WILL RETURN ONE ROW AS OUTPUT
+SQL> 
+SQL> REM SINGLE ROW/SCALAR FUNCTION : NO. OF INPUT ROWS ARE ALWAYS EQUIVALENT TO NO. OF OUTPUT ROWS
+SQL> 
+SQL> 
+SQL> 
+SQL> SELECT FIRST_NAME , UPPER(FIRST_NAME) FROM EMPLOYEES;
+
+FIRST_NAME      UPPER(FIRST_NAM                                                                                                                                                                         
+--------------- ---------------                                                                                                                                                                         
+Steven          STEVEN                                                                                                                                                                                  
+Neena           NEENA                                                                                                                                                                                   
+Lex             LEX                                                                                                                                                                                     
+Alexander       ALEXANDER                                                                                                                                                                               
+Bruce           BRUCE                                                                                                                                                                                   
+Diana           DIANA                                                                                                                                                                                   
+Kevin           KEVIN                                                                                                                                                                                   
+Trenna          TRENNA                                                                                                                                                                                  
+Curtis          CURTIS                                                                                                                                                                                  
+Randall         RANDALL                                                                                                                                                                                 
+Peter           PETER                                                                                                                                                                                   
+Eleni           ELENI                                                                                                                                                                                   
+Ellen           ELLEN                                                                                                                                                                                   
+Jonathon        JONATHON                                                                                                                                                                                
+Kimerely        KIMERELY                                                                                                                                                                                
+Jennifer        JENNIFER                                                                                                                                                                                
+Michael         MICHAEL                                                                                                                                                                                 
+Pat             PAT                                                                                                                                                                                     
+Shelley         SHELLEY                                                                                                                                                                                 
+William         WILLIAM                                                                                                                                                                                 
+
+20 rows selected.
+
+SQL> SELECT FIRST_NAME , UPPER(FIRST_NAME) FROM EMPLOYEES WHERE DEPARTMENT_ID = 50;
+
+FIRST_NAME      UPPER(FIRST_NAM                                                                                                                                                                         
+--------------- ---------------                                                                                                                                                                         
+Kevin           KEVIN                                                                                                                                                                                   
+Trenna          TRENNA                                                                                                                                                                                  
+Curtis          CURTIS                                                                                                                                                                                  
+Randall         RANDALL                                                                                                                                                                                 
+Peter           PETER                                                                                                                                                                                   
+
+SQL> SELECT SALARY FROM EMPLOYEES;
+
+    SALARY                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+     24000                                                                                                                                                                                              
+     17000                                                                                                                                                                                              
+     17000                                                                                                                                                                                              
+      9000                                                                                                                                                                                              
+      6000                                                                                                                                                                                              
+      4200                                                                                                                                                                                              
+      5800                                                                                                                                                                                              
+      3500                                                                                                                                                                                              
+      3100                                                                                                                                                                                              
+      2600                                                                                                                                                                                              
+      2500                                                                                                                                                                                              
+     10500                                                                                                                                                                                              
+     11000                                                                                                                                                                                              
+      8600                                                                                                                                                                                              
+      7000                                                                                                                                                                                              
+      4400                                                                                                                                                                                              
+     13000                                                                                                                                                                                              
+      6000                                                                                                                                                                                              
+     12000                                                                                                                                                                                              
+      8300                                                                                                                                                                                              
+
+20 rows selected.
+
+SQL> REM MULTI ROW FUNCTION EXAMPLE
+SQL> 
+SQL> SELECT MIN(SALARY) FROM EMPLOYEES;
+
+MIN(SALARY)                                                                                                                                                                                             
+-----------                                                                                                                                                                                             
+       2500                                                                                                                                                                                             
+
+SQL> REM MULTI ROW FUNCTIONS TAKES MULTILE ROWS AS INPUT AND RETURNS SINGLE OR MULTIPLE ROWS AS OUTPUT
+SQL> 
+SQL> SELECT MIN(SALARY) FROM EMPLOYEES GROUP BY DEPARTMENT_ID;
+
+MIN(SALARY)                                                                                                                                                                                             
+-----------                                                                                                                                                                                             
+       7000                                                                                                                                                                                             
+      17000                                                                                                                                                                                             
+       6000                                                                                                                                                                                             
+       8300                                                                                                                                                                                             
+       2500                                                                                                                                                                                             
+       8600                                                                                                                                                                                             
+       4200                                                                                                                                                                                             
+       4400                                                                                                                                                                                             
+
+8 rows selected.
+
+SQL> REM SINGLE ROW / SCALAR  FUNCTION
+SQL> 
+SQL> 
+SQL> REM TYPES OF SINGLE ROW / SCALAR  FUNCTION : 1 CHARACTER 2 NUMBER 3 DATE 4 CONVERSION 5 GENERAL
+SQL> 
+SQL> REM CHAPTER 3 : 1 CHARACTER 2 NUMBER 3 DATE
+SQL> 
+SQL> REM CHAPTER 4 : CONVERSION 5 GENERAL
+SQL> 
+SQL> REM CHAPTER 5 : SUMMARY FUNCTIONS
+SQL> 
+SQL> 
+SQL> REM CHAPTER 3 : 1 CHARACTER 2 NUMBER 3 DATE
+SQL> 
+SQL> REM TYPES OF CHARACTER FUNCTIONS : 1 CASE MANIPULATION FUNCTIONS 2 CHARACTER MANIPULATION FUNCTIONS
+SQL> 
+SQL> REM MANIPULATION : ANY TYPE OF CHANGE
+SQL> 
+SQL> REM TYPES OF CASE : 1 UPPER/CAPITAL 2 LOWER/SMALL 3 INITCAP/PROPER/CAMEL 4 MIXED CASE
+SQL> 
+SQL> REM EXAMNPLE OF CASE : 1 GOD IS GREAT. 2 god is great. 3 God Is Great.  4 goD gOD GoD ... : goD IS grEAT.
+SQL> 
+SQL> REM LIST OF CASE MANIPULATION FUNCTIONS : 1 UPPER 2 LOWER 3 INITCAP
+SQL> 
+SQL> SELECT FIRST_NAME , UPPER(FIRST_NAME) FROM EMPLOYEES;
+
+FIRST_NAME      UPPER(FIRST_NAM                                                                                                                                                                         
+--------------- ---------------                                                                                                                                                                         
+Steven          STEVEN                                                                                                                                                                                  
+Neena           NEENA                                                                                                                                                                                   
+Lex             LEX                                                                                                                                                                                     
+Alexander       ALEXANDER                                                                                                                                                                               
+Bruce           BRUCE                                                                                                                                                                                   
+Diana           DIANA                                                                                                                                                                                   
+Kevin           KEVIN                                                                                                                                                                                   
+Trenna          TRENNA                                                                                                                                                                                  
+Curtis          CURTIS                                                                                                                                                                                  
+Randall         RANDALL                                                                                                                                                                                 
+Peter           PETER                                                                                                                                                                                   
+Eleni           ELENI                                                                                                                                                                                   
+Ellen           ELLEN                                                                                                                                                                                   
+Jonathon        JONATHON                                                                                                                                                                                
+Kimerely        KIMERELY                                                                                                                                                                                
+Jennifer        JENNIFER                                                                                                                                                                                
+Michael         MICHAEL                                                                                                                                                                                 
+Pat             PAT                                                                                                                                                                                     
+Shelley         SHELLEY                                                                                                                                                                                 
+William         WILLIAM                                                                                                                                                                                 
+
+20 rows selected.
+
+SQL> SELECT UPPER('james bond 007') FROM EMPLOYEES;
+
+UPPER('JAMESBO                                                                                                                                                                                          
+--------------                                                                                                                                                                                          
+JAMES BOND 007                                                                                                                                                                                          
+JAMES BOND 007                                                                                                                                                                                          
+JAMES BOND 007                                                                                                                                                                                          
+JAMES BOND 007                                                                                                                                                                                          
+JAMES BOND 007                                                                                                                                                                                          
+JAMES BOND 007                                                                                                                                                                                          
+JAMES BOND 007                                                                                                                                                                                          
+JAMES BOND 007                                                                                                                                                                                          
+JAMES BOND 007                                                                                                                                                                                          
+JAMES BOND 007                                                                                                                                                                                          
+JAMES BOND 007                                                                                                                                                                                          
+JAMES BOND 007                                                                                                                                                                                          
+JAMES BOND 007                                                                                                                                                                                          
+JAMES BOND 007                                                                                                                                                                                          
+JAMES BOND 007                                                                                                                                                                                          
+JAMES BOND 007                                                                                                                                                                                          
+JAMES BOND 007                                                                                                                                                                                          
+JAMES BOND 007                                                                                                                                                                                          
+JAMES BOND 007                                                                                                                                                                                          
+JAMES BOND 007                                                                                                                                                                                          
+
+20 rows selected.
+
+SQL> SELECT UPPER('james bond 007') FROM DUAL;
+
+UPPER('JAMESBO                                                                                                                                                                                          
+--------------                                                                                                                                                                                          
+JAMES BOND 007                                                                                                                                                                                          
+
+SQL> SELECT FIRST_NAME , LOWER(FIRST_NAME) FROM EMPLOYEES;
+
+FIRST_NAME      LOWER(FIRST_NAM                                                                                                                                                                         
+--------------- ---------------                                                                                                                                                                         
+Steven          steven                                                                                                                                                                                  
+Neena           neena                                                                                                                                                                                   
+Lex             lex                                                                                                                                                                                     
+Alexander       alexander                                                                                                                                                                               
+Bruce           bruce                                                                                                                                                                                   
+Diana           diana                                                                                                                                                                                   
+Kevin           kevin                                                                                                                                                                                   
+Trenna          trenna                                                                                                                                                                                  
+Curtis          curtis                                                                                                                                                                                  
+Randall         randall                                                                                                                                                                                 
+Peter           peter                                                                                                                                                                                   
+Eleni           eleni                                                                                                                                                                                   
+Ellen           ellen                                                                                                                                                                                   
+Jonathon        jonathon                                                                                                                                                                                
+Kimerely        kimerely                                                                                                                                                                                
+Jennifer        jennifer                                                                                                                                                                                
+Michael         michael                                                                                                                                                                                 
+Pat             pat                                                                                                                                                                                     
+Shelley         shelley                                                                                                                                                                                 
+William         william                                                                                                                                                                                 
+
+20 rows selected.
+
+SQL> SELECT UPPER('jaMES BOnd 007') FROM DUAL;
+
+UPPER('JAMESBO                                                                                                                                                                                          
+--------------                                                                                                                                                                                          
+JAMES BOND 007                                                                                                                                                                                          
+
+SQL> SELECT LOWER('jaMES BOnd 007') FROM DUAL;
+
+LOWER('JAMESBO                                                                                                                                                                                          
+--------------                                                                                                                                                                                          
+james bond 007                                                                                                                                                                                          
+
+SQL> SELECT EMAIL , INITCAP(EMAIL) FROM EMPLOYEES;
+
+EMAIL      INITCAP(EM                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+SKING      Sking                                                                                                                                                                                        
+NKOCHHAR   Nkochhar                                                                                                                                                                                     
+LDEHAAN    Ldehaan                                                                                                                                                                                      
+AHUNOLD    Ahunold                                                                                                                                                                                      
+BERNST     Bernst                                                                                                                                                                                       
+DLORENTZ   Dlorentz                                                                                                                                                                                     
+KMOURGOS   Kmourgos                                                                                                                                                                                     
+TRAJS      Trajs                                                                                                                                                                                        
+CDAVIES    Cdavies                                                                                                                                                                                      
+RMATOS     Rmatos                                                                                                                                                                                       
+PVARGAS    Pvargas                                                                                                                                                                                      
+EZLOTKEY   Ezlotkey                                                                                                                                                                                     
+EABEL      Eabel                                                                                                                                                                                        
+JTAYLOR    Jtaylor                                                                                                                                                                                      
+KGRANT     Kgrant                                                                                                                                                                                       
+JWHALEN    Jwhalen                                                                                                                                                                                      
+MHARTSTE   Mhartste                                                                                                                                                                                     
+PFAY       Pfay                                                                                                                                                                                         
+SHIGGINS   Shiggins                                                                                                                                                                                     
+WGIETZ     Wgietz                                                                                                                                                                                       
+
+20 rows selected.
+
+SQL> SELECT INITCAP('SHRI ganeshay NaMaH!') FROM DUAL;
+
+INITCAP('SHRIGANESHA                                                                                                                                                                                    
+--------------------                                                                                                                                                                                    
+Shri Ganeshay Namah!                                                                                                                                                                                    
+
+SQL> REM TYPES OF CHARACTERS : 1 ALPHABETS 2 DIGITS 3 SPECIAL
+SQL> 
+SQL> REM ALL SPECIAL CHARACTERS WILL BE CONSIDERED AS WORD SEPARATOR BY INITCAP FUNCTION.
+SQL> 
+SQL> REM TYPES OF CHARACTERS : 1 ALPHABETS 2 DIGITS 3 SPECIAL
+SQL> 
+SQL> REM LIST OF CHARACTERS  : 1 A-Z , a-z 2 0-9    3 ~!@#$%^&*()_+|{	}:"<>?`-=\[ ];',./
+SQL> 
+SQL> SELECT INITCAP('SHRI#ganeshay%NaMaH!') FROM DUAL;
+
+INITCAP('SHRI#GANESH                                                                                                                                                                                    
+--------------------                                                                                                                                                                                    
+Shri#Ganeshay%Namah!                                                                                                                                                                                    
+
+SQL> SELECT INITCAP('SHRI4ganeshay5NaMaH!') FROM DUAL;
+
+INITCAP('SHRI4GANESH                                                                                                                                                                                    
+--------------------                                                                                                                                                                                    
+Shri4ganeshay5namah!                                                                                                                                                                                    
+
+SQL> SELECT INITCAP(FIRST_NAME || ' ' || LAST_NAME) FROM EMPLOYEES
+  2  
+SQL> SELECT FIRST_NAME , LAST_NAME FROM EMPLOYEES;
+
+FIRST_NAME      LAST_NAME                                                                                                                                                                               
+--------------- ---------------                                                                                                                                                                         
+Steven          King                                                                                                                                                                                    
+Neena           Kochhar                                                                                                                                                                                 
+Lex             De Haan                                                                                                                                                                                 
+Alexander       Hunold                                                                                                                                                                                  
+Bruce           Ernst                                                                                                                                                                                   
+Diana           Lorentz                                                                                                                                                                                 
+Kevin           Mourgos                                                                                                                                                                                 
+Trenna          Rajs                                                                                                                                                                                    
+Curtis          Davies                                                                                                                                                                                  
+Randall         Matos                                                                                                                                                                                   
+Peter           Vargas                                                                                                                                                                                  
+Eleni           Zlotkey                                                                                                                                                                                 
+Ellen           Abel                                                                                                                                                                                    
+Jonathon        Taylor                                                                                                                                                                                  
+Kimerely        Grant                                                                                                                                                                                   
+Jennifer        Whalen                                                                                                                                                                                  
+Michael         Hartstein                                                                                                                                                                               
+Pat             Fay                                                                                                                                                                                     
+Shelley         Higgins                                                                                                                                                                                 
+William         Gietz                                                                                                                                                                                   
+
+20 rows selected.
+
+SQL> 
+SQL> SELECT INITCAP(FIRST_NAME || ' ' || LAST_NAME) FROM EMPLOYEES
+  2  ;
+
+INITCAP(FIRST_NAME||''||LAST_NA                                                                                                                                                                         
+-------------------------------                                                                                                                                                                         
+Steven King                                                                                                                                                                                             
+Neena Kochhar                                                                                                                                                                                           
+Lex De Haan                                                                                                                                                                                             
+Alexander Hunold                                                                                                                                                                                        
+Bruce Ernst                                                                                                                                                                                             
+Diana Lorentz                                                                                                                                                                                           
+Kevin Mourgos                                                                                                                                                                                           
+Trenna Rajs                                                                                                                                                                                             
+Curtis Davies                                                                                                                                                                                           
+Randall Matos                                                                                                                                                                                           
+Peter Vargas                                                                                                                                                                                            
+Eleni Zlotkey                                                                                                                                                                                           
+Ellen Abel                                                                                                                                                                                              
+Jonathon Taylor                                                                                                                                                                                         
+Kimerely Grant                                                                                                                                                                                          
+Jennifer Whalen                                                                                                                                                                                         
+Michael Hartstein                                                                                                                                                                                       
+Pat Fay                                                                                                                                                                                                 
+Shelley Higgins                                                                                                                                                                                         
+William Gietz                                                                                                                                                                                           
+
+20 rows selected.
+
+SQL> SELECT FIRST_NAME , LAST_NAME FROM EMPLOYEES;
+
+FIRST_NAME      LAST_NAME                                                                                                                                                                               
+--------------- ---------------                                                                                                                                                                         
+Steven          King                                                                                                                                                                                    
+Neena           Kochhar                                                                                                                                                                                 
+Lex             De Haan                                                                                                                                                                                 
+Alexander       Hunold                                                                                                                                                                                  
+Bruce           Ernst                                                                                                                                                                                   
+Diana           Lorentz                                                                                                                                                                                 
+Kevin           Mourgos                                                                                                                                                                                 
+Trenna          Rajs                                                                                                                                                                                    
+Curtis          Davies                                                                                                                                                                                  
+Randall         Matos                                                                                                                                                                                   
+Peter           Vargas                                                                                                                                                                                  
+Eleni           Zlotkey                                                                                                                                                                                 
+Ellen           Abel                                                                                                                                                                                    
+Jonathon        Taylor                                                                                                                                                                                  
+Kimerely        Grant                                                                                                                                                                                   
+Jennifer        Whalen                                                                                                                                                                                  
+Michael         Hartstein                                                                                                                                                                               
+Pat             Fay                                                                                                                                                                                     
+Shelley         Higgins                                                                                                                                                                                 
+William         Gietz                                                                                                                                                                                   
+
+20 rows selected.
+
+SQL> SELECT INITCAP(FIRST_NAME || LAST_NAME) FROM EMPLOYEES;
+
+INITCAP(FIRST_NAME||LAST_NAME)                                                                                                                                                                          
+------------------------------                                                                                                                                                                          
+Stevenking                                                                                                                                                                                              
+Neenakochhar                                                                                                                                                                                            
+Lexde Haan                                                                                                                                                                                              
+Alexanderhunold                                                                                                                                                                                         
+Bruceernst                                                                                                                                                                                              
+Dianalorentz                                                                                                                                                                                            
+Kevinmourgos                                                                                                                                                                                            
+Trennarajs                                                                                                                                                                                              
+Curtisdavies                                                                                                                                                                                            
+Randallmatos                                                                                                                                                                                            
+Petervargas                                                                                                                                                                                             
+Elenizlotkey                                                                                                                                                                                            
+Ellenabel                                                                                                                                                                                               
+Jonathontaylor                                                                                                                                                                                          
+Kimerelygrant                                                                                                                                                                                           
+Jenniferwhalen                                                                                                                                                                                          
+Michaelhartstein                                                                                                                                                                                        
+Patfay                                                                                                                                                                                                  
+Shelleyhiggins                                                                                                                                                                                          
+Williamgietz                                                                                                                                                                                            
+
+20 rows selected.
+
+SQL> SELECT FIRST_NAME || LAST_NAME FROM EMPLOYEES;
+
+FIRST_NAME||LAST_NAME                                                                                                                                                                                   
+------------------------------                                                                                                                                                                          
+StevenKing                                                                                                                                                                                              
+NeenaKochhar                                                                                                                                                                                            
+LexDe Haan                                                                                                                                                                                              
+AlexanderHunold                                                                                                                                                                                         
+BruceErnst                                                                                                                                                                                              
+DianaLorentz                                                                                                                                                                                            
+KevinMourgos                                                                                                                                                                                            
+TrennaRajs                                                                                                                                                                                              
+CurtisDavies                                                                                                                                                                                            
+RandallMatos                                                                                                                                                                                            
+PeterVargas                                                                                                                                                                                             
+EleniZlotkey                                                                                                                                                                                            
+EllenAbel                                                                                                                                                                                               
+JonathonTaylor                                                                                                                                                                                          
+KimerelyGrant                                                                                                                                                                                           
+JenniferWhalen                                                                                                                                                                                          
+MichaelHartstein                                                                                                                                                                                        
+PatFay                                                                                                                                                                                                  
+ShelleyHiggins                                                                                                                                                                                          
+WilliamGietz                                                                                                                                                                                            
+
+20 rows selected.
+
+SQL> SPOOL OFF

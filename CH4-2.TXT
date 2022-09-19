@@ -1,0 +1,503 @@
+SQL> 
+SQL> REM 1 DECODE 2 CASE ... WHEN ... THEN ... ELSE ... END 3 CASE WHEN ... THEN ... ELSE ... END
+SQL> 
+SQL> REM DECODE AND CASE FIRST SYNTAX CAN DO ONLY EQALITY COMPARISON
+SQL> 
+SQL> REM CASE SECOND SYNTAX CAN DO ALL TYPES OF COMPARSIONS WHICH 'WHERE' CLAUSE SUPPORTS
+SQL> 
+SQL> 
+SQL> REM COMPANY INCREMENT POLICY : +1500 INCREMENT AMOUNT
+SQL> 
+SQL> SELECT FIRST_NAME , SALARY , SALARY + 1500 INCREMENTED_SALARY FROM EMPLOYEES;
+
+FIRST_NAME          SALARY INCREMENTED_SALARY                                                                                                                                                           
+--------------- ---------- ------------------                                                                                                                                                           
+Steven               24000              25500                                                                                                                                                           
+Neena                17000              18500                                                                                                                                                           
+Lex                  17000              18500                                                                                                                                                           
+Alexander             9000              10500                                                                                                                                                           
+Bruce                 6000               7500                                                                                                                                                           
+Diana                 4200               5700                                                                                                                                                           
+Kevin                 5800               7300                                                                                                                                                           
+Trenna                3500               5000                                                                                                                                                           
+Curtis                3100               4600                                                                                                                                                           
+Randall               2600               4100                                                                                                                                                           
+Peter                 2500               4000                                                                                                                                                           
+Eleni                10500              12000                                                                                                                                                           
+Ellen                11000              12500                                                                                                                                                           
+Jonathon              8600              10100                                                                                                                                                           
+Kimerely              7000               8500                                                                                                                                                           
+Jennifer              4400               5900                                                                                                                                                           
+Michael              13000              14500                                                                                                                                                           
+Pat                   6000               7500                                                                                                                                                           
+Shelley              12000              13500                                                                                                                                                           
+William               8300               9800                                                                                                                                                           
+
+20 rows selected.
+
+SQL> REM COMPANY INCREMENT POLICY : 20%
+SQL> 
+SQL> SELECT FIRST_NAME , SALARY , SALARY * 1.2 INCREMENTED_SALARY FROM EMPLOYEES;
+
+FIRST_NAME          SALARY INCREMENTED_SALARY                                                                                                                                                           
+--------------- ---------- ------------------                                                                                                                                                           
+Steven               24000              28800                                                                                                                                                           
+Neena                17000              20400                                                                                                                                                           
+Lex                  17000              20400                                                                                                                                                           
+Alexander             9000              10800                                                                                                                                                           
+Bruce                 6000               7200                                                                                                                                                           
+Diana                 4200               5040                                                                                                                                                           
+Kevin                 5800               6960                                                                                                                                                           
+Trenna                3500               4200                                                                                                                                                           
+Curtis                3100               3720                                                                                                                                                           
+Randall               2600               3120                                                                                                                                                           
+Peter                 2500               3000                                                                                                                                                           
+Eleni                10500              12600                                                                                                                                                           
+Ellen                11000              13200                                                                                                                                                           
+Jonathon              8600              10320                                                                                                                                                           
+Kimerely              7000               8400                                                                                                                                                           
+Jennifer              4400               5280                                                                                                                                                           
+Michael              13000              15600                                                                                                                                                           
+Pat                   6000               7200                                                                                                                                                           
+Shelley              12000              14400                                                                                                                                                           
+William               8300               9960                                                                                                                                                           
+
+20 rows selected.
+
+SQL> REM COMPANY INCREMENT POLICY BASED ON DEPARTMENT_ID : 50 +1500 , 20 +1200 , 60 +900 , 80 +600 , REMAINING +400
+SQL> 
+SQL> SELECT FIRST_NAME , DEPARTMENT_ID , SALARY ,
+  2  DECODE ( DEPARTMENT_ID , 50 , SALARY + 1500
+  3                         , 20 , SALARY + 1200
+  4                         , 60 , SALARY + 900
+  5                         , 80 , SALARY + 600   , SALARY + 400) INCREMENTED_SALARY
+  6  FROM EMPLOYEES;
+
+FIRST_NAME      DEPARTMENT_ID     SALARY INCREMENTED_SALARY                                                                                                                                             
+--------------- ------------- ---------- ------------------                                                                                                                                             
+Steven                     90      24000              24400                                                                                                                                             
+Neena                      90      17000              17400                                                                                                                                             
+Lex                        90      17000              17400                                                                                                                                             
+Alexander                  60       9000               9900                                                                                                                                             
+Bruce                      60       6000               6900                                                                                                                                             
+Diana                      60       4200               5100                                                                                                                                             
+Kevin                      50       5800               7300                                                                                                                                             
+Trenna                     50       3500               5000                                                                                                                                             
+Curtis                     50       3100               4600                                                                                                                                             
+Randall                    50       2600               4100                                                                                                                                             
+Peter                      50       2500               4000                                                                                                                                             
+Eleni                      80      10500              11100                                                                                                                                             
+Ellen                      80      11000              11600                                                                                                                                             
+Jonathon                   80       8600               9200                                                                                                                                             
+Kimerely                            7000               7400                                                                                                                                             
+Jennifer                   10       4400               4800                                                                                                                                             
+Michael                    20      13000              14200                                                                                                                                             
+Pat                        20       6000               7200                                                                                                                                             
+Shelley                   110      12000              12400                                                                                                                                             
+William                   110       8300               8700                                                                                                                                             
+
+20 rows selected.
+
+SQL> REM COMPANY INCREMENT POLICY BASED ON JOB_ID : IT_PROG 40% , ST_CLERK 30% , AD_VP 20% , REMAINING 7.5%
+SQL> 
+SQL> SELECT LAST_NAME , JOB_ID , SALARY ,
+  2  DECODE (JOB_ID , 'IT_PROG' , SALARY * 1.4
+  3                 , 'ST_CLERK' , SALARY * 1.3
+  4                 , 'AD_VP' , SALARY * 1.2     , SALARY * 1.075) INCREMENTED_SALARY
+  5  FROM EMPLOYEES;
+
+LAST_NAME       JOB_ID         SALARY INCREMENTED_SALARY                                                                                                                                                
+--------------- ---------- ---------- ------------------                                                                                                                                                
+King            AD_PRES         24000              25800                                                                                                                                                
+Kochhar         AD_VP           17000              20400                                                                                                                                                
+De Haan         AD_VP           17000              20400                                                                                                                                                
+Hunold          IT_PROG          9000              12600                                                                                                                                                
+Ernst           IT_PROG          6000               8400                                                                                                                                                
+Lorentz         IT_PROG          4200               5880                                                                                                                                                
+Mourgos         ST_MAN           5800               6235                                                                                                                                                
+Rajs            ST_CLERK         3500               4550                                                                                                                                                
+Davies          ST_CLERK         3100               4030                                                                                                                                                
+Matos           ST_CLERK         2600               3380                                                                                                                                                
+Vargas          ST_CLERK         2500               3250                                                                                                                                                
+Zlotkey         SA_MAN          10500            11287.5                                                                                                                                                
+Abel            SA_REP          11000              11825                                                                                                                                                
+Taylor          SA_REP           8600               9245                                                                                                                                                
+Grant           SA_REP           7000               7525                                                                                                                                                
+Whalen          AD_ASST          4400               4730                                                                                                                                                
+Hartstein       MK_MAN          13000              13975                                                                                                                                                
+Fay             MK_REP           6000               6450                                                                                                                                                
+Higgins         AC_MGR          12000              12900                                                                                                                                                
+Gietz           AC_ACCOUNT       8300             8922.5                                                                                                                                                
+
+20 rows selected.
+
+SQL> REM COMPANY INCREMENT POLICY BASED ON JOB_ID : IT_PROG 40% , ST_CLERK 30% , AD_VP 20% , REMAINING  NO INCREMENT
+SQL> 
+SQL> SELECT LAST_NAME , JOB_ID , SALARY ,
+  2  DECODE (JOB_ID , 'IT_PROG' , SALARY * 1.4
+  3                 , 'ST_CLERK' , SALARY * 1.3
+  4                 , 'AD_VP' , SALARY * 1.2)  INCREMENTED_SALARY
+  5  FROM EMPLOYEES;
+
+LAST_NAME       JOB_ID         SALARY INCREMENTED_SALARY                                                                                                                                                
+--------------- ---------- ---------- ------------------                                                                                                                                                
+King            AD_PRES         24000                                                                                                                                                                   
+Kochhar         AD_VP           17000              20400                                                                                                                                                
+De Haan         AD_VP           17000              20400                                                                                                                                                
+Hunold          IT_PROG          9000              12600                                                                                                                                                
+Ernst           IT_PROG          6000               8400                                                                                                                                                
+Lorentz         IT_PROG          4200               5880                                                                                                                                                
+Mourgos         ST_MAN           5800                                                                                                                                                                   
+Rajs            ST_CLERK         3500               4550                                                                                                                                                
+Davies          ST_CLERK         3100               4030                                                                                                                                                
+Matos           ST_CLERK         2600               3380                                                                                                                                                
+Vargas          ST_CLERK         2500               3250                                                                                                                                                
+Zlotkey         SA_MAN          10500                                                                                                                                                                   
+Abel            SA_REP          11000                                                                                                                                                                   
+Taylor          SA_REP           8600                                                                                                                                                                   
+Grant           SA_REP           7000                                                                                                                                                                   
+Whalen          AD_ASST          4400                                                                                                                                                                   
+Hartstein       MK_MAN          13000                                                                                                                                                                   
+Fay             MK_REP           6000                                                                                                                                                                   
+Higgins         AC_MGR          12000                                                                                                                                                                   
+Gietz           AC_ACCOUNT       8300                                                                                                                                                                   
+
+20 rows selected.
+
+SQL> SELECT LAST_NAME , JOB_ID , SALARY ,
+  2  DECODE (JOB_ID , 'IT_PROG' , SALARY * 1.4
+  3                 , 'ST_CLERK' , SALARY * 1.3
+  4                 , 'AD_VP' , SALARY * 1.2     , SALARY ) INCREMENTED_SALARY
+  5  FROM EMPLOYEES;
+
+LAST_NAME       JOB_ID         SALARY INCREMENTED_SALARY                                                                                                                                                
+--------------- ---------- ---------- ------------------                                                                                                                                                
+King            AD_PRES         24000              24000                                                                                                                                                
+Kochhar         AD_VP           17000              20400                                                                                                                                                
+De Haan         AD_VP           17000              20400                                                                                                                                                
+Hunold          IT_PROG          9000              12600                                                                                                                                                
+Ernst           IT_PROG          6000               8400                                                                                                                                                
+Lorentz         IT_PROG          4200               5880                                                                                                                                                
+Mourgos         ST_MAN           5800               5800                                                                                                                                                
+Rajs            ST_CLERK         3500               4550                                                                                                                                                
+Davies          ST_CLERK         3100               4030                                                                                                                                                
+Matos           ST_CLERK         2600               3380                                                                                                                                                
+Vargas          ST_CLERK         2500               3250                                                                                                                                                
+Zlotkey         SA_MAN          10500              10500                                                                                                                                                
+Abel            SA_REP          11000              11000                                                                                                                                                
+Taylor          SA_REP           8600               8600                                                                                                                                                
+Grant           SA_REP           7000               7000                                                                                                                                                
+Whalen          AD_ASST          4400               4400                                                                                                                                                
+Hartstein       MK_MAN          13000              13000                                                                                                                                                
+Fay             MK_REP           6000               6000                                                                                                                                                
+Higgins         AC_MGR          12000              12000                                                                                                                                                
+Gietz           AC_ACCOUNT       8300               8300                                                                                                                                                
+
+20 rows selected.
+
+SQL> SELECT 140/100 FROM DUAL;
+
+   140/100                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+       1.4                                                                                                                                                                                              
+
+SQL> SELECT SALARY , SALARY * 140 / 100 , SALARY * 1.4 FROM EMPLOYEES;
+
+    SALARY SALARY*140/100 SALARY*1.4                                                                                                                                                                    
+---------- -------------- ----------                                                                                                                                                                    
+     24000          33600      33600                                                                                                                                                                    
+     17000          23800      23800                                                                                                                                                                    
+     17000          23800      23800                                                                                                                                                                    
+      9000          12600      12600                                                                                                                                                                    
+      6000           8400       8400                                                                                                                                                                    
+      4200           5880       5880                                                                                                                                                                    
+      5800           8120       8120                                                                                                                                                                    
+      3500           4900       4900                                                                                                                                                                    
+      3100           4340       4340                                                                                                                                                                    
+      2600           3640       3640                                                                                                                                                                    
+      2500           3500       3500                                                                                                                                                                    
+     10500          14700      14700                                                                                                                                                                    
+     11000          15400      15400                                                                                                                                                                    
+      8600          12040      12040                                                                                                                                                                    
+      7000           9800       9800                                                                                                                                                                    
+      4400           6160       6160                                                                                                                                                                    
+     13000          18200      18200                                                                                                                                                                    
+      6000           8400       8400                                                                                                                                                                    
+     12000          16800      16800                                                                                                                                                                    
+      8300          11620      11620                                                                                                                                                                    
+
+20 rows selected.
+
+SQL> REM CASE ... WHEN ... THEN ... ELSE ... END
+SQL> 
+SQL> REM DECODE : MANAGER_ID : 100 +2000 , 124 +1500 , 149 +1000 , REMAINING +500
+SQL> 
+SQL> REM FIRST_NAME , MANAGER_ID , SALARY , INCREMENTED_SALARY
+SQL> 
+SQL> SELECT FIRST_NAME , MANAGER_ID , SALARY ,
+  2  DECODE(MANAGER_ID , 100 , SALARY + 2000
+  3                    , 124 , SALARY + 1500
+  4                    , 149 , SALARY + 1000 , SALARY + 500) INCREMENTED_SALARY
+  5  FROM EMPLOYEES;
+
+FIRST_NAME      MANAGER_ID     SALARY INCREMENTED_SALARY                                                                                                                                                
+--------------- ---------- ---------- ------------------                                                                                                                                                
+Steven                          24000              24500                                                                                                                                                
+Neena                  100      17000              19000                                                                                                                                                
+Lex                    100      17000              19000                                                                                                                                                
+Alexander              102       9000               9500                                                                                                                                                
+Bruce                  103       6000               6500                                                                                                                                                
+Diana                  103       4200               4700                                                                                                                                                
+Kevin                  100       5800               7800                                                                                                                                                
+Trenna                 124       3500               5000                                                                                                                                                
+Curtis                 124       3100               4600                                                                                                                                                
+Randall                124       2600               4100                                                                                                                                                
+Peter                  124       2500               4000                                                                                                                                                
+Eleni                  100      10500              12500                                                                                                                                                
+Ellen                  149      11000              12000                                                                                                                                                
+Jonathon               149       8600               9600                                                                                                                                                
+Kimerely               149       7000               8000                                                                                                                                                
+Jennifer               101       4400               4900                                                                                                                                                
+Michael                100      13000              15000                                                                                                                                                
+Pat                    201       6000               6500                                                                                                                                                
+Shelley                101      12000              12500                                                                                                                                                
+William                205       8300               8800                                                                                                                                                
+
+20 rows selected.
+
+SQL> REM CASE ... WHEN ... THEN ... ELSE ... END , PROVIDES IDENTICAL FUNCTIONALITY WHICH DECODE PROVIDES.
+SQL> 
+SQL> SELECT FIRST_NAME , MANAGER_ID , SALARY ,
+  2  CASE MANAGER_ID WHEN 100 THEN SALARY + 2000
+  3                  WHEN 124 THEN SALARY + 1500
+  4                  WHEN 149 THEN SALARY + 1000 ELSE SALARY + 500 END INCREMENTED_SALARY
+  5  FROM EMPLOYEES;
+
+FIRST_NAME      MANAGER_ID     SALARY INCREMENTED_SALARY                                                                                                                                                
+--------------- ---------- ---------- ------------------                                                                                                                                                
+Steven                          24000              24500                                                                                                                                                
+Neena                  100      17000              19000                                                                                                                                                
+Lex                    100      17000              19000                                                                                                                                                
+Alexander              102       9000               9500                                                                                                                                                
+Bruce                  103       6000               6500                                                                                                                                                
+Diana                  103       4200               4700                                                                                                                                                
+Kevin                  100       5800               7800                                                                                                                                                
+Trenna                 124       3500               5000                                                                                                                                                
+Curtis                 124       3100               4600                                                                                                                                                
+Randall                124       2600               4100                                                                                                                                                
+Peter                  124       2500               4000                                                                                                                                                
+Eleni                  100      10500              12500                                                                                                                                                
+Ellen                  149      11000              12000                                                                                                                                                
+Jonathon               149       8600               9600                                                                                                                                                
+Kimerely               149       7000               8000                                                                                                                                                
+Jennifer               101       4400               4900                                                                                                                                                
+Michael                100      13000              15000                                                                                                                                                
+Pat                    201       6000               6500                                                                                                                                                
+Shelley                101      12000              12500                                                                                                                                                
+William                205       8300               8800                                                                                                                                                
+
+20 rows selected.
+
+SQL> REM COMPANY INCREMENT POLICY BASED ON JOB_ID : IT_PROG 40% , ST_CLERK 30% , AD_VP 20% , REMAINING  NO INCREMENT
+SQL> 
+SQL> 
+SQL> SELECT LAST_NAME , SALARY , JOB_ID ,
+  2  CASE JOB_ID WHEN 'IT_PROG' THEN SALARY 1.4
+  3              WHEN 'ST_CLERK' THEN SALARY 1.3
+  4              WHEN 'AD_VP' THEN SALARY 1.2
+  5                                                ELSE SALARY END INCREMENTED_SALARY
+  6  FROM EMPLOYEES;
+CASE JOB_ID WHEN 'IT_PROG' THEN SALARY 1.4
+                                       *
+ERROR at line 2:
+ORA-00905: missing keyword 
+
+
+SQL> CASE JOB_ID WHEN 'IT_PROG' THEN SALARY * 1.4
+SP2-0734: unknown command beginning "CASE JOB_I..." - rest of line ignored.
+SQL> 
+SQL> SELECT LAST_NAME , SALARY , JOB_ID ,
+  2  CASE JOB_ID WHEN 'IT_PROG' THEN SALARY * 1.4
+  3              WHEN 'ST_CLERK' THEN SALARY * 1.3
+  4              WHEN 'AD_VP' THEN SALARY * 1.2     ELSE SALARY END INCREMENTED_SALARY
+  5  FROM EMPLOYEES;
+
+LAST_NAME           SALARY JOB_ID     INCREMENTED_SALARY                                                                                                                                                
+--------------- ---------- ---------- ------------------                                                                                                                                                
+King                 24000 AD_PRES                 24000                                                                                                                                                
+Kochhar              17000 AD_VP                   20400                                                                                                                                                
+De Haan              17000 AD_VP                   20400                                                                                                                                                
+Hunold                9000 IT_PROG                 12600                                                                                                                                                
+Ernst                 6000 IT_PROG                  8400                                                                                                                                                
+Lorentz               4200 IT_PROG                  5880                                                                                                                                                
+Mourgos               5800 ST_MAN                   5800                                                                                                                                                
+Rajs                  3500 ST_CLERK                 4550                                                                                                                                                
+Davies                3100 ST_CLERK                 4030                                                                                                                                                
+Matos                 2600 ST_CLERK                 3380                                                                                                                                                
+Vargas                2500 ST_CLERK                 3250                                                                                                                                                
+Zlotkey              10500 SA_MAN                  10500                                                                                                                                                
+Abel                 11000 SA_REP                  11000                                                                                                                                                
+Taylor                8600 SA_REP                   8600                                                                                                                                                
+Grant                 7000 SA_REP                   7000                                                                                                                                                
+Whalen                4400 AD_ASST                  4400                                                                                                                                                
+Hartstein            13000 MK_MAN                  13000                                                                                                                                                
+Fay                   6000 MK_REP                   6000                                                                                                                                                
+Higgins              12000 AC_MGR                  12000                                                                                                                                                
+Gietz                 8300 AC_ACCOUNT               8300                                                                                                                                                
+
+20 rows selected.
+
+SQL> REM CASE WHEN ... THEN ... ELSE ... END
+SQL> 
+SQL> REM CASE WHEN conditions THEN action ELSE ... END
+SQL> 
+SQL> REM INCREMENT POLICY IS BASED ON SALARY RANGE : 0-6000 +2000 , 6001-9000 +1500 , 9001-13000 +1000 , REMAINING +500
+SQL> 
+SQL> SELECT FIRST_NAME , SALARY ,
+  2  CASE WHEN SALARY BETWEEN     0 AND  6000 THEN SALARY + 2000
+  3       WHEN SALARY BETWEEN  6001 AND  9000 THEN SALARY + 1500
+  4       WHEN SALARY BETWEEN  9001 AND 13000 THEN SALARY + 1000 ELSE SALARY + 500 END INCREMENTED_SALARY
+  5  FROM EMPLOYEES;
+
+FIRST_NAME          SALARY INCREMENTED_SALARY                                                                                                                                                           
+--------------- ---------- ------------------                                                                                                                                                           
+Steven               24000              24500                                                                                                                                                           
+Neena                17000              17500                                                                                                                                                           
+Lex                  17000              17500                                                                                                                                                           
+Alexander             9000              10500                                                                                                                                                           
+Bruce                 6000               8000                                                                                                                                                           
+Diana                 4200               6200                                                                                                                                                           
+Kevin                 5800               7800                                                                                                                                                           
+Trenna                3500               5500                                                                                                                                                           
+Curtis                3100               5100                                                                                                                                                           
+Randall               2600               4600                                                                                                                                                           
+Peter                 2500               4500                                                                                                                                                           
+Eleni                10500              11500                                                                                                                                                           
+Ellen                11000              12000                                                                                                                                                           
+Jonathon              8600              10100                                                                                                                                                           
+Kimerely              7000               8500                                                                                                                                                           
+Jennifer              4400               6400                                                                                                                                                           
+Michael              13000              14000                                                                                                                                                           
+Pat                   6000               8000                                                                                                                                                           
+Shelley              12000              13000                                                                                                                                                           
+William               8300               9800                                                                                                                                                           
+
+20 rows selected.
+
+SQL> SELECT FIRST_NAME , SALARY ,
+  2  CASE WHEN SALARY BETWEEN     0 AND  6000 THEN SALARY + 2000
+  3       WHEN SALARY BETWEEN  6001 AND  9000 THEN SALARY + 1500
+  4       WHEN SALARY BETWEEN  9001 AND 13000 THEN SALARY + 1000 ELSE SALARY + 500 END INCREMENTED_SALARY
+  5  FROM EMPLOYEES
+  6  ORDER BY 2;
+
+FIRST_NAME          SALARY INCREMENTED_SALARY                                                                                                                                                           
+--------------- ---------- ------------------                                                                                                                                                           
+Peter                 2500               4500                                                                                                                                                           
+Randall               2600               4600                                                                                                                                                           
+Curtis                3100               5100                                                                                                                                                           
+Trenna                3500               5500                                                                                                                                                           
+Diana                 4200               6200                                                                                                                                                           
+Jennifer              4400               6400                                                                                                                                                           
+Kevin                 5800               7800                                                                                                                                                           
+Bruce                 6000               8000                                                                                                                                                           
+Pat                   6000               8000                                                                                                                                                           
+Kimerely              7000               8500                                                                                                                                                           
+William               8300               9800                                                                                                                                                           
+Jonathon              8600              10100                                                                                                                                                           
+Alexander             9000              10500                                                                                                                                                           
+Eleni                10500              11500                                                                                                                                                           
+Ellen                11000              12000                                                                                                                                                           
+Shelley              12000              13000                                                                                                                                                           
+Michael              13000              14000                                                                                                                                                           
+Neena                17000              17500                                                                                                                                                           
+Lex                  17000              17500                                                                                                                                                           
+Steven               24000              24500                                                                                                                                                           
+
+20 rows selected.
+
+SQL> REM INCREMENT POLICY IS BASED ON SALARY RANGE : 0-6000 +2000 , 6001-9000 +1500 , 9001-13000 +1000 , REMAINING +500
+SQL> 
+SQL> REM INCREMENT POLICY IS BASED ON MANAGER_ID : 100,101 30% , 124,201,102 20% , 149,103 10% , REMAINING 7.5%
+SQL> 
+SQL> SELECT LAST_NAME , MANAGER_ID , SALARY ,
+  2  CASE WHEN MANAGER_ID IN (100,101) THEN SALARY * 1.3
+  3       WHEN MANAGER_ID IN (124,201,102) THEN SALARY * 1.2
+  4       WHEN MANAGER_ID IN (149,103) THEN SALARY * 1.1         ELSE SALARY * 1.075 END INCREMENTED_SALARY
+  5  FROM EMPLOYEES;
+
+LAST_NAME       MANAGER_ID     SALARY INCREMENTED_SALARY                                                                                                                                                
+--------------- ---------- ---------- ------------------                                                                                                                                                
+King                            24000              25800                                                                                                                                                
+Kochhar                100      17000              22100                                                                                                                                                
+De Haan                100      17000              22100                                                                                                                                                
+Hunold                 102       9000              10800                                                                                                                                                
+Ernst                  103       6000               6600                                                                                                                                                
+Lorentz                103       4200               4620                                                                                                                                                
+Mourgos                100       5800               7540                                                                                                                                                
+Rajs                   124       3500               4200                                                                                                                                                
+Davies                 124       3100               3720                                                                                                                                                
+Matos                  124       2600               3120                                                                                                                                                
+Vargas                 124       2500               3000                                                                                                                                                
+Zlotkey                100      10500              13650                                                                                                                                                
+Abel                   149      11000              12100                                                                                                                                                
+Taylor                 149       8600               9460                                                                                                                                                
+Grant                  149       7000               7700                                                                                                                                                
+Whalen                 101       4400               5720                                                                                                                                                
+Hartstein              100      13000              16900                                                                                                                                                
+Fay                    201       6000               7200                                                                                                                                                
+Higgins                101      12000              15600                                                                                                                                                
+Gietz                  205       8300             8922.5                                                                                                                                                
+
+20 rows selected.
+
+SQL> REM INCREMENT POLICY IS BASED ON JOB_ID : IT_PROG AD_VP SA_MAN 30% , ST_CLERK ST_MAN AD_ASST 20% , REMAINING 10%
+SQL> 
+SQL> REM CASE WHEN JOB_ID IN('IT_PROG','AD_VP','SA_MAN') THEN SALARY*1.3
+SQL> WHEN JOB_ID ('ST_CLERK','ST_MAN','AD_ASST') THEN SALARY*1.2
+SP2-0734: unknown command beginning "WHEN JOB_I..." - rest of line ignored.
+SQL> ELSE SALARY*1.1 END FROM EMPLOYEES;
+SP2-0734: unknown command beginning "ELSE SALAR..." - rest of line ignored.
+SQL> 
+SQL> 
+SQL> SELECT FIRST_NAME , JOB_ID , SALARY ,
+  2  CASE WHEN JOB_ID IN('IT_PROG','AD_VP','SA_MAN') THEN SALARY*1.3
+  3  WHEN JOB_ID ('ST_CLERK','ST_MAN','AD_ASST') THEN SALARY*1.2
+  4  ELSE SALARY*1.1 END FROM EMPLOYEES;
+WHEN JOB_ID ('ST_CLERK','ST_MAN','AD_ASST') THEN SALARY*1.2
+                                            *
+ERROR at line 3:
+ORA-00920: invalid relational operator 
+
+
+SQL> SELECT FIRST_NAME , JOB_ID , SALARY ,
+  2  CASE WHEN JOB_ID IN('IT_PROG','AD_VP','SA_MAN') THEN SALARY*1.3
+  3  WHEN JOB_ID IN ('ST_CLERK','ST_MAN','AD_ASST') THEN SALARY*1.2
+  4  ELSE SALARY*1.1 END INCREMENTED_SALARY FROM EMPLOYEES;
+
+FIRST_NAME      JOB_ID         SALARY INCREMENTED_SALARY                                                                                                                                                
+--------------- ---------- ---------- ------------------                                                                                                                                                
+Steven          AD_PRES         24000              26400                                                                                                                                                
+Neena           AD_VP           17000              22100                                                                                                                                                
+Lex             AD_VP           17000              22100                                                                                                                                                
+Alexander       IT_PROG          9000              11700                                                                                                                                                
+Bruce           IT_PROG          6000               7800                                                                                                                                                
+Diana           IT_PROG          4200               5460                                                                                                                                                
+Kevin           ST_MAN           5800               6960                                                                                                                                                
+Trenna          ST_CLERK         3500               4200                                                                                                                                                
+Curtis          ST_CLERK         3100               3720                                                                                                                                                
+Randall         ST_CLERK         2600               3120                                                                                                                                                
+Peter           ST_CLERK         2500               3000                                                                                                                                                
+Eleni           SA_MAN          10500              13650                                                                                                                                                
+Ellen           SA_REP          11000              12100                                                                                                                                                
+Jonathon        SA_REP           8600               9460                                                                                                                                                
+Kimerely        SA_REP           7000               7700                                                                                                                                                
+Jennifer        AD_ASST          4400               5280                                                                                                                                                
+Michael         MK_MAN          13000              14300                                                                                                                                                
+Pat             MK_REP           6000               6600                                                                                                                                                
+Shelley         AC_MGR          12000              13200                                                                                                                                                
+William         AC_ACCOUNT       8300               9130                                                                                                                                                
+
+20 rows selected.
+
+SQL> SPOOL OFF

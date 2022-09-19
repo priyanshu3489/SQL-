@@ -1,0 +1,332 @@
+SQL> 
+SQL> REM NESTED SUMMARY FUNCTIONS :
+SQL> 
+SQL> SELECT AVG(SALARY) FROM EMPLOYEES GROUP BY DEPARTMENT_ID;
+
+AVG(SALARY)                                                                                                                                                                                             
+-----------                                                                                                                                                                                             
+       7000                                                                                                                                                                                             
+ 19333.3333                                                                                                                                                                                             
+       9500                                                                                                                                                                                             
+      10150                                                                                                                                                                                             
+       3500                                                                                                                                                                                             
+ 10033.3333                                                                                                                                                                                             
+       6400                                                                                                                                                                                             
+       4400                                                                                                                                                                                             
+
+8 rows selected.
+
+SQL> REM DISPLAY DEPARTMENT WISE HIGHEST AVERAGE SALARY
+SQL> 
+SQL> REM MAX(AVG(SALARY)) : DEPARTMENT_ID
+SQL> 
+SQL> SELECT MAX(AVG(SALARY)) FROM EMPLOYEES GROUP BY DEPARTMENT_ID;
+
+MAX(AVG(SALARY))                                                                                                                                                                                        
+----------------                                                                                                                                                                                        
+      19333.3333                                                                                                                                                                                        
+
+SQL> SELECT MIN(AVG(SALARY)) FROM EMPLOYEES GROUP BY DEPARTMENT_ID;
+
+MIN(AVG(SALARY))                                                                                                                                                                                        
+----------------                                                                                                                                                                                        
+            3500                                                                                                                                                                                        
+
+SQL> SELECT AVG(AVG(SALARY)) FROM EMPLOYEES GROUP BY DEPARTMENT_ID;
+
+AVG(AVG(SALARY))                                                                                                                                                                                        
+----------------                                                                                                                                                                                        
+      8789.58333                                                                                                                                                                                        
+
+SQL> REM WHEN WE DISPLAY NESTED SUMMARY ITEMS, WE CAN'T DISPLAY ANYTHING ELSE WITH IT. EXCEPTION : COUNT(*) , COUNT(GROUP BY COLUMN)
+SQL> 
+SQL> SELECT MAX(AVG(SALARY)) , MIN(AVG(SALARY)) FROM EMPLOYEES GROUP BY DEPARTMENT_ID;
+
+MAX(AVG(SALARY)) MIN(AVG(SALARY))                                                                                                                                                                       
+---------------- ----------------                                                                                                                                                                       
+      19333.3333             3500                                                                                                                                                                       
+
+SQL> SELECT AVG(SALARY) , MIN(AVG(SALARY)) FROM EMPLOYEES GROUP BY DEPARTMENT_ID;
+SELECT AVG(SALARY) , MIN(AVG(SALARY)) FROM EMPLOYEES GROUP BY DEPARTMENT_ID
+           *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> SELECT DEPARTMENT_ID , MIN(AVG(SALARY)) FROM EMPLOYEES GROUP BY DEPARTMENT_ID;
+SELECT DEPARTMENT_ID , MIN(AVG(SALARY)) FROM EMPLOYEES GROUP BY DEPARTMENT_ID
+       *
+ERROR at line 1:
+ORA-00937: not a single-group group function 
+
+
+SQL> SELECT COUNT(*) , COUNT(DEPARTMENT_ID) , COUNT(DISTINCT DEPARTMENT_ID) , MIN(AVG(SALARY)) FROM EMPLOYEES GROUP BY DEPARTMENT_ID;
+
+  COUNT(*) COUNT(DEPARTMENT_ID) COUNT(DISTINCTDEPARTMENT_ID) MIN(AVG(SALARY))                                                                                                                           
+---------- -------------------- ---------------------------- ----------------                                                                                                                           
+         8                    7                            7             3500                                                                                                                           
+
+SQL> REM GROUP BY CLAUSE IS MANDATORY WHEN WE USE NESTED SUMMARY ITEM.
+SQL> 
+SQL> SELECT MAX(AVG(SALARY)) , MIN(AVG(SALARY)) FROM EMPLOYEES;
+SELECT MAX(AVG(SALARY)) , MIN(AVG(SALARY)) FROM EMPLOYEES
+                              *
+ERROR at line 1:
+ORA-00978: nested group function without GROUP BY 
+
+
+SQL> REM WE CAN NEST SUMMARY FUNCTION ONLY UPTO TWO LEVELS.
+SQL> 
+SQL> SELECT COUNT(MAX(AVG(SALARY))) FROM EMPLOYEES GROUP BY DEPARTMENT_ID;
+SELECT COUNT(MAX(AVG(SALARY))) FROM EMPLOYEES GROUP BY DEPARTMENT_ID
+                 *
+ERROR at line 1:
+ORA-00935: group function is nested too deeply 
+
+
+SQL> REM PCM : PIVOTE REPORT/CROSS TAB REPORT/MATRIX REPORT
+SQL> 
+SQL> SELECT DEPARTMENT_ID , SUM(SALARY) FROM EMPLOYEES GROUP BY DEPARTMENT_ID ORDER BY 1;
+
+DEPARTMENT_ID SUM(SALARY)                                                                                                                                                                               
+------------- -----------                                                                                                                                                                               
+           10        4400                                                                                                                                                                               
+           20       19000                                                                                                                                                                               
+           50       17500                                                                                                                                                                               
+           60       19200                                                                                                                                                                               
+           80       30100                                                                                                                                                                               
+           90       58000                                                                                                                                                                               
+          110       20300                                                                                                                                                                               
+                     7000                                                                                                                                                                               
+
+8 rows selected.
+
+SQL> REM  DEPT_50_SUM_SAL   DEPT_80_SUM_SAL   DEPT_90_SUM_SAL
+SQL> 
+SQL> REM           17500             30100             58000
+SQL> 
+SQL> 
+SQL> SELECT SUM(SALARY) FROM EMPLOYEES WHERE DEPARTMENT_ID = 50;
+
+SUM(SALARY)                                                                                                                                                                                             
+-----------                                                                                                                                                                                             
+      17500                                                                                                                                                                                             
+
+SQL> SELECT SUM(SALARY) FROM EMPLOYEES WHERE DEPARTMENT_ID = 80;
+
+SUM(SALARY)                                                                                                                                                                                             
+-----------                                                                                                                                                                                             
+      30100                                                                                                                                                                                             
+
+SQL> SELECT SUM(SALARY) FROM EMPLOYEES WHERE DEPARTMENT_ID = 90;
+
+SUM(SALARY)                                                                                                                                                                                             
+-----------                                                                                                                                                                                             
+      58000                                                                                                                                                                                             
+
+SQL> SELECT SUM(DECODE(DEPARTMENT_ID,50,SALRAY)) DEPT_50_SUM_SAL,
+  2         SUM(DECODE(DEPARTMENT_ID,80,SALARY)) DEPT_80_SUM_SAL,
+  3         SUM(DECODE(DEPARTMENT_ID,90,SALARY)) DEPT_90_SUM_SAL
+  4  FROM EMPLOYEES
+  5  
+SQL> 
+SQL> SELECT SUM(DECODE(DEPARTMENT_ID,50,SALARY)) DEPT_50_SUM_SAL,
+  2         SUM(DECODE(DEPARTMENT_ID,80,SALARY)) DEPT_80_SUM_SAL,
+  3         SUM(DECODE(DEPARTMENT_ID,90,SALARY)) DEPT_90_SUM_SAL
+  4  FROM EMPLOYEES;
+
+DEPT_50_SUM_SAL DEPT_80_SUM_SAL DEPT_90_SUM_SAL                                                                                                                                                         
+--------------- --------------- ---------------                                                                                                                                                         
+          17500           30100           58000                                                                                                                                                         
+
+SQL> SELECT SUM(CASE DEPARTMENT_ID WHEN 50 THEN SALARY END) DEPT_50_SUM_SAL,
+  2         SUM(CASE DEPARTMENT_ID WHEN 80 THEN SALARY END) DEPT_80_SUM_SAL,
+  3         SUM(CASE DEPARTMENT_ID WHEN 90 THEN SALARY END) DEPT_90_SUM_SAL
+  4  FROM EMPLOYEES;
+
+DEPT_50_SUM_SAL DEPT_80_SUM_SAL DEPT_90_SUM_SAL                                                                                                                                                         
+--------------- --------------- ---------------                                                                                                                                                         
+          17500           30100           58000                                                                                                                                                         
+
+SQL> SELECT SUM(CASE WHEN DEPARTMENT_ID = 50 THEN SALARY END) DEPT_50_SUM_SAL,
+  2         SUM(CASE WHEN DEPARTMENT_ID = 60 THEN SALARY END) DEPT_60_SUM_SAL,
+  3         SUM(CASE WHEN DEPARTMENT_ID = 90 THEN SALARY END) DEPT_90_SUM_SAL,
+  4         SUM(CASE WHEN DEPARTMENT_ID = 80 THEN SALARY END) DEPT_80_SUM_SAL
+  5  FROM EMPLOYEES;
+
+DEPT_50_SUM_SAL DEPT_60_SUM_SAL DEPT_90_SUM_SAL DEPT_80_SUM_SAL                                                                                                                                         
+--------------- --------------- --------------- ---------------                                                                                                                                         
+          17500           19200           58000           30100                                                                                                                                         
+
+SQL> SELECT JOB_ID , AVG(SALARY) FROM EMPLOYEES GROUP BY JOB_ID;
+
+JOB_ID     AVG(SALARY)                                                                                                                                                                                  
+---------- -----------                                                                                                                                                                                  
+IT_PROG           6400                                                                                                                                                                                  
+AC_MGR           12000                                                                                                                                                                                  
+AC_ACCOUNT        8300                                                                                                                                                                                  
+ST_MAN            5800                                                                                                                                                                                  
+AD_ASST           4400                                                                                                                                                                                  
+AD_VP            17000                                                                                                                                                                                  
+SA_MAN           10500                                                                                                                                                                                  
+MK_MAN           13000                                                                                                                                                                                  
+AD_PRES          24000                                                                                                                                                                                  
+SA_REP      8866.66667                                                                                                                                                                                  
+MK_REP            6000                                                                                                                                                                                  
+ST_CLERK          2925                                                                                                                                                                                  
+
+12 rows selected.
+
+SQL> SELECT JOB_ID , TRUNC(AVG(SALARY),2) FROM EMPLOYEES GROUP BY JOB_ID;
+
+JOB_ID     TRUNC(AVG(SALARY),2)                                                                                                                                                                         
+---------- --------------------                                                                                                                                                                         
+IT_PROG                    6400                                                                                                                                                                         
+AC_MGR                    12000                                                                                                                                                                         
+AC_ACCOUNT                 8300                                                                                                                                                                         
+ST_MAN                     5800                                                                                                                                                                         
+AD_ASST                    4400                                                                                                                                                                         
+AD_VP                     17000                                                                                                                                                                         
+SA_MAN                    10500                                                                                                                                                                         
+MK_MAN                    13000                                                                                                                                                                         
+AD_PRES                   24000                                                                                                                                                                         
+SA_REP                  8866.66                                                                                                                                                                         
+MK_REP                     6000                                                                                                                                                                         
+ST_CLERK                   2925                                                                                                                                                                         
+
+12 rows selected.
+
+SQL> SELECT JOB_ID , TO_CHAR(AVG(SALARY),'99,999.99') FROM EMPLOYEES GROUP BY JOB_ID;
+
+JOB_ID     TO_CHAR(AV                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+IT_PROG      6,400.00                                                                                                                                                                                   
+AC_MGR      12,000.00                                                                                                                                                                                   
+AC_ACCOUNT   8,300.00                                                                                                                                                                                   
+ST_MAN       5,800.00                                                                                                                                                                                   
+AD_ASST      4,400.00                                                                                                                                                                                   
+AD_VP       17,000.00                                                                                                                                                                                   
+SA_MAN      10,500.00                                                                                                                                                                                   
+MK_MAN      13,000.00                                                                                                                                                                                   
+AD_PRES     24,000.00                                                                                                                                                                                   
+SA_REP       8,866.67                                                                                                                                                                                   
+MK_REP       6,000.00                                                                                                                                                                                   
+ST_CLERK     2,925.00                                                                                                                                                                                   
+
+12 rows selected.
+
+SQL> REM DEPT_50_MIN_SAL   DEPT_60_AVG_SAL    DEPT_80_MAX_SAL
+SQL> 
+SQL> SELECT MIN(DECODE(DEPARTMENT_ID,50,SALARY)) DEPT_50_MIN_SAL,
+  2         AVG(DECODE(DEPARTMENT_ID,60,SALARY)) DEPT_60_AVG_SAL,
+  3         MAX(DECODE(DEPARTMENT_ID,80,SALARY)) DEPT_80_MAX_SAL
+  4  FROM EMPLOYEES;
+
+DEPT_50_MIN_SAL DEPT_60_AVG_SAL DEPT_80_MAX_SAL                                                                                                                                                         
+--------------- --------------- ---------------                                                                                                                                                         
+           2500            6400           11000                                                                                                                                                         
+
+SQL> SELECT MIN(DECODE(DEPARTMENT_ID,50,SALARY)) DEPT_50_MIN_SAL,
+  2         AVG(CASE DEPARTMENT_ID WHEN 60 THEN SALARY END) DEPT_60_AVG_SAL,
+  3         MAX(CASE WHEN DEPARTMENT_ID = 80 THEN SALARY END) DEPT_80_MAX_SAL
+  4  FROM EMPLOYEES;
+
+DEPT_50_MIN_SAL DEPT_60_AVG_SAL DEPT_80_MAX_SAL                                                                                                                                                         
+--------------- --------------- ---------------                                                                                                                                                         
+           2500            6400           11000                                                                                                                                                         
+
+SQL> SELECT JOB_ID , MIN(DECODE(DEPARTMENT_ID,50,SALARY)) DEPT_50_MIN_SAL,
+  2         AVG(CASE DEPARTMENT_ID WHEN 60 THEN SALARY END) DEPT_60_AVG_SAL,
+  3         MAX(CASE WHEN DEPARTMENT_ID = 80 THEN SALARY END) DEPT_80_MAX_SAL
+  4  FROM EMPLOYEES
+  5  GROUP BY JOB_ID;
+
+JOB_ID     DEPT_50_MIN_SAL DEPT_60_AVG_SAL DEPT_80_MAX_SAL                                                                                                                                              
+---------- --------------- --------------- ---------------                                                                                                                                              
+IT_PROG                               6400                                                                                                                                                              
+AC_MGR                                                                                                                                                                                                  
+AC_ACCOUNT                                                                                                                                                                                              
+ST_MAN                5800                                                                                                                                                                              
+AD_ASST                                                                                                                                                                                                 
+AD_VP                                                                                                                                                                                                   
+SA_MAN                                               10500                                                                                                                                              
+MK_MAN                                                                                                                                                                                                  
+AD_PRES                                                                                                                                                                                                 
+SA_REP                                               11000                                                                                                                                              
+MK_REP                                                                                                                                                                                                  
+ST_CLERK              2500                                                                                                                                                                              
+
+12 rows selected.
+
+SQL> REM DISPLAY JOB_ID WISE HIGHEST SALARY
+SQL> 
+SQL> SELECT JOB_ID , MAX(SALARY) FROM EMPLOYEES GROUP BY JOB_ID ORDER BY 1;
+
+JOB_ID     MAX(SALARY)                                                                                                                                                                                  
+---------- -----------                                                                                                                                                                                  
+AC_ACCOUNT        8300                                                                                                                                                                                  
+AC_MGR           12000                                                                                                                                                                                  
+AD_ASST           4400                                                                                                                                                                                  
+AD_PRES          24000                                                                                                                                                                                  
+AD_VP            17000                                                                                                                                                                                  
+IT_PROG           9000                                                                                                                                                                                  
+MK_MAN           13000                                                                                                                                                                                  
+MK_REP            6000                                                                                                                                                                                  
+SA_MAN           10500                                                                                                                                                                                  
+SA_REP           11000                                                                                                                                                                                  
+ST_CLERK          3500                                                                                                                                                                                  
+ST_MAN            5800                                                                                                                                                                                  
+
+12 rows selected.
+
+SQL> REM DISPLAY MANAGER WISE , COUNT OF EMPLOYEES FOR THE MANAGER TO WHOM 2 OR MORE EMPLOYEES REPORT
+SQL> 
+SQL> SELECT MANAGER_ID , COUNT(*) FROM EMPLOYEES GROUP BY MANAGER_ID HAVING COUNT(*) >= 2 ORDER BY 1;
+
+MANAGER_ID   COUNT(*)                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+       100          5                                                                                                                                                                                   
+       101          2                                                                                                                                                                                   
+       103          2                                                                                                                                                                                   
+       124          4                                                                                                                                                                                   
+       149          3                                                                                                                                                                                   
+
+SQL> SELECT MANAGER_ID , COUNT(*) FROM EMPLOYEES HAVING COUNT(*) >= 2 GROUP BY MANAGER_ID ORDER BY 1;
+
+MANAGER_ID   COUNT(*)                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+       100          5                                                                                                                                                                                   
+       101          2                                                                                                                                                                                   
+       103          2                                                                                                                                                                                   
+       124          4                                                                                                                                                                                   
+       149          3                                                                                                                                                                                   
+
+SQL> REM DISPLAY JOB WISE HIGHEST AVERAGE SALARY AND LOWEST AVERAGE SALARY
+SQL> 
+SQL> SELECT MAX(AVG(SALARY)) , MIN(AVG(SALARY)) FROM EMPLOYEES GROUP BY JOB_ID;
+
+MAX(AVG(SALARY)) MIN(AVG(SALARY))                                                                                                                                                                       
+---------------- ----------------                                                                                                                                                                       
+           24000             2925                                                                                                                                                                       
+
+SQL> SELECT JOB_ID , MAX(AVG(SALARY)) , MIN(AVG(SALARY)) FROM EMPLOYEES GROUP BY JOB_ID;
+SELECT JOB_ID , MAX(AVG(SALARY)) , MIN(AVG(SALARY)) FROM EMPLOYEES GROUP BY JOB_ID
+       *
+ERROR at line 1:
+ORA-00937: not a single-group group function 
+
+
+SQL> REM MIN_SAL_DEPT_50    AVG_SAL_IT_PROG     MAX_SAL_MGR_100
+SQL> 
+SQL> REM DECODE             CASE I              CASE II
+SQL> 
+SQL> SELECT MIN(DECODE(DEPARTMENT_ID,50,SALARY)) MIN_SAL_DEPT_50,
+  2         AVG(CASE JOB_ID WHEN 'IT_PROG' THEN SALARY END) AVG_SAL_IT_PROG,
+  3         MAX(CASE WHEN MANAGER_ID = 100 THEN SALARY END) MAX_SAL_MGR_100
+  4  FROM EMPLOYEES;
+
+MIN_SAL_DEPT_50 AVG_SAL_IT_PROG MAX_SAL_MGR_100                                                                                                                                                         
+--------------- --------------- ---------------                                                                                                                                                         
+           2500            6400           17000                                                                                                                                                         
+
+SQL> SPOOL OFF
