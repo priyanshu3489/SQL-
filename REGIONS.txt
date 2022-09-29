@@ -1,0 +1,37 @@
+SQL> create table regions(region_id number(2), region_name char(15));
+
+Table created.
+
+SQL> insert into regions(1, 'Europe');
+insert into regions(1, 'Europe')
+                    *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword 
+
+
+SQL> insert into regions values(1, 'Europe');
+
+1 row created.
+
+SQL> insert into regions values(2, 'Americas');
+
+1 row created.
+
+SQL> insert into regions values(3, 'Asia');
+
+1 row created.
+
+SQL> insert into regions values(4, 'Africa');
+
+1 row created.
+
+SQL> SELECT * FROM REGIONS;
+
+ REGION_ID REGION_NAME                                                          
+---------- ---------------                                                      
+         1 Europe                                                               
+         2 Americas                                                             
+         3 Asia                                                                 
+         4 Africa                                                               
+
+SQL> SPOOL OFF

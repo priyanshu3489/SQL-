@@ -1,0 +1,31 @@
+
+SQL> create table countries(co char(10), country_name char(30), region_id number(10));
+
+Table created.
+
+SQL> insert into countries values('CA', 'Canada', 2);
+
+1 row created.
+
+SQL> insert into countries values('DE', 'Germany', 1);
+
+1 row created.
+
+SQL> insert into countries values('UK',' United Kindom', 1);
+
+1 row created.
+
+SQL> insert into countries values('US', 'United Sates of America', 2);
+
+1 row created.
+
+SQL> select * from countries;
+
+CO         COUNTRY_NAME                    REGION_ID                            
+---------- ------------------------------	                 ----------                            
+CA         Canada                                              2                            
+DE         Germany                                            1                            
+UK          United Kindom                                 1                            
+US         United Sates of America                 2                            
+
+SQL> spool off

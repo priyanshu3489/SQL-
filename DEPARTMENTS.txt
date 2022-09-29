@@ -1,0 +1,52 @@
+SQL> create table departments (department_id number(10), department_name char(20), manager_id number(10), loction_id number(10));
+
+Table created.
+
+SQL> insert into departments values (10, 'administration', 200, 1700);
+
+1 row created.
+
+SQL> insert into departments values (20, 'Marketing', 201, 1800);
+
+1 row created.
+
+SQL> insert into departments values (50, 'shiping', 124, 1500);
+
+1 row created.
+
+SQL> insert into departments values (60, 'IT',103, 1400);
+
+1 row created.
+
+SQL> insert into departments values (80, 'sales', 149, 2500);
+
+1 row created.
+
+SQL> insert into departments values (90, 'executive', 100, 1700);
+
+1 row created.
+
+SQL> insert into departments values (110,'accountion', 205, 1700);
+
+1 row created.
+
+SQL> insert into departments values (190, 'contracting','' , 1700);
+
+1 row created.
+
+SQL> SELECT * FROM DEPARTMENTS;
+
+DEPARTMENT_ID DEPARTMENT_NAME      MANAGER_ID LOCTION_ID                        
+------------- -------------------- ---------- ----------                        
+           10 administration              200       1700                        
+           20 Marketing                   201       1800                        
+           50 shiping                     124       1500                        
+           60 IT                          103       1400                        
+           80 sales                       149       2500                        
+           90 executive                   100       1700                        
+          110 accountion                  205       1700                        
+          190 contracting                           1700                        
+
+8 rows selected.
+
+SQL> SPOOL OFF

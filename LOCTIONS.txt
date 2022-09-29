@@ -1,0 +1,48 @@
+SQL> CREATE TABLE LOCATIONS (LOCATION_ID NUMBER(20), STREET_ADDRESS VARCHAR(40), POSTAL_CODE varchar(20),  CITY CHAR(20), STATE_PROVINCE CHAR(20), CO CHAR(20));
+
+Table created.
+
+SQL> INSERT INTO LOCATIONS VALUES(1400, '2014 Jabberwocky Rd', 26192, 'SOUTHLAKE', 'TEXAS', 'US');
+
+1 row created.
+
+SQL> INSERT INTO LOCATIONS VALUES(1500,'2011 Interiors Blvd', 99236,'South San Francisco','California' ,'US' );
+
+1 row created.
+
+SQL> INSERT INTO LOCATIONS VALUES(1700, '2004 Charade Rd', 98199,' Seattlle', 'WashingtoN', 'US');
+
+1 row created.
+
+SQL> INSERT INTO LOCATIONS VALUES(1800, '460 Bloor St. W.', 'ON M5S 1X8' , ' Toronto', 'Ontario', 'CA')
+  2  ;
+
+1 row created.
+
+SQL> INSERT INTO LOCATIONS VALUES(2500, 'Magdalen Centre, The Oxford Science Park', 'OX9 9ZB', 'Oxford', 'Oxford', 'UK');
+
+1 row created.
+
+SQL> select * from locations;
+
+LOCATION_ID STREET_ADDRESS                           POSTAL_CODE                
+----------- ---------------------------------------- --------------------       
+CITY                 STATE_PROVINCE       CO                                    
+-------------------- -------------------- --------------------                  
+       1400 2014 Jabberwocky Rd                      26192                      
+SOUTHLAKE            TEXAS                US                                    
+                                                                                
+       1500 2011 Interiors Blvd                      99236                      
+South San Francisco  California           US                                    
+                                                                                
+       1700 2004 Charade Rd                          98199                      
+ Seattlle            WashingtoN           US                                    
+                                                                                        
+       1800 460 Bloor St. W.                         ON M5S 1X8                 
+ Toronto             Ontario              CA                                    
+                                                                                
+       2500 Magdalen Centre, The Oxford Science Park OX9 9ZB                    
+Oxford               Oxford               UK                                    
+                                                                                
+
+SQL> spool off
